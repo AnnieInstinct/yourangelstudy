@@ -1152,7 +1152,17 @@ function demoRender() {
   document.getElementById('d-stars').textContent = '★'.repeat(d)+'☆'.repeat(Math.max(0,5-d));
 
   const qKey = 'question_' + l, aKey = 'answer_' + l, eKey = 'explanation_' + l, rKey = 'radar_' + l;
-  document.getElementById('d-question').textContent = c[qKey] || c.question_en;
+  const qText = c[qKey] || c.question_en;
+  document.getElementById('d-question').textContent = qText;
+
+  // Auto-scale font size based on text length
+  const qEl = document.getElementById('d-question');
+  const len = qText.length;
+  if (len > 120) qEl.style.fontSize = 'clamp(15px, 1.6vw, 19px)';
+  else if (len > 90) qEl.style.fontSize = 'clamp(17px, 1.9vw, 22px)';
+  else if (len > 60) qEl.style.fontSize = 'clamp(19px, 2.2vw, 26px)';
+  else qEl.style.fontSize = 'clamp(23px, 2.6vw, 33px)';
+
   document.getElementById('d-answer').textContent = c[aKey] || c.answer_en;
   document.getElementById('d-expl').textContent = c[eKey] || c.explanation_en;
   document.getElementById('d-radar').textContent = c[rKey] || c.radar_en;
@@ -1225,61 +1235,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// ── STICKY REVIEWS BAR ──
-(function() {
-  const strip = document.getElementById('social-proof-hero');
-  const clone = strip.cloneNode(true);
-  clone.id = 'social-proof-sticky';
-  clone.style.cssText = `
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    padding: 12px 24px;
-    transform: translateY(calc(-100% - ${document.getElementById('lang-bar').offsetHeight}px));
-    transition: transform .35s cubic-bezier(.4,0,.2,1);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-  `;
-  // Make sticky version more compact
-  clone.querySelectorAll('.sp-inner').forEach(el => {
-    el.style.cssText = 'flex-direction:row; gap:24px; justify-content:center; align-items:center; flex-wrap:wrap;';
-  });
-  clone.querySelectorAll('.sp-quotes').forEach(el => {
-    el.style.cssText = 'gap:10px; flex-wrap:nowrap;';
-  });
-  clone.querySelectorAll('.sp-quote').forEach(el => {
-    el.style.cssText = 'padding:8px 16px; width:auto; border-radius:50px; flex-direction:row; gap:10px; align-items:center;';
-  });
-  clone.querySelectorAll('.sp-excerpt, .sp-read').forEach(el => el.remove());
-  clone.querySelectorAll('.sp-title').forEach(el => {
-    el.style.cssText = 'font-size:12px; font-style:italic; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:180px;';
-  });
-  clone.querySelectorAll('.sp-author').forEach(el => el.remove());
-  clone.querySelectorAll('.sp-avatar').forEach(el => {
-    el.style.cssText = 'width:24px; height:24px; font-size:11px; flex-shrink:0;';
-  });
-  clone.querySelectorAll('.sp-name').forEach(el => {
-    el.style.cssText = 'font-size:11px;';
-  });
-  clone.querySelectorAll('.sp-quote-top').forEach((el, i) => {
-    el.style.cssText = 'display:flex; align-items:center; gap:8px;';
-  });
-  clone.querySelectorAll('.sp-stars-small').forEach(el => el.remove());
-  document.body.appendChild(clone);
-
-  const stickyEl = document.getElementById('social-proof-sticky');
-  const langBar = document.getElementById('lang-bar');
-  const originalBottom = () => strip.getBoundingClientRect().bottom;
-  const langH = () => langBar ? langBar.offsetHeight : 0;
-
-  stickyEl.style.top = langH() + 'px';
-
-  window.addEventListener('scroll', () => {
-    stickyEl.style.top = langH() + 'px';
-    if (originalBottom() < 0) {
-      stickyEl.style.transform = 'translateY(0)';
-    } else {
-      stickyEl.style.transform = 'translateY(-100%)';
-    }
-  }, { passive: true });
-})();
 
 // ── ARROW KEY SECTION NAVIGATION ──
 (function() {
