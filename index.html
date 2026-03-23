@@ -30,7 +30,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--
 
 /* ── LANG TOGGLE ── */
 #lang-bar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1001;
   background: rgba(247,244,238,0.92); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
@@ -1231,9 +1231,9 @@ document.addEventListener('keydown', e => {
   const clone = strip.cloneNode(true);
   clone.id = 'social-proof-sticky';
   clone.style.cssText = `
-    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     padding: 12px 24px;
-    transform: translateY(-100%);
+    transform: translateY(calc(-100% - ${document.getElementById('lang-bar').offsetHeight}px));
     transition: transform .35s cubic-bezier(.4,0,.2,1);
     box-shadow: 0 4px 24px rgba(0,0,0,0.4);
   `;
@@ -1265,9 +1265,14 @@ document.addEventListener('keydown', e => {
   document.body.appendChild(clone);
 
   const stickyEl = document.getElementById('social-proof-sticky');
+  const langBar = document.getElementById('lang-bar');
   const originalBottom = () => strip.getBoundingClientRect().bottom;
+  const langH = () => langBar ? langBar.offsetHeight : 0;
+
+  stickyEl.style.top = langH() + 'px';
 
   window.addEventListener('scroll', () => {
+    stickyEl.style.top = langH() + 'px';
     if (originalBottom() < 0) {
       stickyEl.style.transform = 'translateY(0)';
     } else {
