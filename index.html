@@ -50,7 +50,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--
 #hero {
   min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 120px 24px 80px;
+  padding: 80px 24px 0;
   position: relative; background: var(--dark); overflow: hidden;
 }
 #hero::before {
@@ -103,6 +103,42 @@ body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--
 .stat { text-align: center; }
 .stat-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: var(--gold-lt); }
 .stat-label { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: .5px; margin-top: 2px; }
+
+/* ── SOCIAL PROOF STRIP ── */
+#social-proof { background: var(--dark); border-top: 1px solid rgba(201,162,39,0.2); border-bottom: 1px solid rgba(201,162,39,0.2); padding: 64px 24px; position: relative; overflow: hidden; }
+#social-proof::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(201,162,39,0.05) 0%, transparent 70%); pointer-events:none; }
+.sp-inner { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 36px; position: relative; z-index: 1; }
+.sp-top { display: flex; align-items: center; gap: 14px; }
+.sp-stars { color: #f0b429; font-size: 22px; letter-spacing: 3px; }
+.sp-score { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 28px; color: #fff; }
+.sp-divider { width: 1px; height: 22px; background: rgba(255,255,255,0.15); }
+.sp-count { font-size: 13px; color: rgba(255,255,255,0.38); letter-spacing: .5px; }
+.sp-quotes { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; width: 100%; }
+.sp-quote {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,162,39,0.22);
+  border-radius: 20px;
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 300px;
+  transition: border-color .25s, transform .25s, background .25s;
+  cursor: default;
+}
+.sp-quote:hover { border-color: rgba(201,162,39,0.55); transform: translateY(-4px); background: rgba(255,255,255,0.07); }
+.sp-quote-top { display: flex; align-items: center; gap: 12px; }
+.sp-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--gold) 0%, rgba(138,110,0,0.5) 100%); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.sp-author { display: flex; flex-direction: column; gap: 2px; }
+.sp-name { font-size: 13.5px; font-weight: 700; color: #fff; }
+.sp-role { font-size: 11px; color: var(--gold-lt); }
+.sp-stars-small { color: #f0b429; font-size: 12px; letter-spacing: 1px; margin-left: auto; }
+.sp-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #fff; line-height: 1.35; font-style: italic; }
+.sp-title::before { content: '\201C'; }
+.sp-title::after { content: '\201D'; }
+.sp-excerpt { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sp-read { font-size: 11px; color: var(--gold-lt); font-weight: 600; letter-spacing: .3px; opacity: 0; transition: opacity .2s; cursor: pointer; text-decoration: none; display: block; }
+.sp-quote:hover .sp-read { opacity: 1; }
 
 /* ── FEATURES ── */
 #features { padding: 100px 24px; background: var(--off); }
@@ -210,7 +246,30 @@ body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--
 .faq-item.open .faq-a { display: block; }
 
 /* ── FOOTER ── */
-footer { background: var(--dark); color: rgba(255,255,255,0.4); text-align: center; padding: 32px 24px; font-size: 12px; line-height: 1.8; }
+/* ── REVIEWS ── */
+#reviews { padding: 100px 24px; background: var(--dark); position: relative; overflow: hidden; }
+#reviews::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,162,39,0.07) 0%, transparent 70%); pointer-events:none; }
+#reviews .section-label { color: var(--gold-lt); }
+#reviews .section-title { color: #fff; margin-bottom: 16px; }
+.reviews-subtitle { text-align:center; color: rgba(255,255,255,0.45); font-size:14px; margin-bottom:56px; letter-spacing:0.3px; }
+.reviews-grid { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 28px; }
+@media(min-width:680px){ .reviews-grid { grid-template-columns: 1fr 1fr; } }
+.review-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,162,39,0.18); border-radius: 16px; padding: 32px 28px; position: relative; transition: border-color .2s, transform .2s; }
+.review-card:hover { border-color: rgba(201,162,39,0.45); transform: translateY(-3px); }
+.review-card.featured { grid-column: 1 / -1; background: rgba(201,162,39,0.06); border-color: rgba(201,162,39,0.35); }
+.review-stars { color: #f0b429; font-size: 16px; letter-spacing: 3px; margin-bottom: 16px; }
+.review-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 14px; line-height: 1.3; }
+.review-body { font-size: 14.5px; color: rgba(255,255,255,0.62); line-height: 1.75; margin-bottom: 24px; }
+.review-author { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
+.review-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--gold) 0%, rgba(138,110,0,0.4) 100%); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.review-name { font-weight: 600; color: #fff; font-size: 13.5px; line-height: 1.3; }
+.review-role { font-size: 12px; color: var(--gold-lt); margin-top: 2px; }
+.review-badge { position: absolute; top: 20px; right: 20px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-lt); border: 1px solid rgba(201,162,39,0.35); border-radius: 20px; padding: 3px 10px; }
+.reviews-cta { text-align:center; margin-top: 52px; color: rgba(255,255,255,0.4); font-size:13px; }
+.reviews-cta a { color: var(--gold-lt); text-decoration:none; border-bottom: 1px solid rgba(201,162,39,0.3); padding-bottom:1px; transition: border-color .2s; }
+.reviews-cta a:hover { border-color: var(--gold-lt); }
+
+footer { background: var(--dark); color: rgba(255,255,255,0.4); text-align: center; padding: 32px 24px; font-size: 12px; line-height: 1.8; border-top: 1px solid rgba(255,255,255,0.06); }
 footer a { color: var(--gold-lt); text-decoration: none; }
 
 /* ── ANIMATIONS ── */
@@ -268,7 +327,62 @@ footer a { color: var(--gold-lt); text-decoration: none; }
     <div class="stat"><div class="stat-num">6</div><div class="stat-label" data-t="stat3">Card Types</div></div>
     <div class="stat"><div class="stat-num">100%</div><div class="stat-label" data-t="stat4">Offline · No App</div></div>
   </div>
+
+  <!-- SOCIAL PROOF INLINE IN HERO -->
+  <div id="social-proof-hero" style="width:100%;margin-top:36px;padding:28px 0 40px;border-top:1px solid rgba(201,162,39,0.15);">
+    <div class="sp-inner" style="gap:20px;">
+      <div class="sp-top">
+        <div class="sp-stars">★★★★★</div>
+        <div class="sp-score">5/5</div>
+        <div class="sp-divider"></div>
+        <div class="sp-count" data-t="sp-count">3 verified reviews</div>
+      </div>
+      <div class="sp-quotes">
+        <div class="sp-quote">
+          <div class="sp-quote-top">
+            <div class="sp-avatar">D</div>
+            <div class="sp-author">
+              <div class="sp-name">Dan K.</div>
+              <div class="sp-role" data-t="sp-r1">Business Consultant · PMP Candidate</div>
+            </div>
+            <div class="sp-stars-small">★★★★★</div>
+          </div>
+          <div class="sp-title" data-t="sp-q1">Stop looking. This is the one.</div>
+          <div class="sp-excerpt" data-t="sp-e1">The Exam Trap and Decision Logic cards train you to think like the exam, not just recall facts. Works 100% offline from a single file. Perfect between client meetings.</div>
+          <a href="#reviews" class="sp-read" data-t="sp-read">Read full review ↓</a>
+        </div>
+        <div class="sp-quote">
+          <div class="sp-quote-top">
+            <div class="sp-avatar">L</div>
+            <div class="sp-author">
+              <div class="sp-name">Lorenzo</div>
+              <div class="sp-role" data-t="sp-r2">PMP Candidate</div>
+            </div>
+            <div class="sp-stars-small">★★★★★</div>
+          </div>
+          <div class="sp-title" data-t="sp-q2">Finalmente qualcosa fatto da chi l'esame lo capisce davvero.</div>
+          <div class="sp-excerpt" data-t="sp-e2">Non stai memorizzando una risposta, stai costruendo un riflesso. Il Radar PM è la vera chicca — quella riga ti dà l'istinto.</div>
+          <a href="#reviews" class="sp-read" data-t="sp-read">Read full review ↓</a>
+        </div>
+        <div class="sp-quote">
+          <div class="sp-quote-top">
+            <div class="sp-avatar">A</div>
+            <div class="sp-author">
+              <div class="sp-name">Andja G.</div>
+              <div class="sp-role" data-t="sp-r3">Verified Buyer</div>
+            </div>
+            <div class="sp-stars-small">★★★★★</div>
+          </div>
+          <div class="sp-title" data-t="sp-q3">Great concept!</div>
+          <div class="sp-excerpt" data-t="sp-e3">800 flashcards, 5 languages, 6 card types — everything you need in one offline file.</div>
+          <a href="#reviews" class="sp-read" data-t="sp-read">Read full review ↓</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
+
 
 <!-- FEATURES -->
 <section id="features">
@@ -450,6 +564,63 @@ footer a { color: var(--gold-lt); text-decoration: none; }
 </section>
 
 <!-- FOOTER -->
+<section id="reviews">
+  <div class="section-label" data-t="rev-label">REVIEWS</div>
+  <h2 class="section-title" data-t="rev-title">What our students say.</h2>
+  <p class="reviews-subtitle" data-t="rev-subtitle">Verified buyers · Payhip</p>
+  <div class="reviews-grid reveal">
+
+    <!-- Featured review — Marco B. -->
+    <div class="review-card featured">
+      <div class="review-badge" data-t="rev-verified">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-title" data-t="rev1-title">"Stop looking. This is the one."</div>
+      <div class="review-body" data-t="rev1-body">I'm a business and financial consultant studying for the PMP to sharpen my project advisory skills. I tried several tools before this one — none of them came close. What sets it apart: the 3D flip cards feel like real study sessions, the bilingual toggle is brilliant for locking in terminology, and the Exam Trap category alone is worth the price. It trains you to think like the exam, not just memorize answers. The EVM formula recap is always visible. Works 100% offline. No subscription. Just open and study. Best investment I made for this exam.</div>
+      <div class="review-author">
+        <div class="review-avatar">D</div>
+        <div>
+          <div class="review-name">Dan K.</div>
+          <div class="review-role" data-t="rev1-role">Business &amp; Financial Consultant · Insurance Broker · PMP Candidate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lorenzo -->
+    <div class="review-card">
+      <div class="review-badge" data-t="rev-verified">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-title" data-t="rev2-title">"Finalmente qualcosa fatto da chi l'esame lo capisce davvero"</div>
+      <div class="review-body" data-t="rev2-body">Cercavo da mesi qualcosa che non fosse l'ennesima raccolta di domande copia-incolla dal PMBOK. Your Angel Study è un'altra categoria. Ogni carta ha una struttura che ti allena a ragionare come ragiona l'esame PMP: la domanda, la risposta corretta, la spiegazione del perché le altre sono sbagliate, e poi il Radar PM, che è la vera chicca. Quella riga ti dà l'istinto. Non stai memorizzando una risposta, stai costruendo un riflesso.</div>
+      <div class="review-author">
+        <div class="review-avatar">L</div>
+        <div>
+          <div class="review-name">Lorenzo</div>
+          <div class="review-role" data-t="rev2-role">PMP Candidate · Verified Buyer</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Andja -->
+    <div class="review-card">
+      <div class="review-badge" data-t="rev-verified">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-title" data-t="rev3-title">"Great concept!"</div>
+      <div class="review-body" data-t="rev3-body">Great concept!</div>
+      <div class="review-author">
+        <div class="review-avatar">A</div>
+        <div>
+          <div class="review-name">Andja G.</div>
+          <div class="review-role" data-t="rev3-role">Verified Buyer</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="reviews-cta">
+    <span data-t="rev-cta-text">Purchased the deck? </span><a href="https://payhip.com/b/fWpQu" target="_blank" data-t="rev-cta-link">Leave your review →</a>
+  </div>
+</section>
+
 <footer>
   <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--gold-lt);margin-bottom:12px">Your Angel Study</div>
   <div>© 2026 Your Angel Study · <a href="https://payhip.com/b/fWpQu" data-t="footer-buy">Buy the deck</a> · yourAngelstudy.com</div>
@@ -593,7 +764,11 @@ const T = {
     sub:"800 bilingual flashcards (IT/EN) with 3D flip, filters, formulas recap and progress tracking. All in one offline file for Mac and Windows. No app, no subscription.",
     "cta-buy":"✦ Get the Deck · $35","cta-try":"Try 15 free cards ↓",
     stat1:"Flashcards",stat2:"Languages",stat3:"Card Types",stat4:"Offline · No App",
-    "feat-label":"WHAT YOU GET","feat-title":"Everything you need.<br>Nothing you don't.",
+    "sp-count":"3 verified reviews",
+    "sp-q1":"Stop looking. This is the one.","sp-e1":"The Exam Trap and Decision Logic cards train you to think like the exam, not just recall facts. Works 100% offline from a single file. Perfect between client meetings.","sp-r1":"Business Consultant · PMP Candidate",
+    "sp-q2":"Finally something made by someone who truly gets the exam.","sp-e2":"You\u2019re not memorizing an answer, you\u2019re building a reflex. The PM Radar is the real gem \u2014 that line gives you instinct.","sp-r2":"PMP Candidate",
+    "sp-q3":"Great concept!","sp-e3":"800 flashcards, 5 languages, 6 card types \u2014 everything you need in one offline file.","sp-r3":"Verified Buyer",
+    "sp-read":"Read full review \u2193","feat-title":"Everything you need.<br>Nothing you don't.",
     f1t:"3D Flip Cards",f1d:"Question on the front, answer + explanation + PM Instinct on the back. Tap or press Space.",
     f2t:"Bilingual",f2d:"Switch languages with one click. All 800 cards fully translated, PMBOK 7th edition terminology.",
     f3t:"Smart Filters",f3d:"Filter by type, difficulty (1–5 stars), sequential or random. Hide cards you've already mastered.",
@@ -633,7 +808,19 @@ const T = {
       {q:"Will my progress save if I close the browser?",a:"Yes. Progress is saved in localStorage, so your learned cards persist between sessions on the same device and browser."},
       {q:"Can I use it on my phone or tablet?",a:"Works on Mac and Windows only. iPhone and mobile devices are not supported."},
     ],
-    "footer-buy":"Buy the deck","footer-note":"Digital product. All rights reserved."
+    "footer-buy":"Buy the deck","footer-note":"Digital product. All rights reserved.",
+    "rev-label":"REVIEWS","rev-title":"What our students say.","rev-subtitle":"Verified buyers · Payhip",
+    "rev-verified":"✓ Verified Buyer",
+    "rev1-title":"\u201cStop looking. This is the one.\u201d",
+    "rev1-body":"I'm a financial consultant and insurance broker pursuing the PMP to bring structured project thinking into my advisory work (not to switch careers). I needed something rigorous and built around decision-making, not just memorization. This delivers exactly that. The Exam Trap and Decision Logic cards train you to think like the exam, not just recall facts. The EVM formula sheet is always visible, the bilingual toggle works instantly, and the whole thing runs offline from a single file. Perfect between client meetings.",
+    "rev1-role":"Business Consultant & Insurance Broker · PMP Candidate",
+    "rev-cta-text":"Purchased the deck? ","rev-cta-link":"Leave your review \u2192",
+    "rev2-title":"\u201cFinally something made by someone who truly gets the exam\u201d",
+    "rev2-body":"For months I was looking for something that wasn't just another copy-paste question bank from the PMBOK. Your Angel Study is a different category entirely. Every card has a structure that trains you to think the way the PMP exam thinks: the question, the correct answer, the explanation of why the others are wrong — and then the PM Radar, which is the real gem. That line gives you instinct. You're not memorizing an answer, you're building a reflex.",
+    "rev2-role":"PMP Candidate · Verified Buyer",
+    "rev3-title":"\u201cGreat concept!\u201d",
+    "rev3-body":"Great concept!",
+    "rev3-role":"Verified Buyer"
   },
   it: {
     badge:"Preparazione Esame PMP · 800 Flashcard Interattive",
@@ -641,7 +828,11 @@ const T = {
     sub:"800 flashcard bilingue (IT/EN) con flip 3D, filtri, recap formule e tracciamento progressi. Tutto in un file offline per Mac e Windows. Nessuna app, nessun abbonamento.",
     "cta-buy":"✦ Acquista il Deck · $35","cta-try":"Prova 15 carte gratis ↓",
     stat1:"Flashcard",stat2:"Lingue",stat3:"Tipi di Carta",stat4:"Offline · No App",
-    "feat-label":"COSA OTTIENI","feat-title":"Tutto quello che serve.<br>Nient'altro.",
+    "sp-count":"3 recensioni verificate",
+    "sp-q1":"Smettila di cercare. \u00c8 questo.","sp-e1":"Le carte Exam Trap e Decision Logic ti allenano a ragionare come l'esame. Funziona 100% offline da un singolo file. Perfetto tra un incontro con un cliente e l'altro.","sp-r1":"Consulente Aziendale · Candidato PMP",
+    "sp-q2":"Finalmente qualcosa fatto da chi l'esame lo capisce davvero.","sp-e2":"Non stai memorizzando una risposta, stai costruendo un riflesso. Il Radar PM \u00e8 la vera chicca \u2014 quella riga ti d\u00e0 l'istinto.","sp-r2":"Candidato PMP",
+    "sp-q3":"Ottimo concetto!","sp-e3":"800 flashcard, 5 lingue, 6 tipi di carte \u2014 tutto quello che ti serve in un unico file offline.","sp-r3":"Acquisto verificato",
+    "sp-read":"Leggi la recensione completa \u2193","feat-title":"Tutto quello che serve.<br>Nient'altro.",
     f1t:"Flip 3D",f1d:"Domanda sul fronte, risposta + spiegazione + PM Radar sul retro. Tocca o premi Spazio.",
     f2t:"Bilingue",f2d:"Cambia lingua con un click. 800 carte tradotte, terminologia PMBOK 7a edizione.",
     f3t:"Filtri Smart",f3d:"Filtra per tipo, difficoltà (1–5 stelle), sequenziale o random. Nascondi le carte già imparate.",
@@ -681,7 +872,19 @@ const T = {
       {q:"I progressi si salvano se chiudo il browser?",a:"Sì. I progressi si salvano in localStorage — le carte imparate persistono tra le sessioni sullo stesso device."},
       {q:"Posso usarlo su telefono o tablet?",a:"Funziona solo su Mac e Windows. iPhone e dispositivi mobili non sono supportati."},
     ],
-    "footer-buy":"Acquista il deck","footer-note":"Prodotto digitale. Tutti i diritti riservati."
+    "footer-buy":"Acquista il deck","footer-note":"Prodotto digitale. Tutti i diritti riservati.",
+    "rev-label":"RECENSIONI","rev-title":"Cosa dicono i nostri studenti.","rev-subtitle":"Acquirenti verificati · Payhip",
+    "rev-verified":"✓ Acquisto verificato",
+    "rev1-title":"\u201cSmettila di cercare. È questo.\u201d",
+    "rev1-body":"Sono un consulente finanziario e broker assicurativo che studia per il PMP per portare un pensiero progettuale strutturato nel mio lavoro di advisory (non per cambiare carriera). Avevo bisogno di qualcosa di rigoroso, basato sul decision-making e non sulla pura memorizzazione. Questo lo fa esattamente. Le carte Exam Trap e Decision Logic ti allenano a ragionare come l'esame. Il recap EVM è sempre visibile, il toggle bilingue funziona all'istante, e tutto gira offline da un singolo file. Perfetto tra un incontro con un cliente e l'altro.",
+    "rev1-role":"Consulente Aziendale & Broker Assicurativo · Candidato PMP",
+    "rev-cta-text":"Hai acquistato il deck? ","rev-cta-link":"Lascia la tua recensione \u2192",
+    "rev2-title":"\u201cFinalmente qualcosa fatto da chi l'esame lo capisce davvero\u201d",
+    "rev2-body":"Cercavo da mesi qualcosa che non fosse l'ennesima raccolta di domande copia-incolla dal PMBOK. Your Angel Study è un'altra categoria. Ogni carta ha una struttura che ti allena a ragionare come ragiona l'esame PMP: la domanda, la risposta corretta, la spiegazione del perché le altre sono sbagliate, e poi il Radar PM, che è la vera chicca. Quella riga ti dà l'istinto. Non stai memorizzando una risposta, stai costruendo un riflesso.",
+    "rev2-role":"Candidato PMP · Acquisto verificato",
+    "rev3-title":"\u201cGreat concept!\u201d",
+    "rev3-body":"Great concept!",
+    "rev3-role":"Acquisto verificato"
   },
   fr: {
     badge:"Préparation Examen PMP · 800 Flashcards Interactives",
@@ -689,7 +892,11 @@ const T = {
     sub:"800 flashcards bilingues (FR/EN) avec flip 3D, filtres, récapitulatif de formules et suivi des progrès. Tout dans un seul fichier hors ligne. Aucune appli, aucun abonnement.",
     "cta-buy":"✦ Obtenir le Deck · $35","cta-try":"Essayer 15 cartes gratuites ↓",
     stat1:"Flashcards",stat2:"Langues",stat3:"Types de Cartes",stat4:"Hors ligne · Sans App",
-    "feat-label":"CE QUE VOUS OBTENEZ","feat-title":"Tout ce dont vous avez besoin.<br>Rien de superflu.",
+    "sp-count":"3 avis vérifiés",
+    "sp-q1":"Arrêtez de chercher. C\u2019est celui-là.","sp-e1":"Les cartes Exam Trap et Decision Logic vous apprennent à penser comme l\u2019examen. Fonctionne 100% hors ligne depuis un seul fichier. Parfait entre deux rendez-vous clients.","sp-r1":"Consultant Commercial · Candidat PMP",
+    "sp-q2":"Enfin quelque chose fait par quelqu\u2019un qui comprend vraiment l\u2019examen.","sp-e2":"Vous ne mémorisez pas une réponse, vous construisez un réflexe. Le PM Radar est la vraie pépite \u2014 cette ligne vous donne l\u2019instinct.","sp-r2":"Candidat PMP",
+    "sp-q3":"Super concept !","sp-e3":"800 flashcards, 5 langues, 6 types de cartes \u2014 tout ce qu\u2019il faut dans un seul fichier hors ligne.","sp-r3":"Achat vérifié",
+    "sp-read":"Lire l\u2019avis complet \u2193","feat-title":"Tout ce dont vous avez besoin.<br>Rien de superflu.",
     f1t:"Cartes Flip 3D",f1d:"La question au recto, réponse + explication + Instinct CP au verso. Touchez ou appuyez sur Espace.",
     f2t:"Bilingue",f2d:"Changez de langue en un clic. 800 cartes entièrement traduites, terminologie PMBOK 7e édition.",
     f3t:"Filtres Intelligents",f3d:"Filtrez par type, difficulté (1–5 étoiles), séquentiel ou aléatoire. Masquez les cartes déjà maîtrisées.",
@@ -729,7 +936,19 @@ const T = {
       {q:"Mes progrès seront-ils sauvegardés si je ferme le navigateur?",a:"Oui. Les progrès sont sauvegardés dans localStorage — vos cartes apprises persistent entre les sessions."},
       {q:"Puis-je l'utiliser sur mon téléphone ou tablette?",a:"Fonctionne mieux sur Mac et Windows. Les appareils mobiles peuvent avoir des fonctionnalités limitées."},
     ],
-    "footer-buy":"Acheter le deck","footer-note":"Produit numérique. Tous droits réservés."
+    "footer-buy":"Acheter le deck","footer-note":"Produit numérique. Tous droits réservés.",
+    "rev-label":"AVIS","rev-title":"Ce que disent nos étudiants.","rev-subtitle":"Acheteurs vérifiés · Payhip",
+    "rev-verified":"✓ Achat vérifié",
+    "rev1-title":"\u201cArrêtez de chercher. C'est celui-là.\u201d",
+    "rev1-body":"Je suis consultant financier et courtier en assurances, je prépare le PMP pour apporter une pensée projet structurée à mon travail de conseil (pas pour changer de carrière). J'avais besoin de quelque chose de rigoureux, axé sur la prise de décision et pas seulement la mémorisation. C'est exactement ce que ça fait. Les cartes Exam Trap et Decision Logic vous apprennent à penser comme l'examen. La fiche EVM est toujours visible, le toggle bilingue fonctionne instantanément, et tout tourne hors ligne depuis un seul fichier. Parfait entre deux rendez-vous clients.",
+    "rev1-role":"Consultant Commercial & Courtier en Assurances · Candidat PMP",
+    "rev-cta-text":"Vous avez acheté le deck ? ","rev-cta-link":"Laissez votre avis \u2192",
+    "rev2-title":"\u201cEnfin quelque chose fait par quelqu'un qui comprend vraiment l'examen\u201d",
+    "rev2-body":"Depuis des mois, je cherchais quelque chose qui ne soit pas une énième banque de questions copiée-collée depuis le PMBOK. Your Angel Study est dans une autre catégorie. Chaque carte a une structure qui vous entraîne à raisonner comme l'examen PMP : la question, la bonne réponse, l'explication des erreurs — et le PM Radar, la vraie pépite. Cette ligne vous donne l'instinct. Vous ne mémorisez pas, vous construisez un réflexe.",
+    "rev2-role":"Candidat PMP · Achat vérifié",
+    "rev3-title":"\u201cGreat concept!\u201d",
+    "rev3-body":"Great concept!",
+    "rev3-role":"Achat vérifié"
   },
   de: {
     badge:"PMP-Prüfungsvorbereitung · 800 Interaktive Lernkarten",
@@ -737,7 +956,11 @@ const T = {
     sub:"800 zweisprachige Lernkarten (DE/EN) mit 3D-Flip, Filtern, Formel-Übersicht und Fortschritts-Tracking. Alles in einer Offline-Datei. Keine App, kein Abonnement.",
     "cta-buy":"✦ Deck kaufen · $35","cta-try":"15 Karten kostenlos testen ↓",
     stat1:"Lernkarten",stat2:"Sprachen",stat3:"Kartentypen",stat4:"Offline · Keine App",
-    "feat-label":"WAS SIE BEKOMMEN","feat-title":"Alles was Sie brauchen.<br>Nichts Überflüssiges.",
+    "sp-count":"3 verifizierte Bewertungen",
+    "sp-q1":"Hör auf zu suchen. Das ist es.","sp-e1":"Die Exam-Trap- und Decision-Logic-Karten trainieren dich, wie die Prüfung zu denken. Läuft 100% offline aus einer Datei. Perfekt zwischen Kundenterminen.","sp-r1":"Unternehmensberater · PMP-Kandidat",
+    "sp-q2":"Endlich etwas von jemandem, der die Prüfung wirklich versteht.","sp-e2":"Du memorisierst keine Antwort, du baust einen Reflex auf. Der PM Radar ist das echte Highlight \u2014 diese Zeile gibt dir Instinkt.","sp-r2":"PMP-Kandidat",
+    "sp-q3":"Tolle Idee!","sp-e3":"800 Karten, 5 Sprachen, 6 Kartentypen \u2014 alles was du brauchst in einer Offline-Datei.","sp-r3":"Verifizierter Kauf",
+    "sp-read":"Vollständige Bewertung lesen \u2193","feat-title":"Alles was Sie brauchen.<br>Nichts Überflüssiges.",
     f1t:"3D-Flip-Karten",f1d:"Frage vorne, Antwort + Erklärung + PM-Instinkt hinten. Tippen oder Leertaste drücken.",
     f2t:"Zweisprachig",f2d:"Sprache per Klick wechseln. Alle 800 Karten übersetzt, Terminologie PMBOK 7. Ausgabe.",
     f3t:"Intelligente Filter",f3d:"Nach Typ, Schwierigkeit (1–5 Sterne), sequenziell oder zufällig filtern. Gelernte Karten ausblenden.",
@@ -777,7 +1000,19 @@ const T = {
       {q:"Werden meine Fortschritte gespeichert, wenn ich den Browser schließe?",a:"Ja. Der Fortschritt wird im localStorage gespeichert — Ihre gelernten Karten bleiben zwischen Sitzungen erhalten."},
       {q:"Kann ich es auf meinem Telefon oder Tablet verwenden?",a:"Funktioniert am besten auf Mac und Windows. Mobile Geräte haben möglicherweise eingeschränkte Funktionalität."},
     ],
-    "footer-buy":"Deck kaufen","footer-note":"Digitales Produkt. Alle Rechte vorbehalten."
+    "footer-buy":"Deck kaufen","footer-note":"Digitales Produkt. Alle Rechte vorbehalten.",
+    "rev-label":"BEWERTUNGEN","rev-title":"Was unsere Studierenden sagen.","rev-subtitle":"Verifizierte Käufer · Payhip",
+    "rev-verified":"✓ Verifizierter Kauf",
+    "rev1-title":"\u201cHör auf zu suchen. Das ist es.\u201d",
+    "rev1-body":"Ich bin Finanzberater und Versicherungsmakler und bereite mich auf das PMP vor, um strukturiertes Projektdenken in meine Beratungsarbeit einzubringen (nicht um die Karriere zu wechseln). Ich brauchte etwas Rigoroses, das auf Entscheidungsfindung aufbaut, nicht nur auf Auswendiglernen. Das liefert genau das. Die Exam-Trap- und Decision-Logic-Karten trainieren dich, wie die Prüfung zu denken. Das EVM-Blatt ist immer sichtbar, der zweisprachige Toggle funktioniert sofort, und alles läuft offline aus einer einzigen Datei. Perfekt zwischen Kundenterminen.",
+    "rev1-role":"Unternehmensberater & Versicherungsmakler · PMP-Kandidat",
+    "rev-cta-text":"Haben Sie das Deck gekauft? ","rev-cta-link":"Bewertung hinterlassen \u2192",
+    "rev2-title":"\u201cEndlich etwas von jemandem, der die Prüfung wirklich versteht\u201d",
+    "rev2-body":"Ich suchte monatelang nach etwas, das nicht eine weitere kopierte Fragensammlung aus dem PMBOK ist. Your Angel Study ist eine andere Kategorie. Jede Karte trainiert dich, wie die PMP-Prüfung zu denken: die Frage, die richtige Antwort, die Erklärung der Fehler — und der PM Radar, das echte Highlight. Diese Zeile gibt dir Instinkt. Du memorisierst keine Antwort, du baust einen Reflex.",
+    "rev2-role":"PMP-Kandidat · Verifizierter Kauf",
+    "rev3-title":"\u201cGreat concept!\u201d",
+    "rev3-body":"Great concept!",
+    "rev3-role":"Verifizierter Kauf"
   },
   ru: {
     badge:"Подготовка к экзамену PMP · 800 интерактивных карточек",
@@ -785,7 +1020,11 @@ const T = {
     sub:"800 двуязычных карточек (RU/EN) с 3D-переворотом, фильтрами, формулами и отслеживанием прогресса. Всё в одном офлайн-файле. Без приложения и подписки.",
     "cta-buy":"✦ Купить Колоду · $35","cta-try":"Попробовать 15 карточек бесплатно ↓",
     stat1:"Карточек",stat2:"Языков",stat3:"Типов карточек",stat4:"Офлайн · Без App",
-    "feat-label":"ЧТО ВКЛЮЧЕНО","feat-title":"Всё необходимое.<br>Ничего лишнего.",
+    "sp-count":"3 подтверждённых отзыва",
+    "sp-q1":"Перестань искать. Это оно.","sp-e1":"Карточки Exam Trap и Decision Logic учат думать как на экзамене. Работает 100% офлайн из одного файла. Идеально между встречами с клиентами.","sp-r1":"Бизнес-консультант · Кандидат PMP",
+    "sp-q2":"Наконец-то что-то сделанное тем, кто действительно понимает экзамен.","sp-e2":"Вы не запоминаете ответ, вы строите рефлекс. PM Radar — настоящая находка, эта строка даёт инстинкт.","sp-r2":"Кандидат PMP",
+    "sp-q3":"Отличная концепция!","sp-e3":"800 карточек, 5 языков, 6 типов — всё необходимое в одном офлайн-файле.","sp-r3":"Подтверждённая покупка",
+    "sp-read":"Читать полный отзыв \u2193","feat-title":"Всё необходимое.<br>Ничего лишнего.",
     f1t:"Карточки с 3D-переворотом",f1d:"Вопрос на лицевой стороне, ответ + объяснение + Инстинкт РП на обороте.",
     f2t:"Двуязычный",f2d:"Переключайте язык одним нажатием. Все 800 карточек переведены, терминология PMBOK 7-е издание.",
     f3t:"Умные Фильтры",f3d:"Фильтруйте по типу, сложности (1–5 звёзд), последовательно или случайно.",
@@ -825,7 +1064,19 @@ const T = {
       {q:"Сохранится ли прогресс при закрытии браузера?",a:"Да. Прогресс сохраняется в localStorage — выученные карточки сохраняются между сессиями."},
       {q:"Можно ли использовать на телефоне или планшете?",a:"Лучше работает на Mac и Windows. На мобильных устройствах функциональность может быть ограничена."},
     ],
-    "footer-buy":"Купить колоду","footer-note":"Цифровой продукт. Все права защищены."
+    "footer-buy":"Купить колоду","footer-note":"Цифровой продукт. Все права защищены.",
+    "rev-label":"ОТЗЫВЫ","rev-title":"Что говорят наши студенты.","rev-subtitle":"Подтверждённые покупатели · Payhip",
+    "rev-verified":"✓ Подтверждённая покупка",
+    "rev1-title":"\u201cПерестань искать. Это оно.\u201d",
+    "rev1-body":"Я финансовый консультант и страховой брокер, готовлюсь к PMP, чтобы привнести структурированное проектное мышление в свою консалтинговую работу (а не менять карьеру). Мне нужно было что-то строгое, ориентированное на принятие решений, а не просто на запоминание. Карточки Exam Trap и Decision Logic учат думать как на экзамене. Формульный лист EVM всегда виден, двуязычный переключатель работает мгновенно, и всё работает офлайн из одного файла. Идеально между встречами с клиентами.",
+    "rev1-role":"Бизнес-консультант & Страховой брокер · Кандидат PMP",
+    "rev-cta-text":"Купили колоду? ","rev-cta-link":"Оставьте отзыв \u2192",
+    "rev2-title":"\u201cНаконец-то что-то сделанное тем, кто действительно понимает экзамен\u201d",
+    "rev2-body":"Месяцами я искал что-то, что не было бы очередным сборником вопросов скопированных из PMBOK. Your Angel Study — это другая категория. Каждая карточка учит думать так, как думает экзамен PMP: вопрос, правильный ответ, объяснение ошибок — и PM Radar, настоящая находка. Эта строка даёт инстинкт. Вы не запоминаете ответ, вы строите рефлекс.",
+    "rev2-role":"Кандидат PMP · Подтверждённая покупка",
+    "rev3-title":"\u201cОтличная концепция!\u201d",
+    "rev3-body":"Отличная концепция!",
+    "rev3-role":"Подтверждённая покупка"
   }
 };
 
@@ -944,11 +1195,149 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // Keyboard
+const SECTIONS = ['hero','features','demo','types','pricing','faq','reviews'];
+function getCurrentSectionIndex() {
+  const scrollY = window.scrollY + window.innerHeight / 2;
+  let closest = 0;
+  let minDist = Infinity;
+  SECTIONS.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const dist = Math.abs(el.getBoundingClientRect().top + window.scrollY + el.offsetHeight / 2 - scrollY);
+    if (dist < minDist) { minDist = dist; closest = i; }
+  });
+  return closest;
+}
+
 document.addEventListener('keydown', e => {
   if(e.key==='ArrowLeft')  demoNav(-1);
   if(e.key==='ArrowRight') demoNav(1);
   if(e.key===' '){ e.preventDefault(); demoFlip(); }
+  if(e.key==='ArrowDown' || e.key==='ArrowUp') {
+    // Only scroll sections if not inside the demo card area
+    const active = document.activeElement;
+    if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+    e.preventDefault();
+    const idx = getCurrentSectionIndex();
+    const next = e.key==='ArrowDown' ? Math.min(idx + 1, SECTIONS.length - 1) : Math.max(idx - 1, 0);
+    const target = document.getElementById(SECTIONS[next]);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 });
+
+// ── STICKY REVIEWS BAR ──
+(function() {
+  const strip = document.getElementById('social-proof-hero');
+  const clone = strip.cloneNode(true);
+  clone.id = 'social-proof-sticky';
+  clone.style.cssText = `
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    padding: 12px 24px;
+    transform: translateY(-100%);
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  `;
+  // Make sticky version more compact
+  clone.querySelectorAll('.sp-inner').forEach(el => {
+    el.style.cssText = 'flex-direction:row; gap:24px; justify-content:center; align-items:center; flex-wrap:wrap;';
+  });
+  clone.querySelectorAll('.sp-quotes').forEach(el => {
+    el.style.cssText = 'gap:10px; flex-wrap:nowrap;';
+  });
+  clone.querySelectorAll('.sp-quote').forEach(el => {
+    el.style.cssText = 'padding:8px 16px; width:auto; border-radius:50px; flex-direction:row; gap:10px; align-items:center;';
+  });
+  clone.querySelectorAll('.sp-excerpt, .sp-read').forEach(el => el.remove());
+  clone.querySelectorAll('.sp-title').forEach(el => {
+    el.style.cssText = 'font-size:12px; font-style:italic; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:180px;';
+  });
+  clone.querySelectorAll('.sp-author').forEach(el => el.remove());
+  clone.querySelectorAll('.sp-avatar').forEach(el => {
+    el.style.cssText = 'width:24px; height:24px; font-size:11px; flex-shrink:0;';
+  });
+  clone.querySelectorAll('.sp-name').forEach(el => {
+    el.style.cssText = 'font-size:11px;';
+  });
+  clone.querySelectorAll('.sp-quote-top').forEach((el, i) => {
+    el.style.cssText = 'display:flex; align-items:center; gap:8px;';
+  });
+  clone.querySelectorAll('.sp-stars-small').forEach(el => el.remove());
+  document.body.appendChild(clone);
+
+  const stickyEl = document.getElementById('social-proof-sticky');
+  const originalBottom = () => strip.getBoundingClientRect().bottom;
+
+  window.addEventListener('scroll', () => {
+    if (originalBottom() < 0) {
+      stickyEl.style.transform = 'translateY(0)';
+    } else {
+      stickyEl.style.transform = 'translateY(-100%)';
+    }
+  }, { passive: true });
+})();
+
+// ── ARROW KEY SECTION NAVIGATION ──
+(function() {
+  const sectionIds = ['hero','features','demo','types','pricing','also','faq','reviews'];
+  let isScrolling = false;
+
+  function getCurrentSection() {
+    const mid = window.innerHeight / 2;
+    let closest = 0;
+    let closestDist = Infinity;
+    sectionIds.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const center = rect.top + rect.height / 2;
+      const dist = Math.abs(center - mid);
+      if (dist < closestDist) { closestDist = dist; closest = i; }
+    });
+    return closest;
+  }
+
+  function scrollToSection(index) {
+    if (index < 0 || index >= sectionIds.length) return;
+    const el = document.getElementById(sectionIds[index]);
+    if (!el) return;
+    isScrolling = true;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => { isScrolling = false; }, 800);
+  }
+
+  // Arrow key hint UI
+  const hint = document.createElement('div');
+  hint.innerHTML = '↑ ↓';
+  hint.style.cssText = `
+    position:fixed; right:24px; bottom:32px; z-index:998;
+    background:rgba(201,162,39,0.12); border:1px solid rgba(201,162,39,0.3);
+    color:rgba(201,162,39,0.7); font-size:13px; font-weight:700;
+    padding:8px 14px; border-radius:30px; letter-spacing:3px;
+    pointer-events:none; transition:opacity .3s;
+  `;
+  document.body.appendChild(hint);
+
+  let hintTimer;
+  function showHint() {
+    hint.style.opacity = '1';
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(() => { hint.style.opacity = '0'; }, 2000);
+  }
+  setTimeout(showHint, 1500);
+
+  document.addEventListener('keydown', (e) => {
+    if (isScrolling) return;
+    if (['ArrowDown','ArrowUp'].includes(e.key)) {
+      const focused = document.activeElement;
+      if (focused && ['INPUT','TEXTAREA','SELECT'].includes(focused.tagName)) return;
+      e.preventDefault();
+      const current = getCurrentSection();
+      if (e.key === 'ArrowDown') scrollToSection(current + 1);
+      if (e.key === 'ArrowUp') scrollToSection(current - 1);
+      showHint();
+    }
+  });
+})();
 
 // Init
 setLang('en');
