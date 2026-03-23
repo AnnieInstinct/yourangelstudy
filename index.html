@@ -173,7 +173,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--
 .demo-id { font-size: 12px; color: #bbb; font-weight: 600; }
 .demo-badge { padding: 3px 12px; border-radius: 12px; font-size: 10.5px; font-weight: 700; border: 1.5px solid; text-transform: uppercase; }
 .demo-topic { font-size: 13px; color: #888; margin-bottom: 4px; }
-.demo-stars { font-size: 14px; color: #f0b429; letter-spacing: 2px; }
+.demo-stars { font-size: 11px; color: #c9a227; letter-spacing: 2px; display: flex; align-items: center; }
 .demo-question { flex: 1; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: clamp(23px, 2.6vw, 33px); font-weight: 700; color: #1a1a1a; text-align: center; line-height: 1.5; padding: 10px 0; }
 .demo-hint { text-align: center; font-size: 11px; color: #bbb; margin-top: 8px; }
 .demo-answer-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
@@ -535,25 +535,25 @@ footer a { color: var(--gold-lt); text-decoration: none; }
 
 <!-- ALSO AVAILABLE -->
 <section id="also" style="padding:80px 24px;background:var(--white);">
-  <div class="section-label">ALSO AVAILABLE</div>
-  <h2 class="section-title" style="margin-bottom:40px">Prefer to print?<br>Get the PDF decks.</h2>
+  <div class="section-label" data-t="also-label">ALSO AVAILABLE</div>
+  <h2 class="section-title" style="margin-bottom:40px" data-t="also-title">Prefer to print?<br>Get the PDF decks.</h2>
   <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;max-width:760px;margin:0 auto;">
     <div style="flex:1;min-width:280px;background:var(--off);border:1.5px solid var(--border);border-radius:16px;padding:28px 24px;text-align:center;">
       <div style="font-size:32px;margin-bottom:12px">🇬🇧</div>
-      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:6px">English Deck — PDF</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px">800 PMP flashcards in English, ready to print and cut.</div>
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:6px" data-t="pdf-en-title">English Deck — PDF</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px" data-t="pdf-en-desc">800 PMP flashcards in English, ready to print and cut.</div>
       <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--dark);margin-bottom:16px">$21</div>
-      <a href="https://payhip.com/b/xAg7J" style="display:inline-block;padding:12px 28px;border-radius:24px;background:var(--gold);color:#fff;font-weight:700;font-size:14px;text-decoration:none;">✦ Buy EN Deck</a>
+      <a href="https://payhip.com/b/xAg7J" style="display:inline-block;padding:12px 28px;border-radius:24px;background:var(--gold);color:#fff;font-weight:700;font-size:14px;text-decoration:none;" data-t="pdf-en-btn">✦ Buy EN Deck</a>
     </div>
     <div style="flex:1;min-width:280px;background:var(--off);border:1.5px solid var(--border);border-radius:16px;padding:28px 24px;text-align:center;">
       <div style="font-size:32px;margin-bottom:12px">🇮🇹</div>
-      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:6px">Deck Italiano — PDF</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px">800 flashcard PMP in italiano, pronte da stampare e tagliare.</div>
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:6px" data-t="pdf-it-title">Deck Italiano — PDF</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px" data-t="pdf-it-desc">800 flashcard PMP in italiano, pronte da stampare e tagliare.</div>
       <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--dark);margin-bottom:16px">$21</div>
-      <a href="https://payhip.com/b/g4jyN" style="display:inline-block;padding:12px 28px;border-radius:24px;background:var(--gold);color:#fff;font-weight:700;font-size:14px;text-decoration:none;">✦ Buy IT Deck</a>
+      <a href="https://payhip.com/b/g4jyN" style="display:inline-block;padding:12px 28px;border-radius:24px;background:var(--gold);color:#fff;font-weight:700;font-size:14px;text-decoration:none;" data-t="pdf-it-btn">✦ Buy IT Deck</a>
     </div>
   </div>
-  <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--muted)">Want everything? Get the interactive HTML deck ($35) + your PDF of choice.</p>
+  <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--muted)" data-t="also-note">Want everything? Get the interactive HTML deck ($35) + your PDF of choice.</p>
 </section>
 
 <!-- FAQ -->
@@ -763,7 +763,7 @@ const T = {
     title:"Study Smart.<br><em>Master the PMP.</em>",
     sub:"800 bilingual flashcards (IT/EN) with 3D flip, filters, formulas recap and progress tracking. All in one offline file for Mac and Windows. No app, no subscription.",
     "cta-buy":"✦ Get the Deck · $35","cta-try":"Try 15 free cards ↓",
-    stat1:"Flashcards",stat2:"Languages",stat3:"Card Types",stat4:"Offline · No App",
+    stat1:"Flashcards",stat2:"Languages",stat3:"Card Types",stat4:"Offline · No App","diff-label":"Difficulty",
     "sp-count":"3 verified reviews",
     "sp-q1":"Stop looking. This is the one.","sp-e1":"The Exam Trap and Decision Logic cards train you to think like the exam, not just recall facts. Works 100% offline from a single file. Perfect between client meetings.","sp-r1":"Business Consultant · PMP Candidate",
     "sp-q2":"Finally something made by someone who truly gets the exam.","sp-e2":"You\u2019re not memorizing an answer, you\u2019re building a reflex. The PM Radar is the real gem \u2014 that line gives you instinct.","sp-r2":"PMP Candidate",
@@ -827,7 +827,7 @@ const T = {
     title:"Studia meglio.<br><em>Domina il PMP.</em>",
     sub:"800 flashcard bilingue (IT/EN) con flip 3D, filtri, recap formule e tracciamento progressi. Tutto in un file offline per Mac e Windows. Nessuna app, nessun abbonamento.",
     "cta-buy":"✦ Acquista il Deck · $35","cta-try":"Prova 15 carte gratis ↓",
-    stat1:"Flashcard",stat2:"Lingue",stat3:"Tipi di Carta",stat4:"Offline · No App",
+    stat1:"Flashcard",stat2:"Lingue",stat3:"Tipi di Carta",stat4:"Offline · No App","diff-label":"Difficoltà",
     "sp-count":"3 recensioni verificate",
     "sp-q1":"Smettila di cercare. \u00c8 questo.","sp-e1":"Le carte Exam Trap e Decision Logic ti allenano a ragionare come l'esame. Funziona 100% offline da un singolo file. Perfetto tra un incontro con un cliente e l'altro.","sp-r1":"Consulente Aziendale · Candidato PMP",
     "sp-q2":"Finalmente qualcosa fatto da chi l'esame lo capisce davvero.","sp-e2":"Non stai memorizzando una risposta, stai costruendo un riflesso. Il Radar PM \u00e8 la vera chicca \u2014 quella riga ti d\u00e0 l'istinto.","sp-r2":"Candidato PMP",
@@ -851,7 +851,7 @@ const T = {
     tp4:"Formula / Meccanica",tc4:"60 carte — EVM, PERT, TCPI e altro",
     tp5:"Giudizio Persone",tc5:"86 carte — leadership e team dynamics",
     tp6:"Riflesso Ultimo Min.",tc6:"76 carte — pattern ad alto impatto per l'esame",
-    "price-label":"PREZZO","price-title":"Un prezzo. Tuo per sempre.",
+    "price-label":"PREZZO","price-title":"Paghi una volta. È tuo per sempre.",
     "price-sub":"Scegli la combinazione linguistica. Tutti i deck includono 800 carte, flip 3D, filtri, recap formule e progressi.",
     "pc-tag":"✦ PAGAMENTO UNICO",
     "pc-name-en":"English","pc-name-it":"Italiano / Inglese","pc-name-de":"Tedesco / Inglese","pc-name-fr":"Francese / Inglese","pc-name-ru":"Russo / Inglese",
@@ -891,7 +891,7 @@ const T = {
     title:"Étudiez Mieux.<br><em>Réussissez le PMP.</em>",
     sub:"800 flashcards bilingues (FR/EN) avec flip 3D, filtres, récapitulatif de formules et suivi des progrès. Tout dans un seul fichier hors ligne. Aucune appli, aucun abonnement.",
     "cta-buy":"✦ Obtenir le Deck · $35","cta-try":"Essayer 15 cartes gratuites ↓",
-    stat1:"Flashcards",stat2:"Langues",stat3:"Types de Cartes",stat4:"Hors ligne · Sans App",
+    stat1:"Flashcards",stat2:"Langues",stat3:"Types de Cartes",stat4:"Hors ligne · Sans App","diff-label":"Difficulté",
     "sp-count":"3 avis vérifiés",
     "sp-q1":"Arrêtez de chercher. C\u2019est celui-là.","sp-e1":"Les cartes Exam Trap et Decision Logic vous apprennent à penser comme l\u2019examen. Fonctionne 100% hors ligne depuis un seul fichier. Parfait entre deux rendez-vous clients.","sp-r1":"Consultant Commercial · Candidat PMP",
     "sp-q2":"Enfin quelque chose fait par quelqu\u2019un qui comprend vraiment l\u2019examen.","sp-e2":"Vous ne mémorisez pas une réponse, vous construisez un réflexe. Le PM Radar est la vraie pépite \u2014 cette ligne vous donne l\u2019instinct.","sp-r2":"Candidat PMP",
@@ -955,7 +955,7 @@ const T = {
     title:"Klug lernen.<br><em>PMP bestehen.</em>",
     sub:"800 zweisprachige Lernkarten (DE/EN) mit 3D-Flip, Filtern, Formel-Übersicht und Fortschritts-Tracking. Alles in einer Offline-Datei. Keine App, kein Abonnement.",
     "cta-buy":"✦ Deck kaufen · $35","cta-try":"15 Karten kostenlos testen ↓",
-    stat1:"Lernkarten",stat2:"Sprachen",stat3:"Kartentypen",stat4:"Offline · Keine App",
+    stat1:"Lernkarten",stat2:"Sprachen",stat3:"Kartentypen",stat4:"Offline · Keine App","diff-label":"Schwierigkeit",
     "sp-count":"3 verifizierte Bewertungen",
     "sp-q1":"Hör auf zu suchen. Das ist es.","sp-e1":"Die Exam-Trap- und Decision-Logic-Karten trainieren dich, wie die Prüfung zu denken. Läuft 100% offline aus einer Datei. Perfekt zwischen Kundenterminen.","sp-r1":"Unternehmensberater · PMP-Kandidat",
     "sp-q2":"Endlich etwas von jemandem, der die Prüfung wirklich versteht.","sp-e2":"Du memorisierst keine Antwort, du baust einen Reflex auf. Der PM Radar ist das echte Highlight \u2014 diese Zeile gibt dir Instinkt.","sp-r2":"PMP-Kandidat",
@@ -1019,7 +1019,7 @@ const T = {
     title:"Учитесь умно.<br><em>Сдайте PMP.</em>",
     sub:"800 двуязычных карточек (RU/EN) с 3D-переворотом, фильтрами, формулами и отслеживанием прогресса. Всё в одном офлайн-файле. Без приложения и подписки.",
     "cta-buy":"✦ Купить Колоду · $35","cta-try":"Попробовать 15 карточек бесплатно ↓",
-    stat1:"Карточек",stat2:"Языков",stat3:"Типов карточек",stat4:"Офлайн · Без App",
+    stat1:"Карточек",stat2:"Языков",stat3:"Типов карточек",stat4:"Офлайн · Без App","diff-label":"Сложность",
     "sp-count":"3 подтверждённых отзыва",
     "sp-q1":"Перестань искать. Это оно.","sp-e1":"Карточки Exam Trap и Decision Logic учат думать как на экзамене. Работает 100% офлайн из одного файла. Идеально между встречами с клиентами.","sp-r1":"Бизнес-консультант · Кандидат PMP",
     "sp-q2":"Наконец-то что-то сделанное тем, кто действительно понимает экзамен.","sp-e2":"Вы не запоминаете ответ, вы строите рефлекс. PM Radar — настоящая находка, эта строка даёт инстинкт.","sp-r2":"Кандидат PMP",
@@ -1149,7 +1149,8 @@ function demoRender() {
 
   document.getElementById('d-topic').textContent = (TOPIC_ICONS[c.topic_area]||'📋') + ' ' + c.topic_area;
   const d = c.difficulty||0;
-  document.getElementById('d-stars').textContent = '★'.repeat(d)+'☆'.repeat(Math.max(0,5-d));
+  const diffLabel = (typeof T !== 'undefined' && T[lang] && T[lang]['diff-label']) ? T[lang]['diff-label'] : 'Difficulty';
+  document.getElementById('d-stars').innerHTML = '<span style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#999;margin-right:8px;">'+diffLabel+'</span>'+'<span style="color:#c9a227;font-size:11px;letter-spacing:4px;">●</span>'.repeat(d)+'<span style="color:#ddd;font-size:11px;letter-spacing:4px;">●</span>'.repeat(Math.max(0,5-d));
 
   const qKey = 'question_' + l, aKey = 'answer_' + l, eKey = 'explanation_' + l, rKey = 'radar_' + l;
   const qText = c[qKey] || c.question_en;
