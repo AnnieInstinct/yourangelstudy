@@ -1,13 +1,13 @@
 {
   "cleanUrls": true,
-  "rewrites": [
-    { "source": "/play", "destination": "/play.html" },
-    { "source": "/expired", "destination": "/expired.html" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/cards/en", "destination": "/en.html" },
-    { "source": "/cards/it", "destination": "/it.html" },
-    { "source": "/cards/fr", "destination": "/fr.html" },
-    { "source": "/cards/de", "destination": "/de.html" },
-    { "source": "/cards/ru", "destination": "/ru.html" }
+  "routes": [
+    { "src": "/play", "dest": "/play.html" },
+    { "src": "/expired", "dest": "/expired.html" },
+    { "src": "/admin", "dest": "/admin.html" },
+    { "src": "/cards/en", "dest": "/en.html" },
+    { "src": "/cards/it", "dest": "/it.html" },
+    { "src": "/cards/fr", "dest": "/fr.html" },
+    { "src": "/cards/de", "dest": "/de.html" },
+    { "src": "/cards/ru", "dest": "/ru.html" }
   ]
 }
