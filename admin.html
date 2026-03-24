@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAS Admin — Token Generator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,sans-serif;background:#0d0d1a;color:#fff;padding:32px 20px;}
+.wrap{max-width:700px;margin:0 auto;}
+h1{font-family:Georgia,serif;color:#c9a227;font-size:24px;margin-bottom:24px;}
+.card{background:#1a1a2e;border-radius:16px;padding:24px;margin-bottom:20px;border:1px solid #2a2a4a;}
+label{display:block;font-size:12px;color:#888;margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;}
+select,input{width:100%;padding:10px 14px;background:#0d0d1a;border:1px solid #3a3a5a;border-radius:8px;color:#fff;font-size:14px;margin-bottom:16px;}
+button{padding:12px 28px;background:#c9a227;color:#000;border:none;border-radius:30px;font-weight:700;font-size:14px;cursor:pointer;}
+button:hover{background:#e0b830;}
+.token-output{background:#0d0d1a;border:1px solid #3a3a5a;border-radius:10px;padding:14px;font-family:monospace;font-size:13px;word-break:break-all;margin-top:16px;color:#7fea7f;}
+.link-output{background:#0d0d1a;border:1px solid #2a4a2a;border-radius:10px;padding:14px;font-size:12px;word-break:break-all;margin-top:8px;color:#aaa;}
+.copy-btn{padding:6px 16px;background:#333;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;margin-top:8px;}
+.copy-btn:hover{background:#444;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{text-align:left;padding:8px 10px;color:#888;border-bottom:1px solid #2a2a4a;font-size:11px;letter-spacing:.5px;}
+td{padding:8px 10px;border-bottom:1px solid #1a1a2a;word-break:break-all;}
+.lang-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;}
+.badge-en{background:#1a3a1a;color:#7fea7f;}
+.badge-it{background:#3a1a1a;color:#ea7f7f;}
+.badge-fr{background:#1a1a3a;color:#7f9fea;}
+.badge-de{background:#2a2a1a;color:#eaea7f;}
+.badge-ru{background:#3a1a3a;color:#ea7fea;}
+#login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;}
+#login-screen input{max-width:280px;text-align:center;}
+#admin-screen{display:none;}
+.status{font-size:12px;color:#888;margin-top:8px;}
+.status.ok{color:#7fea7f;}
+.status.err{color:#ea7f7f;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <h1 style="margin-bottom:24px;">🔐 YAS Admin</h1>
+  <input type="password" id="pwd" placeholder="Admin password" onkeydown="if(event.key==='Enter')checkPwd()">
+  <button onclick="checkPwd()" style="margin-top:8px;">Enter</button>
+  <div id="pwd-err" class="status err" style="display:none;">Wrong password</div>
+</div>
+
+<!-- ADMIN SCREEN -->
+<div id="admin-screen">
+<div class="wrap">
+  <h1>🎴 YAS Token Generator</h1>
+
+  <!-- GENERATE -->
+  <div class="card">
+    <h2 style="font-size:16px;margin-bottom:16px;">Generate New Token</h2>
+    <label>Language</label>
+    <select id="lang-select">
+      <option value="en">🇬🇧 English (EN)</option>
+      <option value="it">🇮🇹 Italian (IT)</option>
+      <option value="fr">🇫🇷 French (FR)</option>
+      <option value="de">🇩🇪 German (DE)</option>
+      <option value="ru">🇷🇺 Russian (RU)</option>
+    </select>
+    <label>Customer note (optional)</label>
+    <input type="text" id="note" placeholder="e.g. John Smith - order #1234">
+    <button onclick="generateToken()">Generate Token + Link</button>
+    <div id="gen-status" class="status"></div>
+
+    <div id="token-result" style="display:none;">
+      <div class="token-output" id="token-val"></div>
+      <div class="link-output" id="link-val"></div>
+      <button class="copy-btn" onclick="copyLink()">📋 Copy Link</button>
+    </div>
+  </div>
+
+  <!-- TOKEN LIST -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h2 style="font-size:16px;">All Tokens</h2>
+      <button onclick="loadTokens()" style="padding:6px 16px;font-size:12px;">Refresh</button>
+    </div>
+    <div id="token-table">Loading...</div>
+  </div>
+</div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://wmveayasaerptxpafmzc.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtdmVheWFzYWVycHR4cGFmbXpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNjk4MjQsImV4cCI6MjA4OTk0NTgyNH0.w2vs9_67ocLvMn7d0YHf3a-zSEGsOUip_oDTClNtXVo';
+const BASE_URL = 'https://yourangelstudy.com';
+// Change this password!
+const ADMIN_PWD = 'YAS_admin_2026!';
+
+function checkPwd() {
+  if (document.getElementById('pwd').value === ADMIN_PWD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-screen').style.display = 'block';
+    loadTokens();
+  } else {
+    document.getElementById('pwd-err').style.display = 'block';
+  }
+}
+
+function makeToken() {
+  return Array.from(crypto.getRandomValues(new Uint8Array(20)))
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function sb(method, path, body) {
+  const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
+    method,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  return res.json();
+}
+
+async function generateToken() {
+  const lang = document.getElementById('lang-select').value;
+  const note = document.getElementById('note').value || '';
+  const token = makeToken();
+  const status = document.getElementById('gen-status');
+
+  status.textContent = 'Saving...';
+  status.className = 'status';
+
+  try {
+    await sb('POST', 'access_tokens', {
+      token,
+      language: lang,
+      devices: [],
+      note: note
+    });
+
+    const link = `${BASE_URL}/play?t=${token}&l=${lang}`;
+    document.getElementById('token-val').textContent = 'Token: ' + token;
+    document.getElementById('link-val').textContent = link;
+    document.getElementById('token-result').style.display = 'block';
+    document.getElementById('link-val').dataset.link = link;
+
+    status.textContent = '✓ Token saved to Supabase!';
+    status.className = 'status ok';
+    loadTokens();
+  } catch(e) {
+    status.textContent = '✗ Error: ' + e.message;
+    status.className = 'status err';
+  }
+}
+
+function copyLink() {
+  const link = document.getElementById('link-val').dataset.link;
+  navigator.clipboard.writeText(link);
+  const btn = document.querySelector('.copy-btn');
+  btn.textContent = '✓ Copied!';
+  setTimeout(() => btn.textContent = '📋 Copy Link', 2000);
+}
+
+async function loadTokens() {
+  const el = document.getElementById('token-table');
+  el.textContent = 'Loading...';
+  try {
+    const rows = await sb('GET', 'access_tokens?select=id,token,language,devices,created_at,note&order=created_at.desc&limit=100');
+    if (!rows || rows.length === 0) {
+      el.innerHTML = '<p style="color:#555;font-size:13px;padding:12px 0;">No tokens yet.</p>';
+      return;
+    }
+    const badges = {en:'badge-en',it:'badge-it',fr:'badge-fr',de:'badge-de',ru:'badge-ru'};
+    let html = '<table><thead><tr><th>LANG</th><th>TOKEN</th><th>DEVICES</th><th>NOTE</th><th>DATE</th></tr></thead><tbody>';
+    rows.forEach(r => {
+      const d = new Date(r.created_at).toLocaleDateString();
+      const devCount = (r.devices||[]).length;
+      const short = r.token.substring(0,12) + '...';
+      html += `<tr>
+        <td><span class="lang-badge ${badges[r.language]||''}">${(r.language||'').toUpperCase()}</span></td>
+        <td title="${r.token}">${short}</td>
+        <td>${devCount}/${3}</td>
+        <td style="color:#888;">${r.note||'—'}</td>
+        <td style="color:#555;">${d}</td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  } catch(e) {
+    el.textContent = 'Error loading tokens.';
+  }
+}
+</script>
+</body>
+</html>
