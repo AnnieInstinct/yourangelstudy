@@ -1,12 +1,13 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/play", "destination": "/play.html" },
     { "source": "/expired", "destination": "/expired.html" },
+    { "source": "/admin", "destination": "/admin.html" },
     { "source": "/cards/en", "destination": "/en.html" },
     { "source": "/cards/it", "destination": "/it.html" },
     { "source": "/cards/fr", "destination": "/fr.html" },
     { "source": "/cards/de", "destination": "/de.html" },
-    { "source": "/cards/ru", "destination": "/ru.html" },
-    { "source": "/admin", "destination": "/admin.html" }
+    { "source": "/cards/ru", "destination": "/ru.html" }
   ]
 }
