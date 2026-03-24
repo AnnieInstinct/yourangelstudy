@@ -7,7 +7,6 @@
   var SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtdmVheWFzYWVycHR4cGFmbXpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNjk4MjQsImV4cCI6MjA4OTk0NTgyNH0.w2vs9_67ocLvMn7d0YHf3a-zSEGsOUip_oDTClNtXVo';
   var token=localStorage.getItem('yas_token_'+LANG)||localStorage.getItem('yas_token_all');
   if(!token){window.location.href='/expired.html';return;}
-  // Background validation - don't block UI
   fetch(SURL+'/rest/v1/access_tokens?token=eq.'+encodeURIComponent(token)+'&select=token',{
     headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY}
   }).then(function(r){return r.json();}).then(function(d){
@@ -16,9 +15,7 @@
       localStorage.removeItem('yas_token_all');
       window.location.href='/expired.html';
     }
-  }).catch(function(){
-    // Network error - allow offline use
-  });
+  }).catch(function(){});
 })();
 </script>
 
@@ -150,58 +147,7 @@ input:checked+.slider:before{transform:translateX(16px)}
 @keyframes slideInLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
 </style>
 </head>
-<body><div id="safari-banner" style="display:block;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#0d0d1a;color:#fff;font-family:-apple-system,sans-serif;overflow-y:auto;-webkit-overflow-scrolling:touch;">
-  <div style="max-width:380px;margin:0 auto;padding:36px 22px 40px;text-align:center;">
-
-    <div style="font-size:48px;margin-bottom:10px;">⚠️</div>
-    <div style="font-size:21px;font-weight:700;margin-bottom:6px;">Apri in Safari per studiare</div>
-    <div style="color:#888;font-size:13px;margin-bottom:28px;">
-      Stai usando Files / QuickLook — le flashcard non funzionano qui.<br>
-      <span style="font-size:11px;opacity:.6;">JavaScript is disabled in Files app · QuickLook doesn't run scripts</span>
-    </div>
-
-    <!-- iOS INSTRUCTIONS -->
-    <div style="background:#0f2a0f;border:1.5px solid #2a6a2a;border-radius:16px;padding:20px 18px;margin-bottom:16px;text-align:left;">
-      <div style="font-size:16px;font-weight:700;color:#6fdd6f;margin-bottom:14px;">📱 iPhone / iPad</div>
-      <div style="font-size:14px;color:#ddd;line-height:2;">
-        <b>1.</b> Apri <strong>Safari</strong> (non Chrome, non Files)<br>
-        <b>2.</b> Vai su <strong>PayHip</strong> e clicca il tuo link di download<br>
-        <b>3.</b> Quando il download finisce, tocca <strong style="background:#333;padding:1px 6px;border-radius:4px;">⬇</strong> in alto a destra in Safari<br>
-        <b>4.</b> Tocca il file → si apre in Safari con tutto funzionante ✓
-      </div>
-    </div>
-
-    <!-- ANDROID -->
-    <div style="background:#0f1a2a;border:1.5px solid #2a4a6a;border-radius:16px;padding:16px 18px;margin-bottom:16px;text-align:left;">
-      <div style="font-size:15px;font-weight:700;color:#6faadd;margin-bottom:10px;">🤖 Android</div>
-      <div style="font-size:13px;color:#ccc;line-height:1.8;">
-        <b>1.</b> Scarica il file in <strong>Chrome</strong><br>
-        <b>2.</b> Tocca la notifica di download → "Apri"<br>
-        <b>3.</b> Scegli <strong>Chrome</strong> come app per aprirlo ✓
-      </div>
-    </div>
-
-    <!-- MAC/WIN -->
-    <div style="background:#1a1a0f;border:1.5px solid #4a4a2a;border-radius:16px;padding:14px 18px;margin-bottom:24px;text-align:left;">
-      <div style="font-size:14px;color:#ccc;line-height:1.8;">
-        💻 <strong>Mac / Windows:</strong> doppio clic sul file → si apre nel browser ✓
-      </div>
-    </div>
-
-    <div style="font-size:11px;color:#444;line-height:1.6;">
-      Your Angel Study · yourangelstudy.com<br>
-      Se hai problemi, contattaci via PayHip
-    </div>
-
-  </div>
-</div>
-<script>
-(function(){ document.getElementById('safari-banner').style.display='none'; })();
-</script>
-
-
-
-<div id="topbar">
+<body><div id="topbar">
   <div class="brand">Your Angel Study</div>
   <div class="topbar-right">
     <div class="top-stats">
@@ -895,6 +841,13 @@ loadLearned(); buildDeck(); setTimeout(adjustLayout,50); renderRecap(state.lang)
      Fixes: localStorage crash, swipe navigation, responsive layout
      ================================================================ -->
 <style>
+/* iOS 3D flip fix */
+#card-wrap { overflow: visible !important; -webkit-perspective: 1200px; perspective: 1200px; }
+#card { -webkit-transform-style: preserve-3d !important; transform-style: preserve-3d !important; }
+#card.flipped { -webkit-transform: rotateY(180deg) !important; transform: rotateY(180deg) !important; }
+.card-face { -webkit-backface-visibility: hidden !important; backface-visibility: hidden !important; }
+</style>
+<style>
 @media (max-width: 767px) {
   input, button, select { font-size: 16px; }
   #topbar { padding: 0 14px; height: 48px; }
@@ -931,53 +884,43 @@ loadLearned(); buildDeck(); setTimeout(adjustLayout,50); renderRecap(state.lang)
   #shortcuts { display: none !important; }
   #recap-card { width: calc(100vw - 24px) !important; font-size: 12px; }
   .recap-table th, .recap-table td { padding: 5px 6px; font-size: 11px; }
-  #card-wrap { -webkit-tap-highlight-color: transparent; }
 }
 @media (max-width: 390px) {
   #card-wrap { height: min(300px, calc(100vh - 280px)) !important; }
   .nav-btn { width: 46px; height: 46px; }
 }
-#mobile-swipe-hint {
-  display: none;
-  text-align: center;
-  font-size: 10px;
-  color: #bbb;
-  padding: 3px 0 0;
-  pointer-events: none;
-}
-@media (max-width: 767px) { #mobile-swipe-hint { display: block; } }
 </style>
 <script>
 (function() {
-  /* 1 — Safe localStorage: on iOS/Android file:// protocol,
-     localStorage.setItem throws SecurityError.
-     Patch saveLearned() to silently swallow errors.          */
-  function patchSaveLearned() {
-    if (typeof saveLearned !== 'function') return;
-    var orig = saveLearned;
-    window.saveLearned = function() {
-      try { orig(); } catch (e) { /* state stays in memory */ }
-    };
+  /* Safe localStorage */
+  function safeSave() {
+    if (typeof saveLearned === 'function') {
+      var orig = saveLearned;
+      window.saveLearned = function() {
+        try { orig(); } catch(e) {}
+      };
+    }
   }
 
-  /* 2 — Touch / swipe support
-     Swipe left  → next card
-     Swipe right → previous card
-     Tap         → flip card                                  */
+  /* Touch / swipe support with better tap detection */
   function initTouch() {
     var wrap = document.getElementById('card-wrap');
     if (!wrap) return;
 
-    /* Swipe hint below controls */
-    var hint = document.getElementById('mobile-swipe-hint');
-    if (hint) hint.textContent = 'Swipe left/right to navigate \u2022 Tap to flip';
-
     var sx = 0, sy = 0, st = 0;
+    var moved = false;
 
     wrap.addEventListener('touchstart', function(e) {
       sx = e.touches[0].clientX;
       sy = e.touches[0].clientY;
       st = Date.now();
+      moved = false;
+    }, { passive: true });
+
+    wrap.addEventListener('touchmove', function(e) {
+      var dx = Math.abs(e.touches[0].clientX - sx);
+      var dy = Math.abs(e.touches[0].clientY - sy);
+      if (dx > 10 || dy > 10) moved = true;
     }, { passive: true });
 
     wrap.addEventListener('touchend', function(e) {
@@ -986,38 +929,25 @@ loadLearned(); buildDeck(); setTimeout(adjustLayout,50); renderRecap(state.lang)
       var dt = Date.now() - st;
       var adx = Math.abs(dx), ady = Math.abs(dy);
 
-      if (adx > 45 && adx > ady * 1.4 && dt < 500) {
+      if (adx > 45 && adx > ady * 1.3 && dt < 700) {
+        // Horizontal swipe — navigate
+        e.preventDefault();
         if (typeof navigate === 'function') navigate(dx < 0 ? 1 : -1);
-      } else if (adx < 18 && ady < 18 && dt < 350) {
+      } else if (!moved && dt < 500) {
+        // Tap — flip card
+        e.preventDefault();
         if (typeof flipCard === 'function') flipCard();
       }
-    }, { passive: true });
+    }, { passive: false });
   }
 
-  /* 3 — Prevent double-tap zoom on interactive elements */
-  function noDoubleTapZoom() {
-    var last = {};
-    var els = document.querySelectorAll(
-      '.nav-btn, #btn-learned, .lang-btn, .pill, .mode-pill, .demo-flip, .demo-nav'
-    );
-    els.forEach(function(el) {
-      el.addEventListener('touchend', function(e) {
-        var now = Date.now();
-        var key = el.id || el.className;
-        if (last[key] && now - last[key] < 300) e.preventDefault();
-        last[key] = now;
-      });
+  if (document.readyState !== 'loading') {
+    safeSave(); initTouch();
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      safeSave(); initTouch();
     });
   }
-
-  var ready = (document.readyState !== 'loading');
-  function run() {
-    patchSaveLearned();
-    initTouch();
-    noDoubleTapZoom();
-  }
-  if (ready) { run(); }
-  else { document.addEventListener('DOMContentLoaded', run); }
 })();
 </script>
 
