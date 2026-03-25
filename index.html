@@ -160,7 +160,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--
 #demo .section-title { color: #fff; }
 #demo .section-label { color: var(--gold-lt); }
 .demo-wrapper { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
-#demo-card-wrap { perspective: 1200px; width: 100%; height: min(380px, 70vw); cursor: pointer; min-height: 260px; }
+#demo-card-wrap { perspective: 1200px; width: 100%; height: min(380px, 70vw); cursor: pointer; min-height: 260px; position: relative; }
 #demo-card { width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.4,.2,.2,1); position: relative; }
 #demo-card.flipped { transform: rotateY(180deg); }
 .demo-face {
@@ -290,6 +290,22 @@ footer a { color: var(--gold-lt); text-decoration: none; }
   .lang-pill { padding: 4px 8px; font-size: 11px; }
   .hero-stats { gap: 28px; }
 }
+
+/* ── DEMO OVERLAY POPUPS ── */
+.demo-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;align-items:center;justify-content:center;background:rgba(17,17,17,0.88);}
+.demo-overlay.show{display:flex;}
+.demo-popup{background:#fff;border-radius:16px;border-top:4px solid #8a6e00;padding:24px 20px;max-width:300px;width:88%;text-align:center;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 40px rgba(0,0,0,0.5);}
+.demo-popup-hl{font-family:Georgia,serif;font-size:17px;font-weight:700;color:#1a1a1a;line-height:1.35;}
+.demo-popup-sub{font-size:12px;color:#888;line-height:1.6;}
+.demo-popup-price{font-size:26px;font-weight:700;color:#8a6e00;font-family:Georgia,serif;}
+.demo-popup-price span{font-size:11px;font-weight:400;color:#aaa;}
+.demo-popup-lang-label{font-size:11px;color:#aaa;font-weight:500;}
+.demo-popup-langs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;}
+.demo-popup-lang{background:#fdf8ee;border:1.5px solid #e8e2d6;border-radius:20px;padding:4px 10px;font-size:11px;color:#6b5100;font-weight:600;cursor:pointer;transition:all 0.15s;}
+.demo-popup-lang:hover,.demo-popup-lang.sel{background:#8a6e00;color:#fff;border-color:#8a6e00;}
+.demo-popup-cta{background:#8a6e00;color:#fff;border:none;border-radius:24px;padding:12px 0;font-size:14px;font-weight:700;cursor:pointer;width:100%;}
+.demo-popup-cta:hover{background:#6b5500;}
+.demo-popup-dismiss{font-size:11px;color:#bbb;cursor:pointer;background:none;border:none;text-decoration:underline;}
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-UKYxYn4Zif07g0jh0plEm.js"></script>
@@ -316,10 +332,10 @@ footer a { color: var(--gold-lt); text-decoration: none; }
 <section id="hero">
   <div class="hero-badge">⚡ <span data-t="badge">PMP Exam Prep · 800 Interactive Flashcards</span></div>
   <h1 class="hero-title" data-t="title">Study Smart.<br><em>Master the PMP.</em></h1>
-  <p class="hero-sub" data-t="sub">800 bilingual flashcards (IT/EN) with 3D flip, filters, formulas recap and progress tracking. All in one offline file. No app, no subscription.</p>
+  <p class="hero-sub" data-t="sub">800 PMP flashcards with 3D flip, filters, formulas recap and progress tracking. Available in 5 languages: English, Italian, French, German and Russian. Mac, Windows, iPhone and Android. No app, no subscription.</p>
   <div class="hero-cta">
     <a href="#pricing" class="btn-primary" data-t="cta-buy">✦ Get the Deck · $35</a>
-    <a href="#demo" class="btn-ghost" data-t="cta-try">Try 15 free cards ↓</a>
+    <a href="#demo" class="btn-ghost" data-t="cta-try">Try 10 free cards ↓</a>
   </div>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">800</div><div class="stat-label" data-t="stat1">Flashcards</div></div>
@@ -416,7 +432,7 @@ footer a { color: var(--gold-lt); text-decoration: none; }
   <h2 class="section-title" data-t="feat-title">Everything you need.<br>Nothing you don't.</h2>
   <div class="features-grid reveal">
     <div class="feature-card"><div class="feature-icon">🔄</div><div class="feature-title" data-t="f1t">3D Flip Cards</div><div class="feature-desc" data-t="f1d">Question on the front, answer + explanation + PM Instinct on the back. Tap or press Space.</div></div>
-    <div class="feature-card"><div class="feature-icon">🌍</div><div class="feature-title" data-t="f2t">Bilingual</div><div class="feature-desc" data-t="f2d">Switch languages with one click. All 800 cards fully translated, PMBOK 7th edition terminology.</div></div>
+    <div class="feature-card"><div class="feature-icon">🌍</div><div class="feature-title" data-t="f2t">Bilingual</div><div class="feature-desc" data-t="f2d">Switch languages with one click. All 800 cards fully translated.</div></div>
     <div class="feature-card"><div class="feature-icon">🎯</div><div class="feature-title" data-t="f3t">Smart Filters</div><div class="feature-desc" data-t="f3d">Filter by type, difficulty (1–5 stars), sequential or random. Hide cards you've already mastered.</div></div>
     <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title" data-t="f4t">Formulas Recap</div><div class="feature-desc" data-t="f4d">Full EVM formula sheet always visible above the cards. PV, EV, AC, CPI, SPI, EAC and more.</div></div>
     <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-title" data-t="f5t">Progress Tracking</div><div class="feature-desc" data-t="f5d">Mark cards as learned. Your progress saves automatically in the browser — even offline.</div></div>
@@ -427,7 +443,7 @@ footer a { color: var(--gold-lt); text-decoration: none; }
 <!-- DEMO -->
 <section id="demo">
   <div class="section-label" data-t="demo-label">FREE PREVIEW</div>
-  <h2 class="section-title" data-t="demo-title">Try 15 cards right now.</h2>
+  <h2 class="section-title" data-t="demo-title">Try 10 cards right now.</h2>
   <div class="demo-wrapper reveal">
     <div id="demo-card-wrap" onclick="demoFlip()">
       <div id="demo-card">
@@ -456,7 +472,45 @@ footer a { color: var(--gold-lt); text-decoration: none; }
     </div>
     <div class="demo-counter" id="d-counter"></div>
     <div class="demo-progress"><div class="demo-progress-fill" id="d-prog"></div></div>
+    <!-- UNLOCK OVERLAY — appears after card 5 -->
+    <div class="demo-overlay" id="demo-unlock-overlay">
+      <div class="demo-popup">
+        <div class="demo-popup-hl">You&#39;ve seen 5 free cards.<br>Ready for all 800?</div>
+        <div class="demo-popup-sub">800 cards &middot; 3D flip &middot; Filters &middot; Formula recap<br>Progress tracking &middot; 100% offline &middot; No app</div>
+        <div class="demo-popup-price">$35 <span>one-time &middot; no subscription</span></div>
+        <div class="demo-popup-lang-label">Choose your language:</div>
+        <div class="demo-popup-langs" id="unlock-langs">
+          <div class="demo-popup-lang sel" data-url="https://payhip.com/b/fWpQu">&#127470;&#127481; IT / EN</div>
+          <div class="demo-popup-lang" data-url="https://payhip.com/b/CE5Am">&#127468;&#127463; EN only</div>
+          <div class="demo-popup-lang" data-url="https://payhip.com/b/gU31P">&#127467;&#127479; FR / EN</div>
+          <div class="demo-popup-lang" data-url="https://payhip.com/b/qIrSl">&#127465;&#127466; DE / EN</div>
+          <div class="demo-popup-lang" data-url="https://payhip.com/b/mVkZh">&#127479;&#127482; RU / EN</div>
+        </div>
+        <button class="demo-popup-cta" id="unlock-cta-btn">&#10022; Get Full Deck &middot; $35</button>
+        <button class="demo-popup-dismiss" onclick="document.getElementById('demo-unlock-overlay').classList.remove('show')">keep browsing free cards</button>
+      </div>
+    </div>
+    <!-- END SCREEN — appears after card 10 -->
+    <div class="demo-overlay" id="demo-end-overlay">
+      <div class="demo-popup">
+        <div style="font-size:26px;">&#127919;</div>
+        <div class="demo-popup-hl">That&#39;s all 10 free cards.<br>Want the other 790?</div>
+        <div class="demo-popup-sub">800 cards &middot; All types &middot; All difficulty levels<br>PM Radar on every card &middot; 5 languages &middot; Offline forever</div>
+        <div class="demo-popup-price">$35 <span>one-time</span></div>
+        <div class="demo-popup-lang-label">Choose your language:</div>
+        <div class="demo-popup-langs" id="end-langs">
+          <div class="demo-popup-lang sel" data-url="https://payhip.com/b/fWpQu">&#127470;&#127481; IT / EN</div>
+          <div class="demo-popup-lang" data-url="https://payhip.com/b/CE5Am">&#127468;&#127463; EN only</div>
+          <div class="demo-popup-lang" data-url="https://payhip.com/b/gU31P">&#127467;&#127479; FR / EN</div>
+          <div class="demo-popup-lang" data-url="https://payhip.com/b/qIrSl">&#127465;&#127466; DE / EN</div>
+          <div class="demo-popup-lang" data-url="https://payhip.com/b/mVkZh">&#127479;&#127482; RU / EN</div>
+        </div>
+        <button class="demo-popup-cta" id="end-cta-btn">&#10022; Get Full Deck &middot; $35</button>
+        <button class="demo-popup-dismiss" onclick="demoRestart()">restart from card 1</button>
+      </div>
+    </div>
     <div class="demo-unlock">
+
       <strong data-t="unlock-title">Want all 800 cards?</strong><br>
       <span data-t="unlock-desc">Get the full deck with all types, difficulty levels, bilingual toggle and formula recap.</span><br>
       <a href="https://payhip.com/b/fWpQu" class="unlock-btn" data-t="unlock-btn">✦ Get Full Deck · $35</a>
@@ -469,12 +523,12 @@ footer a { color: var(--gold-lt); text-decoration: none; }
   <div class="section-label" data-t="types-label">6 CARD TYPES</div>
   <h2 class="section-title" data-t="types-title">Designed to train<br>every kind of question.</h2>
   <div class="types-grid reveal">
-    <div class="type-pill" style="background:#eff6ff;border-color:#bfdbfe"><div class="type-dot" style="background:#3b82f6"></div><div><div class="type-name" data-t="tp1">Core Concept</div><div class="type-count" data-t="tc1">304 cards — foundational PMP logic</div></div></div>
-    <div class="type-pill" style="background:#fff7ed;border-color:#fed7aa"><div class="type-dot" style="background:#f97316"></div><div><div class="type-name" data-t="tp2">Decision Logic</div><div class="type-count" data-t="tc2">156 cards — situational judgment</div></div></div>
-    <div class="type-pill" style="background:#fef2f2;border-color:#fecaca"><div class="type-dot" style="background:#ef4444"></div><div><div class="type-name" data-t="tp3">Exam Trap</div><div class="type-count" data-t="tc3">118 cards — avoid the wrong answers</div></div></div>
-    <div class="type-pill" style="background:#fefce8;border-color:#fde68a"><div class="type-dot" style="background:#8a6e00"></div><div><div class="type-name" data-t="tp4">Formula / Mechanics</div><div class="type-count" data-t="tc4">60 cards — EVM, PERT, TCPI and more</div></div></div>
-    <div class="type-pill" style="background:#f5f3ff;border-color:#ddd6fe"><div class="type-dot" style="background:#8b5cf6"></div><div><div class="type-name" data-t="tp5">People Judgment</div><div class="type-count" data-t="tc5">86 cards — leadership & team dynamics</div></div></div>
-    <div class="type-pill" style="background:#f0fdf4;border-color:#bbf7d0"><div class="type-dot" style="background:#22c55e"></div><div><div class="type-name" data-t="tp6">Last-Minute Reflex</div><div class="type-count" data-t="tc6">76 cards — high-impact exam-day patterns</div></div></div>
+    <div class="type-pill" style="background:#eff6ff;border-color:#bfdbfe"><div class="type-dot" style="background:#3b82f6"></div><div><div class="type-name" data-t="tp1">Core Concept</div><div class="type-count" data-t="tc1">304 cards, foundational PMP logic</div></div></div>
+    <div class="type-pill" style="background:#fff7ed;border-color:#fed7aa"><div class="type-dot" style="background:#f97316"></div><div><div class="type-name" data-t="tp2">Decision Logic</div><div class="type-count" data-t="tc2">156 cards, situational judgment</div></div></div>
+    <div class="type-pill" style="background:#fef2f2;border-color:#fecaca"><div class="type-dot" style="background:#ef4444"></div><div><div class="type-name" data-t="tp3">Exam Trap</div><div class="type-count" data-t="tc3">118 cards, avoid the wrong answers</div></div></div>
+    <div class="type-pill" style="background:#fefce8;border-color:#fde68a"><div class="type-dot" style="background:#8a6e00"></div><div><div class="type-name" data-t="tp4">Formula / Mechanics</div><div class="type-count" data-t="tc4">60 cards, EVM, PERT, TCPI and more</div></div></div>
+    <div class="type-pill" style="background:#f5f3ff;border-color:#ddd6fe"><div class="type-dot" style="background:#8b5cf6"></div><div><div class="type-name" data-t="tp5">People Judgment</div><div class="type-count" data-t="tc5">86 cards, leadership and team dynamics</div></div></div>
+    <div class="type-pill" style="background:#f0fdf4;border-color:#bbf7d0"><div class="type-dot" style="background:#22c55e"></div><div><div class="type-name" data-t="tp6">Last-Minute Reflex</div><div class="type-count" data-t="tc6">76 cards, high-impact exam-day patterns</div></div></div>
   </div>
 </section>
 
@@ -716,97 +770,67 @@ footer a { color: var(--gold-lt); text-decoration: none; }
 <script>
 // ── DEMO CARDS ───────────────────────────────────────────────────────────────
 const DEMO_CARDS = [
-{id:1,type_it:"Concetto Base",type_en:"Core Concept",type_fr:"Concept Fondamental",type_de:"Kernkonzept",type_ru:"Основная Концепция",difficulty:3,topic_area:"Stakeholder",
- question_en:"A key stakeholder strongly resists a required change that is needed to comply with new regulations. What should the project manager do NEXT?",answer_en:"Meet with the stakeholder to understand the root cause of the resistance.",explanation_en:"Exam prioritizes stakeholder engagement before escalation or enforcement. Understanding concerns helps address resistance while maintaining regulatory compliance.",radar_en:"Engage before escalate",
- question_it:"Un stakeholder chiave si oppone fortemente a un cambiamento richiesto per conformarsi a nuove normative. Cosa dovrebbe fare PRIMA il project manager?",answer_it:"Incontrare lo stakeholder per comprendere la causa profonda della resistenza.",explanation_it:"L'esame privilegia il coinvolgimento degli stakeholder prima dell'escalation.",radar_it:"Coinvolgi prima di escalare",
- question_fr:"Une partie prenante clé résiste fortement à un changement requis pour se conformer à de nouvelles réglementations. Que doit faire EN PREMIER le chef de projet ?",answer_fr:"Rencontrer la partie prenante pour comprendre la cause profonde de la résistance.",explanation_fr:"Impliquer les parties prenantes avant d'escalader ou de forcer l'application : c'est la règle fondamentale. Comprendre la cause profonde d'une résistance est la seule voie vers une conformité durable.",radar_fr:"Impliquer avant d'escalader",
- question_de:"Ein wichtiger Stakeholder lehnt eine notwendige Änderung zur Einhaltung neuer Vorschriften stark ab. Was sollte der Projektleiter ALS NÄCHSTES tun?",answer_de:"Den Stakeholder treffen, um die Ursache des Widerstands zu verstehen.",explanation_de:"Bewährte PM-Praxis setzt Stakeholder-Einbindung vor Eskalation oder Durchsetzung. Das Verstehen der Bedenken ist der einzige nachhaltige Weg, Widerstand zu überwinden und gleichzeitig die Compliance zu wahren.",radar_de:"Einbinden vor Eskalieren",
- question_ru:"Ключевая заинтересованная сторона резко сопротивляется изменению, необходимому для соблюдения новых нормативных требований. Что должен сделать руководитель проекта В ПЕРВУЮ ОЧЕРЕДЬ?",answer_ru:"Встретиться с заинтересованной стороной, чтобы понять первопричину сопротивления.",explanation_ru:"Экзамен отдаёт приоритет вовлечению заинтересованных сторон до эскалации.",radar_ru:"Вовлекай прежде чем эскалировать"},
-{id:338,type_it:"Trappola d'Esame",type_en:"Exam Trap",type_fr:"Piège d'Examen",type_de:"Prüfungsfalle",type_ru:"Ловушка на Экзамене",difficulty:5,topic_area:"Integration",
- question_en:"Because projects differ in complexity risk and uncertainty",answer_en:"A single approach rarely fits all situations",explanation_en:"Tailoring beats dogma",radar_en:"Tailoring beats dogma",
- question_it:"Perché i progetti differiscono in complessità, rischio e incertezza",answer_it:"Un approccio unico raramente si adatta a tutte le situazioni",explanation_it:"Il tailoring (personalizzazione) batte il dogmatismo: l'esame premia chi adatta il metodo al progetto.",radar_it:"Il tailoring (personalizzazione) batte il dogmatismo",
- question_fr:"Parce que les projets diffèrent en complexité, risque et incertitude",answer_fr:"Une seule approche convient rarement à toutes les situations",explanation_fr:"Un projet complexe, risqué ou incertain nécessite rarement une approche unique. La capacité à combiner ou choisir la méthode la mieux adaptée à chaque composante du projet est une compétence fondamentale du chef de projet moderne.",radar_fr:"L'adaptation bat le dogme",
- question_de:"Warum gibt es nicht einen einzigen richtigen Projektansatz für alle Projekte?",answer_de:"Projekte unterscheiden sich zu stark in Komplexität, Risiko und Unsicherheit. Ein einheitlicher Ansatz passt selten.",explanation_de:"Anpassung schlägt Dogma.",radar_de:"Anpassung schlägt Dogma",
- question_ru:"Почему для всех проектов не существует единого правильного подхода?",answer_ru:"Единый подход редко подходит для всех ситуаций.",explanation_ru:"Адаптация побеждает догматизм: экзамен вознаграждает адаптацию метода к проекту.",radar_ru:"Адаптация побеждает догму"},
+{id:69,type_it:"Concetto Base",type_en:"Core Concept",type_fr:"Concept Fondamental",type_de:"Kernkonzept",type_ru:"Основная Концепция",difficulty:2,topic_area:"Communications",
+ question_en:"A stakeholder asks the PM to withhold negative project information until after an important review. What should the PM do next?",answer_en:"Explain the obligation to report accurate and complete project information.",explanation_en:"The exam always favors transparency. Withholding information, even at a sponsor's request, violates integrity.",radar_en:"Truth over comfort.",
+ question_it:"Uno stakeholder chiede al PM di trattenere informazioni negative fino dopo una revisione importante. Cosa deve fare il PM?",answer_it:"Spiegare l'obbligo di riportare informazioni accurate e complete.",explanation_it:"L'esame premia sempre la trasparenza. Trattenere informazioni, anche su richiesta dello sponsor, viola l'integrità professionale.",radar_it:"La verità prima del comfort.",
+ question_fr:"Une partie prenante demande au CP de retenir des informations négatives jusqu'après une révision importante. Que doit faire le CP?",answer_fr:"Expliquer l'obligation de rapporter des informations exactes et complètes.",explanation_fr:"L'examen favorise toujours la transparence. Retenir des informations, même à la demande d'un sponsor, viole l'intégrité.",radar_fr:"La vérité avant le confort.",
+ question_de:"Ein Stakeholder bittet den PM, negative Informationen bis nach einem Review zurückzuhalten. Was soll der PM tun?",answer_de:"Die Verpflichtung erklären, genaue und vollständige Informationen zu berichten.",explanation_de:"Die Prüfung bevorzugt immer Transparenz. Informationen zurückzuhalten verletzt die Integrität.",radar_de:"Wahrheit vor Komfort.",
+ question_ru:"Заинтересованная сторона просит РП удержать негативную информацию до важного обзора. Что должен сделать РП?",answer_ru:"Объяснить обязательство сообщать точную и полную информацию.",explanation_ru:"Экзамен всегда поощряет прозрачность. Удержание информации нарушает профессиональную честность.",radar_ru:"Правда важнее комфорта."},
+{id:116,type_it:"Concetto Base",type_en:"Core Concept",type_fr:"Concept Fondamental",type_de:"Kernkonzept",type_ru:"Основная Концепция",difficulty:2,topic_area:"Scope",
+ question_en:"You are about to define project scope. What is the MOST important input you need?",answer_en:"Project charter.",explanation_en:"The charter authorizes the project and defines high-level scope. Without it, you have no mandate to define anything.",radar_en:"No charter, no scope.",
+ question_it:"Stai per definire lo scope del progetto. Qual è l'input più importante?",answer_it:"Project charter.",explanation_it:"Il charter autorizza il progetto e definisce lo scope ad alto livello. Senza di esso non hai mandato per definire nulla.",radar_it:"Senza charter, niente scope.",
+ question_fr:"Vous allez définir le périmètre du projet. Quel est l'input le plus important?",answer_fr:"La charte de projet.",explanation_fr:"La charte autorise le projet et définit le périmètre de haut niveau. Sans elle, aucun mandat pour définir quoi que ce soit.",radar_fr:"Sans charte, pas de périmètre.",
+ question_de:"Sie stehen kurz vor der Definition des Projektumfangs. Was ist der wichtigste Input?",answer_de:"Projektauftrag.",explanation_de:"Der Projektauftrag genehmigt das Projekt und definiert den groben Umfang. Ohne ihn haben Sie kein Mandat.",radar_de:"Kein Auftrag, kein Umfang.",
+ question_ru:"Вы собираетесь определить содержание проекта. Какой вход наиболее важен?",answer_ru:"Устав проекта.",explanation_ru:"Устав разрешает проект и определяет содержание на высоком уровне. Без него нет мандата.",radar_ru:"Нет устава, нет содержания."},
 {id:196,type_it:"Formula / Meccanica",type_en:"Formula",type_fr:"Formule",type_de:"Formel",type_ru:"Формула",difficulty:2,topic_area:"Schedule",
- question_en:"Define: Schedule Performance Index (SPI)",answer_en:"SPI = EV ÷ PV",explanation_en:"Measures schedule efficiency based on earned vs planned work",radar_en:"SPI = time efficiency.",
- question_it:"Definizione: Indice di Performance dello Schedule (SPI)",answer_it:"SPI = EV ÷ PV",explanation_it:"SPI (Indice di Performance dello Schedule / Schedule Performance Index) = EV ÷ PV. SPI > 1 anticipo; SPI < 1 ritardo.",radar_it:"SPI = efficienza schedule (schedulazione)",
- question_fr:"Définir : Indice de performance des délais (IPD)",answer_fr:"IPD = VA ÷ VP",explanation_fr:"Mesure l'efficacité de l'échéancier basée sur le travail acquis vs planifié.",radar_fr:"IPD = efficacité d'échéancier",
- question_de:"Definition: Terminleistungsindex (SPI)",answer_de:"SPI = EV ÷ PV",explanation_de:"Misst die Terminplaneffizienz basierend auf erarbeiteter versus geplanter Arbeit.",radar_de:"SPI = Terminplaneffizienz",
- question_ru:"Определение: Индекс выполнения сроков (SPI)",answer_ru:"SPI = EV ÷ PV",explanation_ru:"Измеряет эффективность расписания на основе освоенного vs запланированного объёма.",radar_ru:"SPI = эффективность по срокам"},
-{id:459,type_it:"Logica Decisionale",type_en:"Decision Logic",type_fr:"Logique de Décision",type_de:"Entscheidungslogik",type_ru:"Логика Решений",difficulty:4,topic_area:"Resource",
- question_en:"What is a major disadvantage of a matrix organization?",answer_en:"Conflicting priorities dual reporting and resource tension",explanation_en:"Flexibility comes at a cost",radar_en:"Two bosses one headache",
- question_it:"Qual è uno svantaggio principale di un'organizzazione a matrice?",answer_it:"Priorità conflittuali, doppio reporting e tensione sulle risorse",explanation_it:"La flessibilità ha un costo: l'agilità richiede maggiore coordinamento e disciplina.",radar_it:"Due capi, un solo mal di testa",
- question_fr:"Quel est le principal inconvénient d'une organisation matricielle ?",answer_fr:"Priorités concurrentes, double hiérarchie et tension sur les ressources",explanation_fr:"L'organisation matricielle offre de la flexibilité mais au prix d'une ambiguïté hiérarchique réelle. La double ligne de reporting entre le chef de projet et les responsables fonctionnels est source de tensions permanentes.",radar_fr:"Deux responsables = un seul mal de tête",
- question_de:"Was ist ein wesentlicher Nachteil einer Matrixorganisation?",answer_de:"Konkurrierende Prioritäten, doppelte Berichterstattung und Ressourcenspannungen.",explanation_de:"Matrixorganisationen bieten Flexibilität, erkauft mit konkurrierenden Prioritäten, doppelter Berichterstattung und Ressourcenspannungen.",radar_de:"Zwei Chefs, ein Kopfschmerz",
- question_ru:"Каков основной недостаток матричной организации?",answer_ru:"Конкурирующие приоритеты, двойное подчинение и напряжённость из-за ресурсов.",explanation_ru:"Гибкость имеет цену.",radar_ru:"Два руководителя — одна головная боль"},
-{id:75,type_it:"Concetto Base",type_en:"Core Concept",type_fr:"Concept Fondamental",type_de:"Kernkonzept",type_ru:"Основная Концепция",difficulty:2,topic_area:"Integration",
- question_en:"An ethical dilemma arises during the project.",answer_en:"Act according to the PMI Code of Ethics, even under pressure.",explanation_en:"PMP questions consistently reward integrity over convenience or short-term gain.",radar_en:"Integrity over outcome.",
- question_it:"Sorge un dilemma etico durante il progetto.",answer_it:"Agire secondo il Codice Etico PMI, anche sotto pressione.",explanation_it:"Le domande d'esame premiano costantemente l'integrità rispetto alla convenienza.",radar_it:"Integrità sopra il risultato",
- question_fr:"Un dilemme éthique survient en cours de projet.",answer_fr:"Agir selon ses valeurs professionnelles, même sous pression.",explanation_fr:"Faire preuve d'intégrité face à la commodité ou au gain immédiat, c'est le fondement du comportement professionnel. La pression ne modifie pas ce qui est juste.",radar_fr:"L'intégrité prime sur le résultat",
- question_de:"Während des Projekts entsteht ein ethisches Dilemma.",answer_de:"Ethisch handeln, auch wenn es unbequem oder mit Druck verbunden ist.",explanation_de:"Integrität vor Bequemlichkeit oder kurzfristigem Gewinn: Das ist das Leitmotiv professionellen Verhaltens.",radar_de:"Integrität vor Ergebnis",
- question_ru:"В ходе проекта возникает этическая дилемма.",answer_ru:"Действовать в соответствии с кодексом этики, даже под давлением.",explanation_ru:"Вопросы экзамена последовательно вознаграждают честность, а не удобство.",radar_ru:"Честность важнее результата"},
-{id:205,type_it:"Formula / Meccanica",type_en:"Formula",type_fr:"Formule",type_de:"Formel",type_ru:"Формула",difficulty:2,topic_area:"Cost",
- question_en:"Define: Cost Variance (CV)",answer_en:"CV = EV − AC",explanation_en:"Shows whether the project is under or over budget.",radar_en:"CV shows direction, not efficiency.",
- question_it:"Definizione: Varianza dei Costi (CV)",answer_it:"CV = EV - AC",explanation_it:"CV (Varianza dei Costi / Cost Variance) = EV − AC. CV > 0 sotto budget; CV < 0 sopra budget.",radar_it:"CV mostra la direzione",
- question_fr:"Définir : Écart de coûts (CV)",answer_fr:"CV = VA − CR",explanation_fr:"Indique si le projet est en dessous ou au-dessus du budget.",radar_fr:"CV montre la direction, pas l'efficacité",
- question_de:"Definition: Kostenabweichung (CV)",answer_de:"CV = EV − AC",explanation_de:"Zeigt an, ob das Projekt unter oder über Budget liegt.",radar_de:"CV zeigt Richtung, nicht Effizienz",
- question_ru:"Определение: Отклонение по стоимости (CV)",answer_ru:"CV = EV − AC",explanation_ru:"Показывает, ниже или выше бюджета находится проект.",radar_ru:"CV показывает направление не эффективность"},
-{id:40,type_it:"Giudizio Persone",type_en:"People Judgment",type_fr:"Jugement Humain",type_de:"Menschenkenntnis",type_ru:"Оценка Людей",difficulty:3,topic_area:"Resource",
- question_en:"Multiple team members disagree on the technical approach to complete a task. What should the project manager do FIRST?",answer_en:"Facilitate a discussion to evaluate options and reach a consensus.",explanation_en:"PMP discourages dictating technical solutions and encourages leveraging team expertise through facilitation.",radar_en:"Facilitate, don’t dictate.",
- question_it:"Più membri del team non sono d'accordo sull'approccio tecnico. Cosa deve fare PRIMA il PM?",answer_it:"Facilitare una discussione per valutare le opzioni e raggiungere un consenso.",explanation_it:"l'Esame scoraggia di dettare soluzioni tecniche e incoraggia a sfruttare le competenze del team tramite facilitazione.",radar_it:"Facilita, non dettare",
- question_fr:"Plusieurs membres de l'équipe ne s'accordent pas sur l'approche technique d'une tâche. Que doit faire EN PREMIER le CP ?",answer_fr:"Faciliter une discussion pour évaluer les options et parvenir à un consensus.",explanation_fr:"Le chef de projet n'est pas le décideur technique mais le facilitateur. Créer l'espace pour que l'équipe évalue les options et parvienne à un consensus produit de bien meilleurs résultats.",radar_fr:"Faciliter, ne pas dicter",
- question_de:"Mehrere Teammitglieder sind sich über den technischen Ansatz zur Erledigung einer Aufgabe uneinig. Was sollte der Projektleiter ZUERST tun?",answer_de:"Eine Diskussion moderieren, um Optionen zu bewerten und einen Konsens zu erreichen.",explanation_de:"Technische Lösungen vorzuschreiben ist selten zielführend. Team-Expertise durch Moderation zu nutzen, ist der bessere Weg.",radar_de:"Moderieren, nicht vorschreiben",
- question_ru:"Несколько членов команды не согласны с техническим подходом к задаче. Что должен сделать РП В ПЕРВУЮ ОЧЕРЕДЬ?",answer_ru:"Фасилитировать обсуждение для оценки вариантов и достижения консенсуса.",explanation_ru:"Экзамен не поощряет диктовку технических решений и поддерживает использование экспертизы команды.",radar_ru:"Фасилитируй не диктуй"},
-{id:880,type_it:"Riflesso Ultimo Min.",type_en:"Last-Minute Reflex",type_fr:"Réflexe Dernière Minute",type_de:"Letzter-Moment-Reflex",type_ru:"Рефлекс Последней Минуты",difficulty:3,topic_area:"Leadership",
- question_en:"The team is demotivated midway through the project. What is the PM's first step?",answer_en:"Understand the cause of demotivation before taking action.",explanation_en:"PMP always rewards understanding root causes before any corrective action.",radar_en:"Listen before acting",
- question_it:"Il team è demotivato a metà progetto. Qual è il primo passo del PM?",answer_it:"Capire la causa della demotivazione prima di agire.",explanation_it:"L'esame premia sempre la comprensione delle cause prima di qualsiasi azione correttiva.",radar_it:"Ascolta prima di agire",
- question_fr:"L'équipe est démotivée à mi-parcours du projet. Quelle est la première étape du CP?",answer_fr:"Comprendre la cause de la démotivation avant d'agir.",explanation_fr:"PMP récompense toujours la compréhension des causes avant toute action corrective.",radar_fr:"Écouter avant d'agir",
- question_de:"Das Team ist in der Mitte des Projekts demotiviert. Was ist der erste Schritt des PM?",answer_de:"Die Ursache der Demotivation verstehen, bevor man handelt.",explanation_de:"PMP belohnt immer das Verstehen der Ursachen vor jeder Korrekturmaßnahme.",radar_de:"Zuhören vor dem Handeln",
- question_ru:"Команда демотивирована на середине проекта. Каков первый шаг РП?",answer_ru:"Понять причину демотивации, прежде чем действовать.",explanation_ru:"PMP всегда вознаграждает понимание первопричин перед любыми корректирующими действиями.",radar_ru:"Слушай прежде чем действовать"},
-{id:29,type_it:"Concetto Base",type_en:"Core Concept",type_fr:"Concept Fondamental",type_de:"Kernkonzept",type_ru:"Основная Концепция",difficulty:3,topic_area:"Integration",
- question_en:"Multiple change requests are submitted during execution. What should the project manager do NEXT?",answer_en:"Process the change requests through integrated change control.",explanation_en:"All changes affecting baselines must follow a formal, centralized change control process",radar_en:"Centralize change decisions.",
- question_it:"Vengono presentate molteplici richieste di modifica durante l'esecuzione. Cosa deve fare il PM?",answer_it:"Elaborare le richieste di modifica attraverso il change control (controllo delle modifiche) integrato.",explanation_it:"Tutte le modifiche che influenzano le baseline devono seguire un processo di change.",radar_it:"Centralizza le decisioni",
- question_fr:"Plusieurs demandes de modification sont soumises en cours d'exécution. Que doit faire ENSUITE le CP ?",answer_fr:"Traiter chaque demande par le processus intégré de maîtrise des changements.",explanation_fr:"Tous les changements affectant les références de base doivent suivre un processus formel et centralisé de maîtrise des changements.",radar_fr:"Centraliser les décisions de changement",
- question_de:"Während der Ausführung werden mehrere Änderungsanträge eingereicht. Was sollte der Projektleiter ALS NÄCHSTES tun?",answer_de:"Die Änderungsanträge durch die integrierte Änderungssteuerung bearbeiten.",explanation_de:"Alle Änderungen, die Bezugsbasen betreffen, müssen über einen formalen, zentralisierten Änderungssteuerungsprozess laufen. Keine Ausnahmen.",radar_de:"Änderungsentscheidungen zentralisieren",
- question_ru:"В ходе исполнения поступает несколько запросов на изменение. Что должен сделать РП СЛЕДУЮЩИМ?",answer_ru:"Обработать запросы через интегрированный контроль изменений.",explanation_ru:"Все изменения, влияющие на базовые показатели, должны следовать формальному процессу.",radar_ru:"Централизуй решения по изменениям"},
-{id:178,type_it:"Formula / Meccanica",type_en:"Formula",type_fr:"Formule",type_de:"Formel",type_ru:"Формула",difficulty:4,topic_area:"Cost",
- question_en:"To-Complete Performance Index (TCPI)",answer_en:"TCPI = (BAC − EV) ÷ (BAC − AC)",explanation_en:"Shows cost efficiency needed to meet the target budget.",radar_en:"Efficiency needed → TCPI.",
- question_it:"Indice di Performance al Completamento (TCPI)",answer_it:"TCPI = (BAC - EV) ÷ (BAC - AC)",explanation_it:"TCPI (Indice di Performance al Completamento) = (BAC − EV) ÷ (BAC − AC). Efficienza richiesta per finire nel budget.",radar_it:"Efficienza necessaria fi TCPI",
- question_fr:"Indice de performance à terminaison nécessaire (IPTN)",answer_fr:"IPTN = (BAC − VA) ÷ (BAC − CR)",explanation_fr:"Indique l'efficacité des coûts nécessaire pour atteindre le budget cible.",radar_fr:"Efficacité requise → IPTN",
- question_de:"Fertigstellungsleistungsindex (TCPI)",answer_de:"TCPI = (BAC − EV) ÷ (BAC − AC)",explanation_de:"Zeigt die benötigte Kosteneffizienz, um das Zielbudget zu erreichen.",radar_de:"Benötigte Effizienz → TCPI",
- question_ru:"Индекс выполнения до завершения (TCPI)",answer_ru:"TCPI = (BAC − EV) ÷ (BAC − AC)",explanation_ru:"Показывает эффективность затрат, необходимую для достижения целевого бюджета.",radar_ru:"Требуемая эффективность — TCPI"},
-{id:702,type_it:"Giudizio Persone",type_en:"People Judgment",type_fr:"Jugement Humain",type_de:"Menschenkenntnis",type_ru:"Оценка Людей",difficulty:3,topic_area:"Stakeholder",
- question_en:"If a team member resists change what should the PM do first?",answer_en:"Understand concerns",explanation_en:"Resistance is usually emotional or contextual not technical",radar_en:"Listen before acting",
- question_it:"Se un membro del team resiste al cambiamento, cosa deve fare prima il PM?",answer_it:"Comprendere le preoccupazioni",explanation_it:"La resistenza è solitamente emotiva o contestuale.",radar_it:"Ascolta prima di agire",
- question_fr:"Si un membre de l'équipe résiste au changement, que doit faire EN PREMIER le CP ?",answer_fr:"Comprendre les préoccupations",explanation_fr:"La résistance au changement est rarement une question d'obstruction délibérée. Elle exprime le plus souvent une crainte, une incompréhension ou un manque d'information. Comprendre ces préoccupations avant d'agir est systématiquement plus efficace que de forcer l'adhésion.",radar_fr:"Écouter avant d'agir",
- question_de:"Wenn ein Teammitglied Änderungen ablehnt, was sollte der PM zuerst tun?",answer_de:"Bedenken verstehen.",explanation_de:"Widerstand ist meist emotional oder kontextbezogen, nicht technisch.",radar_de:"Erst zuhören, dann handeln",
- question_ru:"Если член команды сопротивляется изменению, что должен сделать РП В ПЕРВУЮ ОЧЕРЕДЬ?",answer_ru:"Понять опасения.",explanation_ru:"Сопротивление обычно эмоциональное или контекстуальное, а не техническое.",radar_ru:"Слушай прежде чем действовать"},
-{id:964,type_it:"Trappola d'Esame",type_en:"Exam Trap",type_fr:"Piège d'Examen",type_de:"Prüfungsfalle",type_ru:"Ловушка на Экзамене",difficulty:4,topic_area:"Scope",
- question_en:"When scope creep appears and the question mentions customer happiness what is the trap?",answer_en:"Confusing satisfaction with uncontrolled scope",explanation_en:"Value requires discipline not yes to everything",radar_en:"Protect scope integrity",
- question_it:"Quando appare scope creep (alterazione dell'ambito) e la domanda menziona la soddisfazione del cliente, qual è la trappola?",answer_it:"Confondere la soddisfazione con lo scope (ambito) incontrollato",explanation_it:"Il valore richiede disciplina, non sì.",radar_it:"Proteggi l'integrità dello scope (ambito)",
- question_fr:"Quand la dérive du périmètre apparaît et que la satisfaction client est mentionnée, quel est le piège ?",answer_fr:"Confondre satisfaction et périmètre non contrôlé",explanation_fr:"Satisfaire une demande informelle de travail supplémentaire, même avec les meilleures intentions, crée de la dérive de périmètre. Chaque extension non approuvée consomme des ressources sans être comptabilisée et fragilise la référence de base.",radar_fr:"Protéger l'intégrité du périmètre",
- question_de:"Wenn Scope Creep erscheint und die Frage Kundenzufriedenheit erwähnt, was ist die Falle?",answer_de:"Zufriedenheit mit unkontrolliertem Umfang verwechseln.",explanation_de:"Wert erfordert Disziplin, nicht Ja zu allem.",radar_de:"Umfangsintegrität schützen",
- question_ru:"Когда появляется расширение содержания и вопрос упоминает удовлетворённость клиента — в чём ловушка?",answer_ru:"Путаница удовлетворённости с неконтролируемым содержанием.",explanation_ru:"Ценность требует дисциплины, а не «да» на всё.",radar_ru:"Защищай целостность содержания"},
-{id:60,type_it:"Riflesso Ultimo Min.",type_en:"Last-Minute Reflex",type_fr:"Réflexe Dernière Minute",type_de:"Letzter-Moment-Reflex",type_ru:"Рефлекс Последней Минуты",difficulty:3,topic_area:"Integration",
- question_en:"A project uses a hybrid approach. Midway through the project, requirements begin to change frequently. What should the project manager do FIRST?",answer_en:"Tailor the hybrid approach to support iterative refinement of requirements.",explanation_en:"ECO emphasize tailoring and adaptability. Hybrid projects are designed to absorb change without forcing predictive controls.",radar_en:"Adapt the approach, not the fight.",
- question_it:"Un progetto ibrido usa un approccio ibrido. I requisiti iniziano a cambiare frequentemente. Cosa deve fare il PM?",answer_it:"Adattare l'approccio ibrido per supportare il perfezionamento iterativo dei requisiti.",explanation_it:"ECO enfatizza tailoring (personalizzazione) e adattabilità.",radar_it:"Adatta l'approccio",
- question_fr:"Un projet utilise une approche hybride. À mi-parcours, les exigences commencent à changer fréquemment. Que doit faire EN PREMIER le CP ?",answer_fr:"Adapter l'approche hybride pour soutenir l'affinement itératif des exigences.",explanation_fr:"Un projet hybride est conçu pour absorber les changements fréquents sans imposer des contrôles prédictifs inadaptés. Adapter l'approche hybride en cours de route, c'est précisément ce pourquoi elle existe.",radar_fr:"Adapter l'approche, pas la combattre",
- question_de:"Ein Projekt verwendet einen hybriden Ansatz. Auf halbem Weg beginnen Anforderungen sich häufig zu ändern. Was sollte der Projektleiter ZUERST tun?",answer_de:"Den hybriden Ansatz anpassen, um die iterative Verfeinerung von Anforderungen zu unterstützen.",explanation_de:"Hybridprojekte sind darauf ausgelegt, Änderungen aufzunehmen. Wenn Anforderungen häufig wechseln, sollte der Ansatz iterativer ausgerichtet werden, anstatt prädiktive Steuerung zu erzwingen.",radar_de:"Den Ansatz anpassen, nicht bekämpfen",
- question_ru:"В гибридном проекте требования начинают часто меняться. Что должен сделать РП В ПЕРВУЮ ОЧЕРЕДЬ?",answer_ru:"Адаптировать гибридный подход для поддержки итеративного уточнения требований.",explanation_ru:"Гибридные проекты изначально рассчитаны на то, чтобы поглощать изменения в требованиях.",radar_ru:"Адаптируй подход"},
-{id:129,type_it:"Logica Decisionale",type_en:"Decision Logic",type_fr:"Logique de Décision",type_de:"Entscheidungslogik",type_ru:"Логика Решений",difficulty:3,topic_area:"Cost",
- question_en:"A project has CPI < 1 but SPI > 1. What does this mean?",answer_en:"The project is over budget but ahead of schedule.",explanation_en:"Many candidates confuse indicators.\\n👉 CPI = money, SPI = time.",radar_en:"CPI = cost, SPI = schedule.",
- question_it:"Un progetto ha CPI < 1 ma SPI > 1. Cosa significa?",answer_it:"Il progetto è sopra budget ma in anticipo sullo schedule (schedulazione).",explanation_it:"CPI < 1 = sopra budget; SPI > 1 = in anticipo sui tempi. Due indicatori indipendenti: CPI = costi, SPI = schedule (schedulazione).",radar_it:"CPI = costi, SPI = schedule (schedulazione)",
- question_fr:"Un projet a IPC < 1 mais IPD > 1. Qu'est-ce que cela signifie ?",answer_fr:"Le projet est au-dessus du budget mais en avance sur l'échéancier.",explanation_fr:"Un IPC inférieur à 1 indique un dépassement de coûts : pour chaque euro planifié, on en dépense plus qu'un. Un IPD supérieur à 1 indique une avance sur l'échéancier : plus de travail accompli que prévu à cette date.",radar_fr:"IPC = coût, IPD = échéancier",
- question_de:"Ein Projekt hat CPI < 1 aber SPI > 1. Was bedeutet das?",answer_de:"Das Projekt ist über Budget, aber dem Terminplan voraus.",explanation_de:"Viele Kandidaten verwechseln Indikatoren. CPI = Geld, SPI = Zeit.",radar_de:"CPI = Kosten, SPI = Terminplan",
- question_ru:"У проекта CPI < 1, но SPI > 1. Что это означает?",answer_ru:"Проект превышает бюджет, но опережает расписание.",explanation_ru:"Распространённая путаница: CPI касается денег, SPI — времени. Если проект опережает график, но перерасходует бюджет — это нормальная ситуация.",radar_ru:"CPI = стоимость, SPI = расписание"},
-{id:625,type_it:"Trappola d'Esame",type_en:"Exam Trap",type_fr:"Piège d'Examen",type_de:"Prüfungsfalle",type_ru:"Ловушка на Экзамене",difficulty:1,topic_area:"Cost",
- question_en:"Planned Value (PV) represents what comparison point in project performance?",answer_en:"The authorized budget for work that should have been completed by now",explanation_en:"Planned Value (PV) is your expectation baseline. It shows where the project planned to be at this moment in time, not where it actually is.\\nPV is the reference point used to judge schedule performance, not effort or optimism. If the plan said 40% should be done by today, PV represents the budget tied to that 40%, even if reality disagrees.",radar_en:"PV is the plan talking, not reality.",
- question_it:"Il Planned Value (PV) rappresenta quale punto di confronto nelle performance del progetto?",answer_it:"Il budget autorizzato per il lavoro che avrebbe dovuto essere completato entro ora",explanation_it:"PV (Valore Pianificato / Planned Value) = budget autorizzato per il lavoro pianificato fino a una data specifica.",radar_it:"Il PV è il piano che parla, non la realtà.",
- question_fr:"La valeur planifiée (VP) représente quel point de comparaison dans la performance du projet ?",answer_fr:"Le budget autorisé pour le travail qui aurait dû être achevé à ce jour",explanation_fr:"La VP est votre référence d'attente. Elle montre où le projet était censé être à ce moment.",radar_fr:"VP = le plan attendu, pas la réalité",
- question_de:"Was repräsentiert Planned Value (PV) als Vergleichspunkt in der Projektleistung?",answer_de:"Das genehmigte Budget für Arbeit, die bis jetzt abgeschlossen sein sollte.",explanation_de:"Der Planned Value (PV) ist das genehmigte Budget für die Arbeit, die zu diesem Zeitpunkt hätte abgeschlossen sein sollen. Er bildet den Vergleichsmaßstab für die tatsächliche Leistung.",radar_de:"PV ist der geplante Sollstand, nicht die Realität",
- question_ru:"Плановый объём (PV) представляет какую точку сравнения?",answer_ru:"Авторизованный бюджет для работы, которая должна была быть завершена к данному моменту.",explanation_ru:"PV — это базовая линия ожиданий. Показывает, где проект должен был находиться по плану прямо сейчас.",radar_ru:"PV — говорит план не реальность."}
-];
+ question_en:"Define: Schedule Performance Index (SPI)",answer_en:"SPI = EV divided by PV",explanation_en:"EV (Earned Value) is the budgeted value of work actually completed. PV (Planned Value) is the budgeted value of work that should have been done by now. Both come from your cost baseline. SPI above 1 means ahead of schedule; below 1 means behind.",radar_en:"SPI = time efficiency.",
+ question_it:"Definizione: Indice di Performance dello Schedule (SPI)",answer_it:"SPI = EV diviso PV",explanation_it:"EV (Earned Value) è il valore a budget del lavoro completato. PV (Planned Value) è il valore a budget del lavoro che avrebbe dovuto essere fatto. SPI sopra 1 anticipo; sotto 1 ritardo.",radar_it:"SPI = efficienza schedule.",
+ question_fr:"Définir: Indice de performance des délais (SPI)",answer_fr:"SPI = VA divisé par VP",explanation_fr:"VA (Valeur Acquise) est le budget du travail réellement accompli. VP (Valeur Planifiée) est le budget du travail qui aurait dû être fait. SPI supérieur à 1 signifie en avance; inférieur à 1 signifie en retard.",radar_fr:"SPI = efficacité planning.",
+ question_de:"Definition: Terminleistungsindex (SPI)",answer_de:"SPI = EV geteilt durch PV",explanation_de:"EV (Earned Value) ist der Budgetwert der tatsächlich abgeschlossenen Arbeit. PV (Planned Value) ist der Budgetwert der bis jetzt geplanten Arbeit. SPI über 1 bedeutet voraus; unter 1 bedeutet im Rückstand.",radar_de:"SPI = Terminplaneffizienz.",
+ question_ru:"Определение: Индекс выполнения сроков (SPI)",answer_ru:"SPI = ОО делить на ПО",explanation_ru:"ОО (Освоенный Объём) это бюджетная стоимость фактически выполненных работ. ПО (Плановый Объём) это бюджетная стоимость работ которые должны были быть выполнены. SPI выше 1 означает опережение; ниже 1 означает отставание.",radar_ru:"SPI = эффективность по срокам."},
+{id:212,type_it:"Formula / Meccanica",type_en:"Formula",type_fr:"Formule",type_de:"Formel",type_ru:"Формула",difficulty:2,topic_area:"Risk",
+ question_en:"Define: Expected Monetary Value (EMV)",answer_en:"EMV = Probability times Impact",explanation_en:"EMV quantifies the monetary value of a risk. Used in decision tree analysis and risk register prioritization.",radar_en:"Risk value = probability times impact.",
+ question_it:"Definizione: Valore Monetario Atteso (EMV)",answer_it:"EMV = Probabilità per Impatto",explanation_it:"L'EMV quantifica il valore monetario di un rischio. Usato nell'analisi ad albero decisionale e nella prioritizzazione del registro rischi.",radar_it:"Valore del rischio = probabilità per impatto.",
+ question_fr:"Définir: Valeur monétaire attendue (VMA)",answer_fr:"VMA = Probabilité fois Impact",explanation_fr:"La VMA quantifie la valeur monétaire d'un risque. Utilisée dans l'analyse par arbre de décision et la priorisation du registre des risques.",radar_fr:"Valeur du risque = probabilité fois impact.",
+ question_de:"Definition: Erwarteter Geldwert (EMV)",answer_de:"EMV = Wahrscheinlichkeit mal Auswirkung",explanation_de:"Der EMV quantifiziert den monetären Wert eines Risikos. Wird in der Entscheidungsbaumanalyse und der Risikobewertung verwendet.",radar_de:"Risikowert = Wahrscheinlichkeit mal Auswirkung.",
+ question_ru:"Определение: Ожидаемая денежная стоимость (ОДС)",answer_ru:"ОДС = Вероятность умножить на Воздействие",explanation_ru:"ОДС количественно оценивает денежную стоимость риска. Используется в анализе дерева решений и приоритизации реестра рисков.",radar_ru:"Стоимость риска = вероятность умножить на воздействие."},
+{id:707,type_it:"Riflesso Ultimo Min.",type_en:"Last-Minute Reflex",type_fr:"Réflexe Dernière Minute",type_de:"Letzter-Moment-Reflex",type_ru:"Рефлекс Последней Минуты",difficulty:1,topic_area:"Ethics",
+ question_en:"If a question sounds like hero behavior, is it usually correct?",answer_en:"No.",explanation_en:"The exam favors process, communication and empowerment over heroic solo action. If the answer sounds dramatic, it is usually wrong.",radar_en:"If it sounds brave, it is probably wrong on the exam.",
+ question_it:"Se una risposta sembra eroica, è di solito corretta?",answer_it:"No.",explanation_it:"L'esame privilegia processo, comunicazione e responsabilizzazione rispetto all'azione eroica solitaria. Se sembra drammatico è probabilmente sbagliato.",radar_it:"Se sembra coraggioso è probabilmente sbagliato all'esame.",
+ question_fr:"Si une réponse ressemble à un comportement héroïque, est-elle généralement correcte?",answer_fr:"Non.",explanation_fr:"L'examen favorise le processus, la communication et la responsabilisation plutôt que l'action héroïque solitaire. Si cela semble dramatique c'est généralement faux.",radar_fr:"Si cela semble courageux c'est probablement faux à l'examen.",
+ question_de:"Wenn eine Antwort nach Heldenverhalten klingt, ist sie normalerweise richtig?",answer_de:"Nein.",explanation_de:"Die Prüfung bevorzugt Prozess, Kommunikation und Befähigung gegenüber heroischen Einzelaktionen. Wenn es dramatisch klingt ist es wahrscheinlich falsch.",radar_de:"Klingt es mutig ist es wahrscheinlich falsch.",
+ question_ru:"Если ответ звучит как героическое поведение, он обычно правильный?",answer_ru:"Нет.",explanation_ru:"Экзамен предпочитает процесс, коммуникацию и расширение полномочий героическим действиям. Если звучит драматично то вероятно неправильно.",radar_ru:"Звучит смело, вероятно неправильно на экзамене."},
+{id:753,type_it:"Logica Decisionale",type_en:"Decision Logic",type_fr:"Logique de Décision",type_de:"Entscheidungslogik",type_ru:"Логика Решений",difficulty:3,topic_area:"Quality",
+ question_en:"Why is over-quality a problem?",answer_en:"It wastes time and cost without adding value.",explanation_en:"Gold-plating, adding features beyond requirements, is always wrong on the exam. Quality means meeting requirements, not exceeding them unnecessarily.",radar_en:"Enough is enough.",
+ question_it:"Perché la qualità eccessiva è un problema?",answer_it:"Spreca tempo e costi senza aggiungere valore.",explanation_it:"Il gold-plating, aggiungere funzionalità oltre i requisiti, è sempre sbagliato. Qualità significa soddisfare i requisiti, non superarli inutilmente.",radar_it:"Abbastanza è abbastanza.",
+ question_fr:"Pourquoi la sur-qualité est-elle un problème?",answer_fr:"Elle gaspille du temps et des coûts sans ajouter de valeur.",explanation_fr:"Le gold-plating, ajouter des fonctionnalités au-delà des exigences, est toujours incorrect. La qualité signifie respecter les exigences.",radar_fr:"Assez c'est assez.",
+ question_de:"Warum ist Überqualität ein Problem?",answer_de:"Sie verschwendet Zeit und Kosten ohne Mehrwert.",explanation_de:"Gold-Plating, das Hinzufügen von Funktionen über die Anforderungen hinaus, ist immer falsch. Qualität bedeutet Anforderungen zu erfüllen, nicht sie unnötig zu übertreffen.",radar_de:"Genug ist genug.",
+ question_ru:"Почему избыточное качество является проблемой?",answer_ru:"Это тратит время и деньги без добавления ценности.",explanation_ru:"Позолота, добавление функций сверх требований, всегда неправильна. Качество означает соответствие требованиям, а не их ненужное превышение.",radar_ru:"Достаточно, это достаточно."},
+{id:783,type_it:"Concetto Base",type_en:"Core Concept",type_fr:"Concept Fondamental",type_de:"Kernkonzept",type_ru:"Основная Концепция",difficulty:3,topic_area:"Risk",
+ question_en:"Why are opportunities treated like risks?",answer_en:"Because they affect project objectives positively and must be actively managed.",explanation_en:"The exam defines risk as any uncertain event that affects objectives, positive or negative. Ignoring opportunities is as bad as ignoring threats.",radar_en:"Manage upside too.",
+ question_it:"Perché le opportunità vengono trattate come rischi?",answer_it:"Perché influenzano positivamente gli obiettivi del progetto e devono essere gestite attivamente.",explanation_it:"L'esame definisce il rischio come qualsiasi evento incerto che influenza gli obiettivi, positivo o negativo. Ignorare le opportunità è grave quanto ignorare le minacce.",radar_it:"Gestisci anche il lato positivo.",
+ question_fr:"Pourquoi les opportunités sont-elles traitées comme des risques?",answer_fr:"Parce qu'elles affectent positivement les objectifs du projet et doivent être gérées activement.",explanation_fr:"L'examen définit le risque comme tout événement incertain affectant les objectifs, positif ou négatif. Ignorer les opportunités est aussi grave qu'ignorer les menaces.",radar_fr:"Gérer aussi les opportunités.",
+ question_de:"Warum werden Chancen wie Risiken behandelt?",answer_de:"Weil sie Projektziele positiv beeinflussen und aktiv gesteuert werden müssen.",explanation_de:"Die Prüfung definiert Risiko als jedes unsichere Ereignis das Ziele beeinflusst, positiv oder negativ. Chancen zu ignorieren ist genauso schlimm wie Bedrohungen.",radar_de:"Auch die Chancen managen.",
+ question_ru:"Почему возможности рассматриваются как риски?",answer_ru:"Потому что они положительно влияют на цели проекта и должны активно управляться.",explanation_ru:"Экзамен определяет риск как любое неопределённое событие влияющее на цели, положительное или отрицательное. Игнорировать возможности так же плохо как угрозы.",radar_ru:"Управляй и позитивной стороной."},
+{id:784,type_it:"Trappola d'Esame",type_en:"Exam Trap",type_fr:"Piège d'Examen",type_de:"Prüfungsfalle",type_ru:"Ловушка на Экзамене",difficulty:3,topic_area:"Quality",
+ question_en:"Why is prevention preferred over inspection?",answer_en:"Because fixing defects later costs significantly more.",explanation_en:"The cost of quality principle: prevention is always cheaper than correction. Inspection finds defects; prevention stops them from occurring.",radar_en:"Build quality early.",
+ question_it:"Perché la prevenzione è preferita all'ispezione?",answer_it:"Perché correggere i difetti in seguito costa molto di più.",explanation_it:"Il principio del costo della qualità: la prevenzione è sempre più economica della correzione. L'ispezione trova i difetti; la prevenzione li impedisce.",radar_it:"Costruisci qualità sin dall'inizio.",
+ question_fr:"Pourquoi la prévention est-elle préférée à l'inspection?",answer_fr:"Parce que corriger les défauts plus tard coûte beaucoup plus cher.",explanation_fr:"Le principe du coût de la qualité: la prévention est toujours moins chère que la correction. L'inspection trouve les défauts; la prévention les empêche.",radar_fr:"Construire la qualité dès le début.",
+ question_de:"Warum wird Prävention gegenüber Inspektion bevorzugt?",answer_de:"Weil die spätere Behebung von Mängeln deutlich mehr kostet.",explanation_de:"Das Qualitätskostenprinzip: Prävention ist immer billiger als Korrektur. Inspektion findet Fehler; Prävention verhindert sie.",radar_de:"Qualität früh aufbauen.",
+ question_ru:"Почему профилактика предпочтительнее инспекции?",answer_ru:"Потому что исправление дефектов позже стоит значительно дороже.",explanation_ru:"Принцип стоимости качества: профилактика всегда дешевле коррекции. Инспекция находит дефекты; профилактика их предотвращает.",radar_ru:"Закладывай качество с самого начала."},
+{id:456,type_it:"Logica Decisionale",type_en:"Decision Logic",type_fr:"Logique de Décision",type_de:"Entscheidungslogik",type_ru:"Логика Решений",difficulty:3,topic_area:"Cost",
+ question_en:"Why does the exam discourage reacting to a single bad metric?",answer_en:"One data point lacks context. Trends and patterns are needed for informed decisions.",explanation_en:"Overreacting to a single data point is a classic trap. The exam expects you to analyze trends before taking corrective action.",radar_en:"Trends beat panic.",
+ question_it:"Perché l'esame scoraggia la reazione a una singola metrica negativa?",answer_it:"Un solo dato manca di contesto. Servono trend e pattern per decisioni informate.",explanation_it:"Reagire eccessivamente a un singolo dato è una trappola classica. L'esame si aspetta che tu analizzi i trend prima di intraprendere azioni correttive.",radar_it:"I trend battono il panico.",
+ question_fr:"Pourquoi l'examen décourage-t-il de réagir à une seule mauvaise métrique?",answer_fr:"Un seul point de données manque de contexte. Des tendances et des modèles sont nécessaires.",explanation_fr:"Réagir excessivement à un seul point de données est un piège classique. L'examen vous demande d'analyser les tendances avant d'agir.",radar_fr:"Les tendances battent la panique.",
+ question_de:"Warum rät die Prüfung davon ab auf eine einzelne schlechte Kennzahl zu reagieren?",answer_de:"Ein einzelner Datenpunkt fehlt Kontext. Trends werden für fundierte Entscheidungen benötigt.",explanation_de:"Überreagieren auf einen einzelnen Datenpunkt ist eine klassische Falle. Die Prüfung erwartet Trendanalyse vor Korrekturmaßnahmen.",radar_de:"Trends schlagen Panik.",
+ question_ru:"Почему экзамен не рекомендует реагировать на одну плохую метрику?",answer_ru:"Одна точка данных лишена контекста. Для принятия решений нужны тренды.",explanation_ru:"Чрезмерная реакция на одну точку данных это классическая ловушка. Экзамен требует анализа трендов перед корректирующими действиями.",radar_ru:"Тренды важнее паники."},
+{id:512,type_it:"Logica Decisionale",type_en:"Decision Logic",type_fr:"Logique de Décision",type_de:"Entscheidungslogik",type_ru:"Логика Решений",difficulty:3,topic_area:"Communications",
+ question_en:"Why does the exam value transparency during bad news?",answer_en:"Surprises damage credibility. Early honesty preserves stakeholder trust.",explanation_en:"Credibility is built on consistency and honesty. Stakeholders who receive bad news early can act. Those surprised at the end cannot.",radar_en:"Bad news ages badly.",
+ question_it:"Perché l'esame valorizza la trasparenza durante le cattive notizie?",answer_it:"Le sorprese danneggiano la credibilità. L'onestà precoce preserva la fiducia degli stakeholder.",explanation_it:"La credibilità si costruisce su coerenza e onestà. Gli stakeholder che ricevono cattive notizie in anticipo possono agire.",radar_it:"Le cattive notizie invecchiano male.",
+ question_fr:"Pourquoi l'examen valorise-t-il la transparence lors des mauvaises nouvelles?",answer_fr:"Les surprises nuisent à la crédibilité. L'honnêteté précoce préserve la confiance.",explanation_fr:"La crédibilité repose sur la cohérence et l'honnêteté. Les parties prenantes qui reçoivent de mauvaises nouvelles tôt peuvent agir.",radar_fr:"Les mauvaises nouvelles vieillissent mal.",
+ question_de:"Warum schätzt die Prüfung Transparenz bei schlechten Nachrichten?",answer_de:"Überraschungen schaden der Glaubwürdigkeit. Frühe Ehrlichkeit bewahrt das Vertrauen der Stakeholder.",explanation_de:"Glaubwürdigkeit basiert auf Konsistenz und Ehrlichkeit. Stakeholder die früh schlechte Nachrichten erhalten können handeln.",radar_de:"Schlechte Nachrichten altern schlecht.",
+ question_ru:"Почему экзамен ценит прозрачность при плохих новостях?",answer_ru:"Сюрпризы подрывают доверие. Ранняя честность сохраняет доверие стейкхолдеров.",explanation_ru:"Авторитет строится на последовательности и честности. Стейкхолдеры получающие плохие новости заранее могут действовать.",radar_ru:"Плохие новости не улучшаются со временем."}
+]
 
 const TYPE_STYLE = {
   "Core Concept":{border:"#3b82f6",bg:"#eff6ff",color:"#2563eb",bborder:"#bfdbfe"},
@@ -847,8 +871,8 @@ const T = {
   en: {
     badge:"PMP Exam Prep · 800 Interactive Flashcards",
     title:"Study Smart.<br><em>Master the PMP.</em>",
-    sub:"800 bilingual flashcards (IT/EN) with 3D flip, filters, formulas recap and progress tracking. All in one offline file for Mac and Windows. No app, no subscription.",
-    "cta-buy":"✦ Get the Deck · $35","cta-try":"Try 15 free cards ↓",
+    sub:"800 PMP flashcards with 3D flip, filters, formulas recap and progress tracking. Available in 5 languages: English, Italian, French, German and Russian. Mac, Windows, iPhone and Android. No app, no subscription.",
+    "cta-buy":"✦ Get the Deck · $35","cta-try":"Try 10 free cards ↓",
     stat1:"Flashcards",stat2:"Languages",stat3:"Card Types",stat4:"Offline · No App","diff-label":"Difficulty",
     "sp-count":"7 verified reviews",
     "sp-q1":"Stop looking. This is the one.","sp-e1":"The Exam Trap and Decision Logic cards train you to think like the exam, not just recall facts. Works 100% offline from a single file. Perfect between client meetings.","sp-r1":"Business Consultant · PMP Candidate",
@@ -856,29 +880,28 @@ const T = {
     "sp-q3":"Great concept!","sp-e3":"800 flashcards, 5 languages, 6 card types \u2014 everything you need in one offline file.","sp-r3":"Verified Buyer",
     "sp-read":"Read full review \u2193","feat-title":"Everything you need.<br>Nothing you don't.",
     f1t:"3D Flip Cards",f1d:"Question on the front, answer + explanation + PM Instinct on the back. Tap or press Space.",
-    f2t:"Bilingual",f2d:"Switch languages with one click. All 800 cards fully translated, PMBOK 7th edition terminology.",
-    f3t:"Smart Filters",f3d:"Filter by type, difficulty (1–5 stars), sequential or random. Hide cards you've already mastered.",
+    f2t:"Bilingual",f2d:"Switch languages with one click. All 800 cards fully translated.",f3t:"Smart Filters",f3d:"Filter by type, difficulty (1–5 stars), sequential or random. Hide cards you've already mastered.",
     f4t:"Formulas Recap",f4d:"Full EVM formula sheet always visible above the cards. PV, EV, AC, CPI, SPI, EAC and more.",
     f5t:"Progress Tracking",f5d:"Mark cards as learned. Your progress saves automatically in the browser — even offline.",
-    f6t:"One File. Forever.",f6d:"A single HTML file. Open it in any browser on Mac or Windows — no internet needed.",
-    "demo-label":"FREE PREVIEW","demo-title":"Try 15 cards right now.",
+    f6t:"One File. Forever.",f6d:"A single HTML file. Mac, Windows, Android (Chrome), iPhone (Safari) — no internet needed, no app.",
+    "demo-label":"FREE PREVIEW","demo-title":"Try 10 cards right now.",
     "tap-flip":"tap to flip →","answer-lbl":"Answer","flip-btn":"↕ Flip",
     "unlock-title":"Want all 800 cards?",
     "unlock-desc":"Get the full deck with all types, difficulty levels, bilingual toggle and formula recap.",
     "unlock-btn":"✦ Get Full Deck · $35",
     "types-label":"6 CARD TYPES","types-title":"Designed to train<br>every kind of question.",
-    tp1:"Core Concept",tc1:"304 cards — foundational PMP logic",
-    tp2:"Decision Logic",tc2:"156 cards — situational judgment",
-    tp3:"Exam Trap",tc3:"118 cards — avoid the wrong answers",
-    tp4:"Formula / Mechanics",tc4:"60 cards — EVM, PERT, TCPI and more",
-    tp5:"People Judgment",tc5:"86 cards — leadership & team dynamics",
-    tp6:"Last-Minute Reflex",tc6:"76 cards — high-impact exam-day patterns",
+    tp1:"Core Concept",tc1:"304 cards, foundational PMP logic",
+    tp2:"Decision Logic",tc2:"156 cards, situational judgment",
+    tp3:"Exam Trap",tc3:"118 cards, avoid the wrong answers",
+    tp4:"Formula / Mechanics",tc4:"60 cards, EVM, PERT, TCPI and more",
+    tp5:"People Judgment",tc5:"86 cards, leadership and team dynamics",
+    tp6:"Last-Minute Reflex",tc6:"76 cards, high-impact exam-day patterns",
     "price-label":"PRICING","price-title":"One price. Yours forever.",
     "price-sub":"Choose your language combination. All decks include 800 cards, 3D flip, filters, formula recap and progress tracking.",
     "pc-tag":"✦ ONE-TIME PAYMENT",
     "pc-name-en":"English","pc-name-it":"Italiano / English","pc-name-de":"Deutsch / English","pc-name-fr":"Français / English","pc-name-ru":"Русский / English",
     "pc-desc":"One-time · Instant download · No subscription",
-    "pc-feat":["800 interactive flashcards","3D flip, slide animation, keyboard shortcuts","Filters: type, difficulty, random/sequential","Full EVM formula recap sheet","Progress saved in browser, 100% offline","PMBOK 7th edition terminology aligned","Single HTML file — works on Mac & Windows"],
+    "pc-feat":["800 interactive flashcards","3D flip, slide animation, keyboard shortcuts","Filters: type, difficulty, random/sequential","Full EVM formula recap sheet","Progress saved in browser, 100% offline","Mac, Windows, Android (Chrome) · iPhone (Safari)","Single HTML file, no app, no login, yours forever"],
     "pc-btn-it":"✦ Buy Now · $35","pc-btn-de":"✦ Buy Now · $35","pc-btn-fr":"✦ Buy Now · $35","pc-btn-ru":"✦ Buy Now · $35",
     "pc-note":"✉ Instant delivery · Digital product · No refunds on digital goods",
     "badge-new":"NEW",
@@ -888,11 +911,11 @@ const T = {
     "also-note":"Want everything? Get the interactive HTML deck ($35) + your PDF of choice.",
     "faq-label":"FAQ","faq-title":"Common questions.",
     faq:[
-      {q:"What do I receive after purchase?",a:"A single HTML file (~560KB). Download it and open it in any browser on Mac or Windows — no internet required after download."},
+      {q:"What do I receive after purchase?",a:"A single HTML file (~560KB) plus a link to open the cards directly on iPhone (Safari) and Android (Chrome)."},
       {q:"Is it bilingual?",a:"Yes. Every card has versions in both languages. You switch with one click — the toggle is always visible at the top."},
       {q:"Which PMP exam version does this cover?",a:"The 2021 ECO and the new 2026 ECO. Covers People, Process and Business Environment domains."},
       {q:"Will my progress save if I close the browser?",a:"Yes. Progress is saved in localStorage, so your learned cards persist between sessions on the same device and browser."},
-      {q:"Can I use it on my phone or tablet?",a:"Works on Mac and Windows only. iPhone and mobile devices are not supported."},
+      {q:"Can I use it on my phone or tablet?",a:"On Mac and Windows, download the file and open it in any browser. On iPhone and iPad, use the link you receive after purchase to open it directly in Safari. On Android, use the link to open it directly in Chrome."},
     ],
     "footer-buy":"Buy the deck","footer-note":"Digital product. All rights reserved.",
     "rev-label":"REVIEWS","rev-title":"What our students say.","rev-subtitle":"Verified buyers · Payhip",
@@ -911,8 +934,8 @@ const T = {
   it: {
     badge:"Preparazione Esame PMP · 800 Flashcard Interattive",
     title:"Studia meglio.<br><em>Domina il PMP.</em>",
-    sub:"800 flashcard bilingue (IT/EN) con flip 3D, filtri, recap formule e tracciamento progressi. Tutto in un file offline per Mac e Windows. Nessuna app, nessun abbonamento.",
-    "cta-buy":"✦ Acquista il Deck · $35","cta-try":"Prova 15 carte gratis ↓",
+    sub:"800 flashcard PMP con flip 3D, filtri, recap formule e tracciamento progressi. Disponibili in 5 lingue: Inglese, Italiano, Francese, Tedesco e Russo. Mac, Windows, iPhone e Android. Nessuna app, nessun abbonamento.",
+    "cta-buy":"✦ Acquista il Deck · $35","cta-try":"Prova 10 carte gratis ↓",
     stat1:"Flashcard",stat2:"Lingue",stat3:"Tipi di Carta",stat4:"Offline · No App","diff-label":"Difficoltà",
     "sp-count":"7 recensioni verificate",
     "sp-q1":"Smettila di cercare. \u00c8 questo.","sp-e1":"Le carte Exam Trap e Decision Logic ti allenano a ragionare come l'esame. Funziona 100% offline da un singolo file. Perfetto tra un incontro con un cliente e l'altro.","sp-r1":"Consulente Aziendale · Candidato PMP",
@@ -920,12 +943,11 @@ const T = {
     "sp-q3":"Ottimo concetto!","sp-e3":"800 flashcard, 5 lingue, 6 tipi di carte \u2014 tutto quello che ti serve in un unico file offline.","sp-r3":"Acquisto verificato",
     "sp-read":"Leggi la recensione completa \u2193","feat-title":"Tutto quello che serve.<br>Nient'altro.",
     f1t:"Flip 3D",f1d:"Domanda sul fronte, risposta + spiegazione + PM Radar sul retro. Tocca o premi Spazio.",
-    f2t:"Bilingue",f2d:"Cambia lingua con un click. 800 carte tradotte, terminologia PMBOK 7a edizione.",
-    f3t:"Filtri Smart",f3d:"Filtra per tipo, difficoltà (1–5 stelle), sequenziale o random. Nascondi le carte già imparate.",
+    f2t:"Bilingue",f2d:"Cambia lingua con un clic. Tutte le 800 carte tradotte.",f3t:"Filtri Smart",f3d:"Filtra per tipo, difficoltà (1–5 stelle), sequenziale o random. Nascondi le carte già imparate.",
     f4t:"Recap Formule",f4d:"Tabella EVM sempre visibile sopra le carte. PV, EV, AC, CPI, SPI, EAC e altro.",
     f5t:"Traccia i Progressi",f5d:"Segna le carte come imparate. I progressi si salvano automaticamente nel browser — anche offline.",
     f6t:"Un File. Per Sempre.",f6d:"Un singolo file HTML. Aprilo nel browser su Mac o Windows — senza internet.",
-    "demo-label":"ANTEPRIMA GRATUITA","demo-title":"Prova 15 carte adesso.",
+    "demo-label":"ANTEPRIMA GRATUITA","demo-title":"Prova 10 carte adesso.",
     "tap-flip":"tocca per girare →","answer-lbl":"Risposta","flip-btn":"↕ Gira",
     "unlock-title":"Vuoi tutte le 800 carte?",
     "unlock-desc":"Ottieni il deck completo con tutti i tipi, livelli di difficoltà, toggle bilingue e recap formule.",
@@ -942,7 +964,7 @@ const T = {
     "pc-tag":"✦ PAGAMENTO UNICO",
     "pc-name-en":"English","pc-name-it":"Italiano / Inglese","pc-name-de":"Tedesco / Inglese","pc-name-fr":"Francese / Inglese","pc-name-ru":"Russo / Inglese",
     "pc-desc":"Una tantum · Download immediato · Nessun abbonamento",
-    "pc-feat":["800 flashcard interattive","Flip 3D, animazione slide, scorciatoie tastiera","Filtri: tipo, difficoltà, random/sequenziale","Recap formule EVM completo","Progressi salvati nel browser, 100% offline","Terminologia allineata PMBOK 7a edizione","File HTML singolo — funziona su Mac e Windows"],
+    "pc-feat":["800 flashcard interattive","Flip 3D, animazione slide, scorciatoie tastiera","Filtri: tipo, difficoltà, random/sequenziale","Recap formule EVM completo","Progressi salvati nel browser, 100% offline","Mac, Windows, Android (Chrome) · iPhone (Safari)"],
     "pc-btn-it":"✦ Acquista Ora · $35","pc-btn-de":"✦ Acquista Ora · $35","pc-btn-fr":"✦ Acquista Ora · $35","pc-btn-ru":"✦ Acquista Ora · $35",
     "pc-note":"✉ Consegna immediata · Prodotto digitale · Nessun rimborso su prodotti digitali",
     "badge-new":"NUOVO",
@@ -952,11 +974,11 @@ const T = {
     "also-note":"Vuoi tutto? Deck HTML interattivo ($35) + PDF a scelta.",
     "faq-label":"FAQ","faq-title":"Domande frequenti.",
     faq:[
-      {q:"Cosa ricevo dopo l'acquisto?",a:"Un file HTML singolo (~560KB). Scaricalo, aprilo in qualsiasi browser su Mac o Windows — senza internet dopo il download."},
+      {q:"Cosa ricevo dopo l'acquisto?",a:"Un file HTML (~560KB) più un link per aprire le carte direttamente su iPhone (Safari) e Android (Chrome)."},
       {q:"È bilingue?",a:"Sì. Ogni carta ha la versione in entrambe le lingue. Cambio con un click — il toggle è sempre visibile in alto."},
       {q:"Quale versione dell'esame PMP copre?",a:"L'ECO 2021 e il nuovo ECO 2026. Copre i domini People, Process e Business Environment."},
       {q:"I progressi si salvano se chiudo il browser?",a:"Sì. I progressi si salvano in localStorage — le carte imparate persistono tra le sessioni sullo stesso device."},
-      {q:"Posso usarlo su telefono o tablet?",a:"Funziona solo su Mac e Windows. iPhone e dispositivi mobili non sono supportati."},
+      {q:"Posso usarlo su telefono o tablet?",a:"Su Mac e Windows, scarica il file e aprilo in qualsiasi browser. Su iPhone e iPad, usa il link ricevuto dopo l'acquisto per aprirlo direttamente in Safari. Su Android, usa il link per aprirlo direttamente in Chrome."},
     ],
     "footer-buy":"Acquista il deck","footer-note":"Prodotto digitale. Tutti i diritti riservati.",
     "rev-label":"RECENSIONI","rev-title":"Cosa dicono i nostri studenti.","rev-subtitle":"Acquirenti verificati · Payhip",
@@ -975,8 +997,8 @@ const T = {
   fr: {
     badge:"Préparation Examen PMP · 800 Flashcards Interactives",
     title:"Étudiez Mieux.<br><em>Réussissez le PMP.</em>",
-    sub:"800 flashcards bilingues (FR/EN) avec flip 3D, filtres, récapitulatif de formules et suivi des progrès. Tout dans un seul fichier hors ligne. Aucune appli, aucun abonnement.",
-    "cta-buy":"✦ Obtenir le Deck · $35","cta-try":"Essayer 15 cartes gratuites ↓",
+    sub:"800 flashcards PMP avec flip 3D, filtres, récapitulatif des formules et suivi des progrès. Disponibles en 5 langues: Anglais, Italien, Français, Allemand et Russe. Mac, Windows, iPhone et Android. Aucune appli, aucun abonnement.",
+    "cta-buy":"✦ Obtenir le Deck · $35","cta-try":"Essayer 10 cartes gratuites ↓",
     stat1:"Flashcards",stat2:"Langues",stat3:"Types de Cartes",stat4:"Hors ligne · Sans App","diff-label":"Difficulté",
     "sp-count":"7 avis vérifiés",
     "sp-q1":"Arrêtez de chercher. C\u2019est celui-là.","sp-e1":"Les cartes Exam Trap et Decision Logic vous apprennent à penser comme l\u2019examen. Fonctionne 100% hors ligne depuis un seul fichier. Parfait entre deux rendez-vous clients.","sp-r1":"Consultant Commercial · Candidat PMP",
@@ -984,12 +1006,11 @@ const T = {
     "sp-q3":"Super concept !","sp-e3":"800 flashcards, 5 langues, 6 types de cartes \u2014 tout ce qu\u2019il faut dans un seul fichier hors ligne.","sp-r3":"Achat vérifié",
     "sp-read":"Lire l\u2019avis complet \u2193","feat-title":"Tout ce dont vous avez besoin.<br>Rien de superflu.",
     f1t:"Cartes Flip 3D",f1d:"La question au recto, réponse + explication + Instinct CP au verso. Touchez ou appuyez sur Espace.",
-    f2t:"Bilingue",f2d:"Changez de langue en un clic. 800 cartes entièrement traduites, terminologie PMBOK 7e édition.",
-    f3t:"Filtres Intelligents",f3d:"Filtrez par type, difficulté (1–5 étoiles), séquentiel ou aléatoire. Masquez les cartes déjà maîtrisées.",
+    f2t:"Bilingue",f2d:"Changez de langue en un clic. Les 800 cartes entièrement traduites.",f3t:"Filtres Intelligents",f3d:"Filtrez par type, difficulté (1–5 étoiles), séquentiel ou aléatoire. Masquez les cartes déjà maîtrisées.",
     f4t:"Récapitulatif Formules",f4d:"Feuille de formules EVM toujours visible. PV, EV, AC, CPI, SPI, EAC et plus.",
     f5t:"Suivi des Progrès",f5d:"Marquez les cartes comme apprises. Vos progrès s'enregistrent automatiquement dans le navigateur.",
     f6t:"Un Fichier. Pour Toujours.",f6d:"Un seul fichier HTML. Ouvrez-le partout — Mac, Windows, iPad. Aucune connexion requise.",
-    "demo-label":"APERÇU GRATUIT","demo-title":"Essayez 15 cartes maintenant.",
+    "demo-label":"APERÇU GRATUIT","demo-title":"Essayez 10 cartes maintenant.",
     "tap-flip":"toucher pour retourner →","answer-lbl":"Réponse","flip-btn":"↕ Retourner",
     "unlock-title":"Vous voulez les 800 cartes?",
     "unlock-desc":"Obtenez le deck complet avec tous les types, niveaux de difficulté, bascule bilingue et récapitulatif des formules.",
@@ -1006,7 +1027,7 @@ const T = {
     "pc-tag":"✦ PAIEMENT UNIQUE",
     "pc-name-en":"English","pc-name-it":"Italien / Anglais","pc-name-de":"Allemand / Anglais","pc-name-fr":"Français / Anglais","pc-name-ru":"Russe / Anglais",
     "pc-desc":"Unique · Téléchargement immédiat · Sans abonnement",
-    "pc-feat":["800 flashcards interactives","Flip 3D, animation glissante, raccourcis clavier","Filtres : type, difficulté, aléatoire/séquentiel","Récapitulatif complet des formules EVM","Progrès sauvegardés dans le navigateur, 100% hors ligne","Terminologie alignée PMBOK 7e édition","Fichier HTML unique — fonctionne sur Mac et Windows"],
+    "pc-feat":["800 flashcards interactives","Flip 3D, animation glissante, raccourcis clavier","Filtres : type, difficulté, aléatoire/séquentiel","Récapitulatif complet des formules EVM","Progrès sauvegardés dans le navigateur, 100% hors ligne","Mac, Windows, Android (Chrome) · iPhone (Safari)"],
     "pc-btn-it":"✦ Acheter Maintenant · $35","pc-btn-de":"✦ Acheter Maintenant · $35","pc-btn-fr":"✦ Acheter Maintenant · $35","pc-btn-ru":"✦ Acheter Maintenant · $35",
     "pc-note":"✉ Livraison immédiate · Produit numérique · Aucun remboursement sur les produits numériques",
     "badge-new":"NOUVEAU",
@@ -1016,11 +1037,11 @@ const T = {
     "also-note":"Vous voulez tout? Deck HTML interactif ($35) + votre PDF au choix.",
     "faq-label":"FAQ","faq-title":"Questions fréquentes.",
     faq:[
-      {q:"Que reçois-je après l'achat?",a:"Un seul fichier HTML (~560Ko). Téléchargez-le et ouvrez-le dans n'importe quel navigateur sur Mac ou Windows."},
+      {q:"Que reçois-je après l'achat?",a:"Un fichier HTML (~560Ko) et un lien pour ouvrir les cartes directement sur iPhone (Safari) et Android (Chrome)."},
       {q:"Est-ce bilingue?",a:"Oui. Chaque carte a une version dans les deux langues. Vous basculez en un clic — le bouton est toujours visible en haut."},
       {q:"Quelle version de l'examen PMP est couverte?",a:"L'ECO 2021 et le nouvel ECO 2026. Couvre les domaines Personnes, Processus et Environnement Business."},
       {q:"Mes progrès seront-ils sauvegardés si je ferme le navigateur?",a:"Oui. Les progrès sont sauvegardés dans localStorage — vos cartes apprises persistent entre les sessions."},
-      {q:"Puis-je l'utiliser sur mon téléphone ou tablette?",a:"Fonctionne mieux sur Mac et Windows. Les appareils mobiles peuvent avoir des fonctionnalités limitées."},
+      {q:"Puis-je l'utiliser sur mon téléphone ou tablette?",a:"Sur Mac et Windows, téléchargez le fichier et ouvrez-le dans n'importe quel navigateur. Sur iPhone et iPad, utilisez le lien reçu après l'achat pour l'ouvrir directement dans Safari. Sur Android, utilisez le lien pour l'ouvrir directement dans Chrome."},
     ],
     "footer-buy":"Acheter le deck","footer-note":"Produit numérique. Tous droits réservés.",
     "rev-label":"AVIS","rev-title":"Ce que disent nos étudiants.","rev-subtitle":"Acheteurs vérifiés · Payhip",
@@ -1039,8 +1060,8 @@ const T = {
   de: {
     badge:"PMP-Prüfungsvorbereitung · 800 Interaktive Lernkarten",
     title:"Klug lernen.<br><em>PMP bestehen.</em>",
-    sub:"800 zweisprachige Lernkarten (DE/EN) mit 3D-Flip, Filtern, Formel-Übersicht und Fortschritts-Tracking. Alles in einer Offline-Datei. Keine App, kein Abonnement.",
-    "cta-buy":"✦ Deck kaufen · $35","cta-try":"15 Karten kostenlos testen ↓",
+    sub:"800 PMP-Lernkarten mit 3D-Flip, Filtern, Formel-Übersicht und Fortschritts-Tracking. Verfügbar in 5 Sprachen: Englisch, Italienisch, Französisch, Deutsch und Russisch. Mac, Windows, iPhone und Android. Keine App, kein Abonnement.",
+    "cta-buy":"✦ Deck kaufen · $35","cta-try":"10 Karten kostenlos testen ↓",
     stat1:"Lernkarten",stat2:"Sprachen",stat3:"Kartentypen",stat4:"Offline · Keine App","diff-label":"Schwierigkeit",
     "sp-count":"7 verifizierte Bewertungen",
     "sp-q1":"Hör auf zu suchen. Das ist es.","sp-e1":"Die Exam-Trap- und Decision-Logic-Karten trainieren dich, wie die Prüfung zu denken. Läuft 100% offline aus einer Datei. Perfekt zwischen Kundenterminen.","sp-r1":"Unternehmensberater · PMP-Kandidat",
@@ -1048,12 +1069,11 @@ const T = {
     "sp-q3":"Tolle Idee!","sp-e3":"800 Karten, 5 Sprachen, 6 Kartentypen \u2014 alles was du brauchst in einer Offline-Datei.","sp-r3":"Verifizierter Kauf",
     "sp-read":"Vollständige Bewertung lesen \u2193","feat-title":"Alles was Sie brauchen.<br>Nichts Überflüssiges.",
     f1t:"3D-Flip-Karten",f1d:"Frage vorne, Antwort + Erklärung + PM-Instinkt hinten. Tippen oder Leertaste drücken.",
-    f2t:"Zweisprachig",f2d:"Sprache per Klick wechseln. Alle 800 Karten übersetzt, Terminologie PMBOK 7. Ausgabe.",
-    f3t:"Intelligente Filter",f3d:"Nach Typ, Schwierigkeit (1–5 Sterne), sequenziell oder zufällig filtern. Gelernte Karten ausblenden.",
+    f2t:"Zweisprachig",f2d:"Wechseln Sie mit einem Klick die Sprache. Alle 800 Karten vollständig übersetzt.",f3t:"Intelligente Filter",f3d:"Nach Typ, Schwierigkeit (1–5 Sterne), sequenziell oder zufällig filtern. Gelernte Karten ausblenden.",
     f4t:"Formel-Übersicht",f4d:"Vollständige EVM-Formelübersicht immer sichtbar. PV, EV, AC, CPI, SPI, EAC und mehr.",
     f5t:"Fortschritts-Tracking",f5d:"Karten als gelernt markieren. Ihr Fortschritt wird automatisch gespeichert — auch offline.",
     f6t:"Eine Datei. Für immer.",f6d:"Eine einzige HTML-Datei. Überall öffnen — Mac, Windows, iPad. Kein Login, kein Abonnement.",
-    "demo-label":"KOSTENLOSE VORSCHAU","demo-title":"Jetzt 15 Karten testen.",
+    "demo-label":"KOSTENLOSE VORSCHAU","demo-title":"Jetzt 10 Karten testen.",
     "tap-flip":"zum Umdrehen tippen →","answer-lbl":"Antwort","flip-btn":"↕ Umdrehen",
     "unlock-title":"Möchten Sie alle 800 Karten?",
     "unlock-desc":"Holen Sie sich das vollständige Deck mit allen Typen, Schwierigkeitsstufen, zweisprachigem Toggle und Formelübersicht.",
@@ -1070,7 +1090,7 @@ const T = {
     "pc-tag":"✦ EINMALIGE ZAHLUNG",
     "pc-name-en":"English","pc-name-it":"Italienisch / Englisch","pc-name-de":"Deutsch / Englisch","pc-name-fr":"Französisch / Englisch","pc-name-ru":"Russisch / Englisch",
     "pc-desc":"Einmalig · Sofort-Download · Kein Abonnement",
-    "pc-feat":["800 interaktive Lernkarten","3D-Flip, Slide-Animation, Tastaturkürzel","Filter: Typ, Schwierigkeit, zufällig/sequenziell","Vollständige EVM-Formelübersicht","Fortschritt gespeichert, 100% offline","Terminologie nach PMBOK 7. Ausgabe","Einzelne HTML-Datei — Mac & Windows"],
+    "pc-feat":["800 interaktive Lernkarten","3D-Flip, Slide-Animation, Tastaturkürzel","Filter: Typ, Schwierigkeit, zufällig/sequenziell","Vollständige EVM-Formelübersicht","Fortschritt gespeichert, 100% offline","Mac, Windows, Android (Chrome) · iPhone (Safari)"],
     "pc-btn-it":"✦ Jetzt kaufen · $35","pc-btn-de":"✦ Jetzt kaufen · $35","pc-btn-fr":"✦ Jetzt kaufen · $35","pc-btn-ru":"✦ Jetzt kaufen · $35",
     "pc-note":"✉ Sofortlieferung · Digitales Produkt · Kein Rückgaberecht auf digitale Produkte",
     "badge-new":"NEU",
@@ -1080,11 +1100,11 @@ const T = {
     "also-note":"Alles auf einmal? HTML-Deck ($35) + PDF nach Wahl.",
     "faq-label":"HÄUFIGE FRAGEN","faq-title":"Häufig gestellte Fragen.",
     faq:[
-      {q:"Was erhalte ich nach dem Kauf?",a:"Eine einzelne HTML-Datei (~560KB). Laden Sie sie herunter und öffnen Sie sie in jedem Browser auf Mac oder Windows."},
+      {q:"Was erhalte ich nach dem Kauf?",a:"Eine HTML-Datei (~560KB) und einen Link, um die Karten direkt auf iPhone (Safari) und Android (Chrome) zu öffnen."},
       {q:"Ist es zweisprachig?",a:"Ja. Jede Karte hat eine Version in beiden Sprachen. Sie wechseln per Klick — die Umschalttaste ist immer oben sichtbar."},
       {q:"Welche PMP-Prüfungsversion wird abgedeckt?",a:"Das ECO 2021 und das neue ECO 2026. Deckt die Bereiche People, Process und Business Environment ab."},
       {q:"Werden meine Fortschritte gespeichert, wenn ich den Browser schließe?",a:"Ja. Der Fortschritt wird im localStorage gespeichert — Ihre gelernten Karten bleiben zwischen Sitzungen erhalten."},
-      {q:"Kann ich es auf meinem Telefon oder Tablet verwenden?",a:"Funktioniert am besten auf Mac und Windows. Mobile Geräte haben möglicherweise eingeschränkte Funktionalität."},
+      {q:"Kann ich es auf meinem Telefon oder Tablet verwenden?",a:"Auf Mac und Windows: Datei herunterladen und in jedem Browser öffnen. Auf iPhone und iPad: den nach dem Kauf erhaltenen Link verwenden, um es direkt in Safari zu öffnen. Auf Android: den Link für Chrome verwenden."},
     ],
     "footer-buy":"Deck kaufen","footer-note":"Digitales Produkt. Alle Rechte vorbehalten.",
     "rev-label":"BEWERTUNGEN","rev-title":"Was unsere Studierenden sagen.","rev-subtitle":"Verifizierte Käufer · Payhip",
@@ -1103,8 +1123,8 @@ const T = {
   ru: {
     badge:"Подготовка к экзамену PMP · 800 интерактивных карточек",
     title:"Учитесь умно.<br><em>Сдайте PMP.</em>",
-    sub:"800 двуязычных карточек (RU/EN) с 3D-переворотом, фильтрами, формулами и отслеживанием прогресса. Всё в одном офлайн-файле. Без приложения и подписки.",
-    "cta-buy":"✦ Купить Колоду · $35","cta-try":"Попробовать 15 карточек бесплатно ↓",
+    sub:"800 карточек для подготовки к PMP с 3D-переворотом, фильтрами, формулами и отслеживанием прогресса. Доступны на 5 языках: Английский, Итальянский, Французский, Немецкий и Русский. Mac, Windows, iPhone и Android. Без приложения и подписки.",
+    "cta-buy":"✦ Купить Колоду · $35","cta-try":"Попробовать 10 карточек бесплатно ↓",
     stat1:"Карточек",stat2:"Языков",stat3:"Типов карточек",stat4:"Офлайн · Без App","diff-label":"Сложность",
     "sp-count":"7 подтверждённых отзывов",
     "sp-q1":"Перестань искать. Это оно.","sp-e1":"Карточки Exam Trap и Decision Logic учат думать как на экзамене. Работает 100% офлайн из одного файла. Идеально между встречами с клиентами.","sp-r1":"Бизнес-консультант · Кандидат PMP",
@@ -1112,12 +1132,11 @@ const T = {
     "sp-q3":"Отличная концепция!","sp-e3":"800 карточек, 5 языков, 6 типов — всё необходимое в одном офлайн-файле.","sp-r3":"Подтверждённая покупка",
     "sp-read":"Читать полный отзыв \u2193","feat-title":"Всё необходимое.<br>Ничего лишнего.",
     f1t:"Карточки с 3D-переворотом",f1d:"Вопрос на лицевой стороне, ответ + объяснение + Инстинкт РП на обороте.",
-    f2t:"Двуязычный",f2d:"Переключайте язык одним нажатием. Все 800 карточек переведены, терминология PMBOK 7-е издание.",
-    f3t:"Умные Фильтры",f3d:"Фильтруйте по типу, сложности (1–5 звёзд), последовательно или случайно.",
+    f2t:"Двуязычный",f2d:"Переключайте язык одним кликом. Все 800 карточек полностью переведены.",f3t:"Умные Фильтры",f3d:"Фильтруйте по типу, сложности (1–5 звёзд), последовательно или случайно.",
     f4t:"Обзор Формул",f4d:"Полная таблица формул EVM всегда видна. PV, EV, AC, CPI, SPI, EAC и другие.",
     f5t:"Отслеживание Прогресса",f5d:"Отмечайте карточки как выученные. Прогресс сохраняется автоматически — даже офлайн.",
     f6t:"Один Файл. Навсегда.",f6d:"Один HTML-файл. Открывайте где угодно — Mac, Windows, iPad. Без входа и подписки.",
-    "demo-label":"БЕСПЛАТНЫЙ ПРОСМОТР","demo-title":"Попробуйте 15 карточек прямо сейчас.",
+    "demo-label":"БЕСПЛАТНЫЙ ПРОСМОТР","demo-title":"Попробуйте 10 карточек прямо сейчас.",
     "tap-flip":"нажмите для переворота →","answer-lbl":"Ответ","flip-btn":"↕ Перевернуть",
     "unlock-title":"Хотите все 800 карточек?",
     "unlock-desc":"Получите полную колоду со всеми типами, уровнями сложности, двуязычным переключателем и обзором формул.",
@@ -1134,7 +1153,7 @@ const T = {
     "pc-tag":"✦ ЕДИНОРАЗОВАЯ ОПЛАТА",
     "pc-name-en":"English","pc-name-it":"Итальянский / Английский","pc-name-de":"Немецкий / Английский","pc-name-fr":"Французский / Английский","pc-name-ru":"Русский / Английский",
     "pc-desc":"Разово · Мгновенная загрузка · Без подписки",
-    "pc-feat":["800 интерактивных карточек","3D-переворот, слайд-анимация, горячие клавиши","Фильтры: тип, сложность, случайный/последовательный","Полный обзор формул EVM","Прогресс сохранён в браузере, 100% офлайн","Терминология PMBOK 7-е издание","Один HTML-файл — Mac и Windows"],
+    "pc-feat":["800 интерактивных карточек","3D-переворот, слайд-анимация, горячие клавиши","Фильтры: тип, сложность, случайный/последовательный","Полный обзор формул EVM","Прогресс сохранён в браузере, 100% офлайн","Mac, Windows, Android (Chrome) · iPhone (Safari)"],
     "pc-btn-it":"✦ Купить Сейчас · $35","pc-btn-de":"✦ Купить Сейчас · $35","pc-btn-fr":"✦ Купить Сейчас · $35","pc-btn-ru":"✦ Купить Сейчас · $35",
     "pc-note":"✉ Мгновенная доставка · Цифровой продукт · Возврат невозможен",
     "badge-new":"НОВИНКА",
@@ -1144,11 +1163,11 @@ const T = {
     "also-note":"Хотите всё? Интерактивный HTML ($35) + PDF на ваш выбор.",
     "faq-label":"ВОПРОСЫ И ОТВЕТЫ","faq-title":"Часто задаваемые вопросы.",
     faq:[
-      {q:"Что я получу после покупки?",a:"Один HTML-файл (~560КБ). Скачайте и откройте в любом браузере на Mac или Windows."},
+      {q:"Что я получу после покупки?",a:"HTML-файл (~560КБ) и ссылку для открытия карточек прямо на iPhone (Safari) и Android (Chrome)."},
       {q:"Он двуязычный?",a:"Да. Каждая карточка имеет версию на обоих языках. Переключение одним нажатием — кнопка всегда видна вверху."},
       {q:"Какую версию экзамена PMP охватывает?",a:"ECO 2021 и новый ECO 2026. Охватывает домены People, Process и Business Environment."},
       {q:"Сохранится ли прогресс при закрытии браузера?",a:"Да. Прогресс сохраняется в localStorage — выученные карточки сохраняются между сессиями."},
-      {q:"Можно ли использовать на телефоне или планшете?",a:"Лучше работает на Mac и Windows. На мобильных устройствах функциональность может быть ограничена."},
+      {q:"Можно ли использовать на телефоне или планшете?",a:"На Mac и Windows: скачайте файл и откройте в любом браузере. На iPhone и iPad: используйте ссылку после покупки, чтобы открыть в Safari. На Android: используйте ссылку для открытия в Chrome."},
     ],
     "footer-buy":"Купить колоду","footer-note":"Цифровой продукт. Все права защищены.",
     "rev-label":"ОТЗЫВЫ","rev-title":"Что говорят наши студенты.","rev-subtitle":"Подтверждённые покупатели · Payhip",
@@ -1222,7 +1241,7 @@ function demoRender() {
 
   document.getElementById('demo-front').style.borderTopColor = ts.border;
   document.getElementById('demo-back').style.borderTopColor = ts.border;
-  document.getElementById('d-id').textContent = '#' + c.id;
+  document.getElementById('d-id').textContent = '#' + (demoPos + 1);
 
   const badge = document.getElementById('d-badge');
   const shortType = type.replace("Trappola d'Esame","TRAPPOLA").replace("Formula / Meccanica","FORMULA").replace("Riflesso Ultimo Min.","RIFLESSO").replace("Concetto Base","CONCETTO").replace("Logica Decisionale","LOGICA").replace("Giudizio Persone","PERSONE")
@@ -1242,13 +1261,13 @@ function demoRender() {
   const qText = c[qKey] || c.question_en;
   document.getElementById('d-question').textContent = qText;
 
-  // Auto-scale font size based on text length
+  // Auto-scale font size — tighter range for visual consistency
   const qEl = document.getElementById('d-question');
   const len = qText.length;
-  if (len > 120) qEl.style.fontSize = 'clamp(15px, 1.6vw, 19px)';
-  else if (len > 90) qEl.style.fontSize = 'clamp(17px, 1.9vw, 22px)';
-  else if (len > 60) qEl.style.fontSize = 'clamp(19px, 2.2vw, 26px)';
-  else qEl.style.fontSize = 'clamp(23px, 2.6vw, 33px)';
+  if (len > 120) qEl.style.fontSize = 'clamp(18px, 1.9vw, 22px)';
+  else if (len > 90) qEl.style.fontSize = 'clamp(19px, 2.0vw, 23px)';
+  else if (len > 60) qEl.style.fontSize = 'clamp(20px, 2.1vw, 24px)';
+  else qEl.style.fontSize = 'clamp(21px, 2.2vw, 26px)';
 
   document.getElementById('d-answer').textContent = c[aKey] || c.answer_en;
   document.getElementById('d-expl').textContent = c[eKey] || c.explanation_en;
@@ -1262,24 +1281,71 @@ function demoRender() {
   document.getElementById('d-next').disabled = demoPos===DEMO_CARDS.length-1;
 }
 
+let demoUnlockShown = false;
+let demoUnlockUrl = 'https://payhip.com/b/fWpQu';
+let demoEndUrl = 'https://payhip.com/b/fWpQu';
+
+window.addEventListener('DOMContentLoaded', function() {
+  var ulBtn = document.getElementById('unlock-cta-btn');
+  var endBtn = document.getElementById('end-cta-btn');
+  if (ulBtn) ulBtn.addEventListener('click', function(){ window.open(demoUnlockUrl, '_blank'); });
+  if (endBtn) endBtn.addEventListener('click', function(){ window.open(demoEndUrl, '_blank'); });
+  document.querySelectorAll('#unlock-langs .demo-popup-lang').forEach(function(p) {
+    p.addEventListener('click', function() {
+      document.querySelectorAll('#unlock-langs .demo-popup-lang').forEach(function(x){ x.classList.remove('sel'); });
+      p.classList.add('sel'); demoUnlockUrl = p.dataset.url;
+    });
+  });
+  document.querySelectorAll('#end-langs .demo-popup-lang').forEach(function(p) {
+    p.addEventListener('click', function() {
+      document.querySelectorAll('#end-langs .demo-popup-lang').forEach(function(x){ x.classList.remove('sel'); });
+      p.classList.add('sel'); demoEndUrl = p.dataset.url;
+    });
+  });
+});
+
+function demoRestart() {
+  document.getElementById('demo-end-overlay').classList.remove('show');
+  demoPos = 0; demoFlipped = false; demoUnlockShown = false; demoRender();
+}
+
 function demoFlip() {
   demoFlipped = !demoFlipped;
   const c = document.getElementById('demo-card');
   demoFlipped ? c.classList.add('flipped') : c.classList.remove('flipped');
+  // Show end popup when flipping the last card (card 10)
+  if (demoFlipped && demoPos === DEMO_CARDS.length - 1) {
+    setTimeout(function(){ document.getElementById('demo-end-overlay').classList.add('show'); }, 700);
+  }
 }
 
 function demoNav(dir) {
   const p = demoPos + dir;
-  if(p<0||p>=DEMO_CARDS.length) return;
+  if (p < 0) return;
+  if (p >= DEMO_CARDS.length) {
+    setTimeout(function(){ document.getElementById('demo-end-overlay').classList.add('show'); }, 300);
+    return;
+  }
+  // Dismiss unlock overlay when navigating
+  document.getElementById('demo-unlock-overlay').classList.remove('show');
   const cardEl = document.getElementById('demo-card');
   const outClass = dir>0?'slide-out-left':'slide-out-right';
   const inClass  = dir>0?'slide-in-right':'slide-in-left';
   cardEl.classList.add(outClass);
-  setTimeout(()=>{
+  setTimeout(function(){
     cardEl.classList.remove(outClass);
     demoPos=p; demoFlipped=false; demoRender();
     cardEl.classList.add(inClass);
-    setTimeout(()=>cardEl.classList.remove(inClass),250);
+    setTimeout(function(){
+      cardEl.classList.remove(inClass);
+      // Show unlock popup after arriving at card 6+ (index 5+), going forward
+      if (dir > 0 && demoPos >= 5 && !demoUnlockShown) {
+        setTimeout(function(){
+          document.getElementById('demo-unlock-overlay').classList.add('show');
+          demoUnlockShown = true;
+        }, 400);
+      }
+    },250);
   },180);
 }
 
