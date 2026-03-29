@@ -147,7 +147,7 @@ async function main() {
     localStorage.setItem('yas_token_all', token);
 
     // Show success and redirect
-    show('state-success');
+    // Token verified - flashcards are ready, no state change needed
     document.getElementById('success-msg').textContent =
       'Opening your ' + lang.toUpperCase() + ' flashcards...';
 
