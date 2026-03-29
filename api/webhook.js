@@ -1,5 +1,4 @@
 // Vercel Serverless Function — PayHip Webhook (con sistema chiave + email)
-
 const SUPABASE_URL = 'https://lwjpaztgxykfdwtjxxvs.supabase.co';
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
@@ -18,6 +17,17 @@ function generateKey(tier) {
 }
 
 async function saveKeyToSupabase(key, email, tier) {
+  const payload = { 
+    token: key, 
+    customer_email: email,
+    product_tier: tier,
+    language: 'en',
+    devices: [],
+    note: `Purchase - ${email}`
+  };
+  
+  console.log('Saving to Supabase:', JSON.stringify(payload));
+  
   const res = await fetch(`${SUPABASE_URL}/rest/v1/access_tokens`, {
     method: 'POST',
     headers: {
@@ -26,16 +36,17 @@ async function saveKeyToSupabase(key, email, tier) {
       'Content-Type': 'application/json',
       'Prefer': 'return=minimal',
     },
-    body: JSON.stringify({ 
-      token: key, 
-      customer_email: email,
-      product_tier: tier,
-      language: 'en',
-      devices: [],
-      note: `Purchase - ${email}`
-    }),
+    body: JSON.stringify(payload),
   });
-  return res.ok;
+  
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Supabase error:', res.status, errorText);
+    throw new Error(`Supabase save failed: ${res.status} - ${errorText}`);
+  }
+  
+  console.log('Supabase save successful');
+  return true;
 }
 
 async function sendEmail(toEmail, toName, key) {
@@ -65,6 +76,8 @@ async function sendEmail(toEmail, toName, key) {
 </body>
 </html>`;
 
+  console.log('Sending email to:', toEmail);
+  
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { 
@@ -78,7 +91,15 @@ async function sendEmail(toEmail, toName, key) {
       html,
     }),
   });
-  return res.ok;
+  
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Resend error:', res.status, errorText);
+    throw new Error(`Email send failed: ${res.status}`);
+  }
+  
+  console.log('Email sent successfully');
+  return true;
 }
 
 export default async function handler(req, res) {
@@ -92,6 +113,8 @@ export default async function handler(req, res) {
     const customerEmail = body.email || body.buyer_email;
     const customerName = body.first_name || body.buyer_name || '';
 
+    console.log('Webhook received:', JSON.stringify({ productId, customerEmail, customerName }));
+
     if (!customerEmail) {
       return res.status(400).json({ error: 'No customer email' });
     }
@@ -101,6 +124,7 @@ export default async function handler(req, res) {
 
     // Genera chiave
     const key = generateKey(tier);
+    console.log('Generated key:', key);
 
     // Salva in Supabase
     await saveKeyToSupabase(key, customerEmail, tier);
