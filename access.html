@@ -168,8 +168,11 @@
   </div>
 
   <script>
+    // Updated 2026-03-29 - YourAngelStudy database (lwjpaztgxykfdwtjxxvs)
     const SUPABASE_URL = 'https://lwjpaztgxykfdwtjxxvs.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3anBhenRneHlrZmR3dGp4eHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzA3MTQsImV4cCI6MjA4OTk0NjcxNH0.J5VbV13UNfMN6EKcAtSo3wAjNzJqhoi_Hua-Ayk0VK4';
+
+    console.log('YAS Access Page - Using database:', SUPABASE_URL);
 
     document.getElementById('accessForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -180,38 +183,44 @@
       const loadingDiv = document.getElementById('loading');
       const button = document.querySelector('button');
       
+      console.log('Verifying access for:', email, key);
+      
       // Reset
       errorDiv.style.display = 'none';
       loadingDiv.style.display = 'block';
       button.disabled = true;
       
       try {
+        const queryUrl = `${SUPABASE_URL}/rest/v1/access_tokens?token=eq.${key}&customer_email=eq.${email}&select=*`;
+        console.log('Query URL:', queryUrl);
+        
         // Query Supabase
-        const response = await fetch(
-          `${SUPABASE_URL}/rest/v1/access_tokens?token=eq.${key}&customer_email=eq.${email}&select=*`,
-          {
-            headers: {
-              'apikey': SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-            }
+        const response = await fetch(queryUrl, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
           }
-        );
+        });
         
         const data = await response.json();
+        console.log('Supabase response:', data);
         
         if (data && data.length > 0) {
           // Valid! Redirect to flashcards
           const record = data[0];
           const language = record.language || 'en';
+          console.log('Access granted! Redirecting to flashcards...');
           window.location.href = `/play.html?t=${key}&l=${language}`;
         } else {
           // Invalid
+          console.log('Access denied - no matching record');
           errorDiv.textContent = 'Invalid email or access key. Please check and try again.';
           errorDiv.style.display = 'block';
           loadingDiv.style.display = 'none';
           button.disabled = false;
         }
       } catch (err) {
+        console.error('Error verifying access:', err);
         errorDiv.textContent = 'Connection error. Please try again.';
         errorDiv.style.display = 'block';
         loadingDiv.style.display = 'none';
