@@ -151,9 +151,6 @@ async function main() {
     document.getElementById('success-msg').textContent =
       'Opening your ' + lang.toUpperCase() + ' flashcards...';
 
-    setTimeout(() => {
-      window.location.href = LANG_MAP[lang];
-    }, 1200);
 
   } catch(e) {
     show('state-error');
