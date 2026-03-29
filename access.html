@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Your Flashcards - Your Angel Study</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 480px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .header {
+      background: #1a1a2e;
+      padding: 40px 30px 30px;
+      text-align: center;
+    }
+    .logo {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 28px;
+      color: #c9a227;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: #888;
+      font-size: 13px;
+    }
+    .form-container {
+      padding: 40px 30px;
+    }
+    h2 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 8px;
+    }
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+    input:focus {
+      outline: none;
+      border-color: #c9a227;
+    }
+    button {
+      width: 100%;
+      background: #c9a227;
+      color: #000;
+      border: none;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    button:hover {
+      background: #b8911f;
+      transform: translateY(-2px);
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .error {
+      background: #fee;
+      border: 1px solid #fcc;
+      color: #c33;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .loading {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">Your Angel Study</div>
+      <div class="subtitle">PMP Interactive Flashcards</div>
+    </div>
+    
+    <div class="form-container">
+      <h2>Access Your Flashcards</h2>
+      <p>Enter your email and access key to view your flashcards.</p>
+      
+      <div class="error" id="error"></div>
+      <div class="loading" id="loading">Verifying...</div>
+      
+      <form id="accessForm">
+        <label for="email">Email used for purchase</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+        >
+        
+        <label for="key">Access Key</label>
+        <input 
+          type="text" 
+          id="key" 
+          name="key" 
+          placeholder="YAS-S-XXXX-XXXX"
+          required
+          autocomplete="off"
+          style="text-transform: uppercase;"
+        >
+        
+        <button type="submit">Access Flashcards →</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://lwjpaztgxykfdwtjxxvs.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3anBhenRneHlrZmR3dGp4eHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzA3MTQsImV4cCI6MjA4OTk0NjcxNH0.sFy9a0b_E-X57VZAEyLOdYXHQXTr4x_rDi4i0X4nwxM';
+
+    document.getElementById('accessForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const key = document.getElementById('key').value.trim().toUpperCase();
+      const errorDiv = document.getElementById('error');
+      const loadingDiv = document.getElementById('loading');
+      const button = document.querySelector('button');
+      
+      // Reset
+      errorDiv.style.display = 'none';
+      loadingDiv.style.display = 'block';
+      button.disabled = true;
+      
+      try {
+        // Query Supabase
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/access_tokens?token=eq.${key}&customer_email=eq.${email}&select=*`,
+          {
+            headers: {
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            }
+          }
+        );
+        
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          // Valid! Redirect to flashcards
+          const record = data[0];
+          const language = record.language || 'en';
+          window.location.href = `/play.html?t=${key}&l=${language}`;
+        } else {
+          // Invalid
+          errorDiv.textContent = 'Invalid email or access key. Please check and try again.';
+          errorDiv.style.display = 'block';
+          loadingDiv.style.display = 'none';
+          button.disabled = false;
+        }
+      } catch (err) {
+        errorDiv.textContent = 'Connection error. Please try again.';
+        errorDiv.style.display = 'block';
+        loadingDiv.style.display = 'none';
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
