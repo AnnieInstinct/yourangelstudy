@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script>
+(function(){
+  var LANG='en';
+  var SURL='https://lwjpaztgxykfdwtjxxvs.supabase.co';
+  var SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3anBhenRneHlrZmR3dGp4eHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzA3MTQsImV4cCI6MjA4OTk0NjcxNH0.J5VbV13UNfMN6EKcAtSo3wAjNzJqhoi_Hua-Ayk0VK4';
+  var token=localStorage.getItem('yas_token_'+LANG)||localStorage.getItem('yas_token_all');
+  if(!token){window.location.href='/expired.html';return;}
+  fetch(SURL+'/rest/v1/access_tokens?token=eq.'+encodeURIComponent(token)+'&select=token',{
+    headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY}
+  }).then(function(r){return r.json();}).then(function(d){
+    if(!d||d.length===0){
+      localStorage.removeItem('yas_token_'+LANG);
+      localStorage.removeItem('yas_token_all');
+      window.location.href='/expired.html';
+    }
+  }).catch(function(){});
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your Angel Study</title>
@@ -238,7 +255,7 @@ input:checked+.slider:before{transform:translateX(16px)}
     <button class="pill t-6" data-type-it="Formula / Meccanica" data-type-en="Formula / Mechanics">
       <span class="dot" style="background:#8a6e00"></span><span class="type-lbl">Formula</span>
     </button>
-    <button class="pill t-7" data-type-it="AI" data-type-en="AI">
+    <button class="pill t-7" data-type-it="AI / Tecnologia" data-type-en="AI / Technology">
       <span class="dot" style="background:#0e7490"></span><span class="type-lbl">AI</span>
     </button>
   </div>
@@ -332,7 +349,7 @@ const TYPE_STYLE_IT = {
   "Formula / Meccanica":  {border:"#8a6e00",bg:"#fefce8",color:"#8a6e00",bborder:"#fde68a"},
   "Giudizio Persone":     {border:"#8b5cf6",bg:"#f5f3ff",color:"#7c3aed",bborder:"#ddd6fe"},
   "Riflesso Ultimo Min.": {border:"#22c55e",bg:"#f0fdf4",color:"#16a34a",bborder:"#bbf7d0"},
-  "AI":                   {border:"#0e7490",bg:"#ecfeff",color:"#0e7490",bborder:"#a5f3fc"},
+  "AI / Technology":      {border:"#0e7490",bg:"#ecfeff",color:"#0e7490",bborder:"#a5f3fc"},
 };
 const TYPE_STYLE_EN = {
   "Core Concept":        {border:"#3b82f6",bg:"#eff6ff",color:"#2563eb",bborder:"#bfdbfe"},
@@ -341,7 +358,7 @@ const TYPE_STYLE_EN = {
   "Formula / Mechanics": {border:"#8a6e00",bg:"#fefce8",color:"#8a6e00",bborder:"#fde68a"},
   "People Judgment":     {border:"#8b5cf6",bg:"#f5f3ff",color:"#7c3aed",bborder:"#ddd6fe"},
   "Last-Minute Reflex":  {border:"#22c55e",bg:"#f0fdf4",color:"#16a34a",bborder:"#bbf7d0"},
-  "AI":                  {border:"#0e7490",bg:"#ecfeff",color:"#0e7490",bborder:"#a5f3fc"},
+  "AI / Technology":     {border:"#0e7490",bg:"#ecfeff",color:"#0e7490",bborder:"#a5f3fc"},
 };
 const BADGE_IT = {
   "Concetto Base":"CONCETTO","Logica Decisionale":"LOGICA","Trappola d'Esame":"TRAPPOLA",
@@ -349,7 +366,7 @@ const BADGE_IT = {
 };
 const BADGE_EN = {
   "Core Concept":"CONCEPT","Decision Logic":"LOGIC","Exam Trap":"TRAP",
-  "Formula / Mechanics":"FORMULA","People Judgment":"PEOPLE","Last-Minute Reflex":"REFLEX","AI":"AI"
+  "Formula / Mechanics":"FORMULA","People Judgment":"PEOPLE","Last-Minute Reflex":"REFLEX","AI / Technology":"AI"
 };
 const TOPIC_ICONS = {
   "Stakeholder":"👥","Resource":"🧑‍💼","Risk":"⚠️","Schedule":"📅","Scope":"🎯",
