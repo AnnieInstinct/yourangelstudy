@@ -22,7 +22,7 @@ const LANG_FILES = {
 
 // Redirect to flashcards file
 const flashcardsFile = LANG_FILES[lang] || '/en.html';
-window.location.href = flashcardsFile;
+window.location.href = flashcardsFile + window.location.search;
 </script>
 </body>
 </html>
