@@ -89,7 +89,7 @@ function getFingerprint() {
     Intl.DateTimeFormat().resolvedOptions().timeZone
   ].join('|');
   let h = 0;
-  for (let i = 0; i < raw.length; i++) {
+  for (let i < raw.length; i++) {
     h = Math.imul(31, h) + raw.charCodeAt(i) | 0;
   }
   return Math.abs(h).toString(36);
@@ -146,11 +146,8 @@ async function main() {
     localStorage.setItem('yas_token_' + lang, token);
     localStorage.setItem('yas_token_all', token);
 
-    // Show success and redirect
-    // Token verified - flashcards are ready, no state change needed
-    document.getElementById('success-msg').textContent =
-      'Opening your ' + lang.toUpperCase() + ' flashcards...';
-
+    // Redirect to flashcards
+    window.location.href = `/play.html?t=${token}&l=${lang}`;
 
   } catch(e) {
     show('state-error');
