@@ -10,18 +10,29 @@
 // Get URL parameters
 const params = new URLSearchParams(window.location.search);
 const lang = (params.get('l') || params.get('lang') || 'en').toLowerCase();
+const tier = (params.get('tier') || '800').toLowerCase();
 
-// Language file map
+// Language + tier file map
 const LANG_FILES = {
-  'en': '/en.html',
+  'en': {
+    '400':  '/en-400.html',
+    '800':  '/en-800.html',
+    '1325': '/en-1325.html'
+  },
   'it': '/it.html',
   'fr': '/fr.html',
   'de': '/de.html',
   'ru': '/ru.html'
 };
 
-// Redirect to flashcards file
-const flashcardsFile = LANG_FILES[lang] || '/en.html';
+// Redirect to correct flashcards file
+let flashcardsFile;
+if (lang === 'en') {
+  flashcardsFile = LANG_FILES['en'][tier] || '/en-800.html';
+} else {
+  flashcardsFile = LANG_FILES[lang] || '/en-800.html';
+}
+
 window.location.href = flashcardsFile + window.location.search;
 </script>
 </body>
