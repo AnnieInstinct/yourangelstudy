@@ -358,7 +358,8 @@ const ALL_CARDS = [{"id": 1, "type_en": "Core Concept", "domain": "People", "dif
 {"id": 1325, "domain": "Process", "difficulty": 3, "topic_area": "AI / Technology", "phase": "Planning", "question_en": "What is the difference between Predictive Analytics and Goal-Driven Systems in AI?", "answer_en": "Predictive: forecasts from past data, human stays in the loop. Goal-Driven: learns by trial and error until it reaches the goal.", "explanation_en": "Predictive Analytics focuses on forecasting with human oversight. Goal-Driven Systems use reinforcement learning to reach a defined objective autonomously.", "radar_en": "Predictive = forecast from the past. Goal-Driven = learn until done.", "type_en": "AI / Technology", "type_fr": "IA / Technologie", "question_fr": "Quelle est la différence entre l'Analyse Prédictive et les Systèmes Orientés Objectifs dans l'IA?", "answer_fr": "Prédictif: prévisions à partir de données passées, l'humain reste dans la boucle. Orienté Objectif: apprend par essais et erreurs jusqu'à atteindre l'objectif.", "explanation_fr": "L'Analyse Prédictive se concentre sur la prévision avec supervision humaine. Les Systèmes Orientés Objectifs utilisent l'apprentissage par renforcement pour atteindre un objectif défini de manière autonome.", "radar_fr": "Prédictif = prévision du passé. Orienté Objectif = apprend jusqu'à la réussite."}];
 
 const TYPE_STYLE_IT = {
-  "Concept clé":        {border:"#3b82f6",bg:"#eff6ff",color:"#2563eb",bborder:"#bfdbfe"},
+  "Concept clé":        {border:"#3b82f6",bg:"#eff6ff",color:"#2563eb",bborder:"#bfdbfe",
+  "IA / Technologie": {border:"#0e7490",bg:"#ecfeff",color:"#0e7490",bborder:"#a5f3fc"}},
   "Logique de décision":   {border:"#f97316",bg:"#fff7ed",color:"#ea6d00",bborder:"#fed7aa"},
   "Piège d'examen":     {border:"#ef4444",bg:"#fef2f2",color:"#dc2626",bborder:"#fecaca"},
   "Formule / Mécanique":  {border:"#8a6e00",bg:"#fefce8",color:"#8a6e00",bborder:"#fde68a"},
@@ -366,7 +367,8 @@ const TYPE_STYLE_IT = {
   "Réflexe ultime": {border:"#22c55e",bg:"#f0fdf4",color:"#16a34a",bborder:"#bbf7d0"},
 };
 const TYPE_STYLE_EN = {
-  "Core Concept":        {border:"#3b82f6",bg:"#eff6ff",color:"#2563eb",bborder:"#bfdbfe"},
+  "Core Concept":        {border:"#3b82f6",bg:"#eff6ff",color:"#2563eb",bborder:"#bfdbfe",
+  "AI / Technology": {border:"#0e7490",bg:"#ecfeff",color:"#0e7490",bborder:"#a5f3fc"}},
   "Decision Logic":      {border:"#f97316",bg:"#fff7ed",color:"#ea6d00",bborder:"#fed7aa"},
   "Exam Trap":           {border:"#ef4444",bg:"#fef2f2",color:"#dc2626",bborder:"#fecaca"},
   "Formula / Mechanics": {border:"#8a6e00",bg:"#fefce8",color:"#8a6e00",bborder:"#fde68a"},
@@ -376,11 +378,13 @@ const TYPE_STYLE_EN = {
 const BADGE_FR = {
   "Concept clé":"CONCEPT","Logique de décision":"LOGIQUE","Piège d'examen":"PIÈGE",
   "Formule / Mécanique":"FORMULE","Jugement humain":"HUMAIN","Réflexe ultime":"RÉFLEXE"
-};
+,
+  "IA / Technologie": "IA / TECHNOLOGIE"};
 const BADGE_EN = {
   "Core Concept":"CONCEPT","Decision Logic":"LOGIC","Exam Trap":"TRAP",
   "Formula / Mechanics":"FORMULA","People Judgment":"PEOPLE","Last-Minute Reflex":"REFLEX"
-};
+,
+  "AI / Technology": "AI / TECHNOLOGY"};
 const TOPIC_ICONS = {
   "Stakeholder":"👥","Resource":"🧑‍💼","Risk":"⚠️","Schedule":"📅","Scope":"🎯",
   "Cost":"💰","Quality":"🔍","Communication":"💬","Communications":"💬","Integration":"🔗","Procurement":"📦",
