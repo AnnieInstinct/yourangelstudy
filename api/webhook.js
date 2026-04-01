@@ -3,10 +3,11 @@ const SUPABASE_URL = 'https://lwjpaztgxykfdwtjxxvs.supabase.co';
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
-// Mapping Product ID → Tier
+// Mapping Product ID → Tier (aggiornato con i veri Product ID)
 const PRODUCT_TIERS = {
-  'CE5Am': 'starter',   // YAS Starter - 400 cards EN
-  // Aggiungi altri product ID qui quando li hai
+  'VTS6p': 'starter',    // 400 cards - $19
+  'icjJO': 'complete',   // 800 cards - $35
+  'js3FN': 'ultimate'    // 1,300+ cards - $49
 };
 
 function generateKey(tier) {
@@ -49,30 +50,51 @@ async function saveKeyToSupabase(key, email, tier) {
   return true;
 }
 
-async function sendEmail(toEmail, toName, key) {
+async function sendEmail(toEmail, toName, key, tier) {
+  const cardCount = tier === 'starter' ? '400' : tier === 'complete' ? '800' : '1,300+';
+  
   const html = `<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"></head>
-<body style="font-family:sans-serif;max-width:600px;margin:40px auto;padding:20px;">
-  <h2>🎉 Your PMP Flashcards are Ready!</h2>
-  <p>Hi ${toName || 'there'},</p>
-  <p>Thank you for your purchase! Here's your access key:</p>
-  
-  <div style="background:#f5f5f5;border:2px solid #c9a227;border-radius:8px;padding:20px;text-align:center;margin:20px 0;">
-    <div style="font-size:24px;font-weight:bold;color:#c9a227;letter-spacing:2px;">${key}</div>
+<body style="font-family:'Playfair Display',serif;max-width:600px;margin:40px auto;padding:20px;background:#0a0a0a;color:#ffffff;">
+  <div style="text-align:center;padding:30px;">
+    <h1 style="color:#d4af37;font-size:32px;margin-bottom:10px;">Your Angel Study</h1>
+    <h2 style="color:#ffffff;font-size:24px;font-weight:normal;">Your PMP Flashcards Are Ready! 🎉</h2>
   </div>
   
-  <p><strong>How to access your flashcards:</strong></p>
-  <ol>
-    <li>Go to <a href="https://yourangelstudy.com/access">yourangelstudy.com/access</a></li>
-    <li>Enter your email: <strong>${toEmail}</strong></li>
-    <li>Enter your key: <strong>${key}</strong></li>
-    <li>Start studying! 📚</li>
-  </ol>
+  <p style="font-size:18px;line-height:1.6;">Hi ${toName || 'there'},</p>
+  <p style="font-size:18px;line-height:1.6;">Thank you for your purchase! You now have access to <strong style="color:#d4af37;">${cardCount} premium PMP flashcards</strong>.</p>
   
-  <p style="font-size:12px;color:#888;margin-top:30px;">Keep this key safe - you'll need it to access your flashcards.<br>Works on iPhone, Android, Mac, and Windows.</p>
+  <div style="background:rgba(212,175,55,0.1);border:2px solid #d4af37;border-radius:12px;padding:30px;text-align:center;margin:30px 0;">
+    <p style="font-size:16px;color:#cccccc;margin-bottom:15px;">Your Access Token:</p>
+    <div style="font-size:28px;font-weight:bold;color:#d4af37;letter-spacing:3px;">${key}</div>
+  </div>
   
-  <p>Good luck on your PMP exam!<br><strong>Your Angel Study Team</strong></p>
+  <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:25px;margin:30px 0;">
+    <p style="font-size:18px;font-weight:bold;color:#d4af37;margin-bottom:15px;">How to Access Your Flashcards:</p>
+    <ol style="font-size:16px;line-height:1.8;padding-left:20px;">
+      <li>Go to <a href="https://yourangelstudy.com/access.html" style="color:#d4af37;text-decoration:none;">yourangelstudy.com/access.html</a></li>
+      <li>Enter your email: <strong>${toEmail}</strong></li>
+      <li>Enter your token: <strong>${key}</strong></li>
+      <li>Start studying! 📚</li>
+    </ol>
+  </div>
+  
+  <p style="font-size:14px;color:#888;margin-top:30px;line-height:1.6;">
+    💡 <strong>Keep this token safe</strong> - you'll need it to access your flashcards.<br>
+    📱 Works on iPhone, Android, Mac, and Windows.<br>
+    🔄 Lifetime access - no subscription required.
+  </p>
+  
+  <div style="text-align:center;margin-top:40px;padding-top:30px;border-top:1px solid rgba(255,255,255,0.1);">
+    <p style="font-size:16px;color:#ffffff;">Good luck on your PMP exam!</p>
+    <p style="font-size:18px;color:#d4af37;font-weight:bold;">Your Angel Study Team</p>
+    <p style="font-size:13px;color:#666;margin-top:20px;">Questions? Contact us at yourangelstudy@protonmail.com</p>
+  </div>
+  
+  <p style="font-size:12px;color:#444;margin-top:30px;line-height:1.6;">
+    PMP is a registered mark of PMI. This product is not affiliated with, endorsed by, or sponsored by PMI.
+  </p>
 </body>
 </html>`;
 
@@ -85,9 +107,9 @@ async function sendEmail(toEmail, toName, key) {
       'Content-Type': 'application/json' 
     },
     body: JSON.stringify({
-      from: 'Your Angel Study <study@yourangelstudy.com>',
+      from: 'Your Angel Study <access@yourangelstudy.com>',
       to: toEmail,
-      subject: '🎴 Your PMP Flashcards Access Key',
+      subject: `🎴 Your ${cardCount} PMP Flashcards - Access Token Inside`,
       html,
     }),
   });
@@ -109,18 +131,34 @@ export default async function handler(req, res) {
 
   try {
     const body = req.body;
-    const productId = body.product_id || body.permalink;
-    const customerEmail = body.email || body.buyer_email;
-    const customerName = body.first_name || body.buyer_name || '';
+    console.log('Full webhook body:', JSON.stringify(body, null, 2));
+    
+    // PayHip invia diversi campi, proviamo tutti
+    const productId = body.product?.permalink || body.product_permalink || body.permalink || body.product_id;
+    const customerEmail = body.customer?.email || body.email || body.buyer_email;
+    const customerName = body.customer?.first_name || body.first_name || body.buyer_name || '';
 
-    console.log('Webhook received:', JSON.stringify({ productId, customerEmail, customerName }));
+    console.log('Extracted data:', { productId, customerEmail, customerName });
 
     if (!customerEmail) {
+      console.error('No customer email found in webhook');
       return res.status(400).json({ error: 'No customer email' });
     }
 
+    if (!productId) {
+      console.error('No product ID found in webhook');
+      return res.status(400).json({ error: 'No product ID' });
+    }
+
     // Determina tier
-    const tier = PRODUCT_TIERS[productId] || 'starter';
+    const tier = PRODUCT_TIERS[productId];
+    
+    if (!tier) {
+      console.error('Unknown product ID:', productId);
+      return res.status(400).json({ error: `Unknown product: ${productId}` });
+    }
+
+    console.log('Determined tier:', tier);
 
     // Genera chiave
     const key = generateKey(tier);
@@ -130,11 +168,11 @@ export default async function handler(req, res) {
     await saveKeyToSupabase(key, customerEmail, tier);
 
     // Manda email
-    await sendEmail(customerEmail, customerName, key);
+    await sendEmail(customerEmail, customerName, key, tier);
 
-    return res.status(200).json({ success: true, key });
+    return res.status(200).json({ success: true, key, tier });
   } catch (err) {
     console.error('Webhook error:', err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message, stack: err.stack });
   }
 }
