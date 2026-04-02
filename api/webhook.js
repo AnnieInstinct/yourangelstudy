@@ -134,7 +134,7 @@ export default async function handler(req, res) {
     console.log('Full webhook body:', JSON.stringify(body, null, 2));
     
     // PayHip invia diversi campi, proviamo tutti
-    const productId = body.product?.permalink || body.product_permalink || body.permalink || body.product_id;
+    const productId = body.items?.[0]?.product_key || body.items?.[0]?.product_permalink || body.product?.permalink || body.product_permalink || body.permalink || body.product_id;
     const customerEmail = body.customer?.email || body.email || body.buyer_email;
     const customerName = body.customer?.first_name || body.first_name || body.buyer_name || '';
 
