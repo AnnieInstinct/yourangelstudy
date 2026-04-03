@@ -154,7 +154,10 @@ async function handleSubmit() {
 
     const record = rows[0];
     const lang = (record.language || 'en').toLowerCase();
-    const tierNum = TIER_MAP[(record.product_tier || 'complete').toLowerCase()] || '800';
+    const prefix = token.split('-')[1];
+    const tierMapping = { 'S': 'starter', 'C': 'complete', 'U': 'ultimate' };
+    const tier = tierMapping[prefix] || 'complete';
+    const tierNum = TIER_MAP[tier] || '800';
     const devices = record.devices || [];
     const fp = getFingerprint();
     const alreadyKnown = devices.includes(fp);
