@@ -1,0 +1,17 @@
+{
+  "name": "yourangelstudy",
+  "version": "1.0.0",
+  "description": "YourAngelStudy - PMP Flashcards Platform",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "resend": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
