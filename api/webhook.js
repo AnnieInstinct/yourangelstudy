@@ -55,16 +55,17 @@ export default async function handler(req, res) {
 }
 
 function generateToken(productKey) {
-    // Your existing token generation logic
-  const prefix = productKey.includes('starter') ? 'S' : 
-                     productKey.includes('complete') ? 'C' : 'U';
+let prefix;
+    if (productKey === 'VTS6p') prefix = 'S';      // Starter (400 cards)
+    else if (productKey === 'icjJO') prefix = 'C'; // Complete (800 cards)
+    else if (productKey === 'js3FN') prefix = 'U'; // Ultimate (1300+ cards)
+    else prefix = 'U'; // Default Ultimate
+    
     const random = Math.random().toString(36).substring(2, 6).toUpperCase();
     const random2 = Math.random().toString(36).substring(2, 6).toUpperCase();
-    let prefix;
-        if (productKey === 'VTS6p') prefix = 'S';      // Starter (400 cards)
-        else if (productKey === 'icjJO') prefix = 'C'; // Complete (800 cards)
-        else if (productKey === 'js3FN') prefix = 'U'; // Ultimate (1300+ cards)
-        else prefix = 'U'; // Default Ultimate
+    return `YAS-${prefix}-${random}-${random2}`;
+}
+   
 function extractNameFromEmail(email) {
     // Extract name from email or use generic greeting
   const namePart = email.split('@')[0];
