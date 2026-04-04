@@ -52,6 +52,7 @@ sup { font-size: 0.35em; }
   content: ''; position: absolute; inset: 0;
   background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(138,110,0,0.25) 0%, transparent 70%),
               radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,162,39,0.08) 0%, transparent 60%);
+  pointer-events: none;
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
@@ -254,7 +255,7 @@ sup { font-size: 0.35em; }
 #reviews .section-label { color: var(--gold-lt); }
 #reviews .section-title { color: #fff; margin-bottom: 16px; }
 .reviews-subtitle { text-align:center; color: rgba(255,255,255,0.45); font-size:14px; margin-bottom:56px; }
-.reviews-grid { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 28px; }
+.reviews-grid { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; grid-auto-flow: dense; }
 /* Pricing Tabs (Apple Approach - Desktop + Mobile) */
 .pricing-tabs {
   max-width: 600px;
@@ -394,13 +395,13 @@ sup { font-size: 0.35em; }
 }
 
 @media(min-width:680px){ .reviews-grid { grid-template-columns: 1fr 1fr; } }
-.review-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,162,39,0.18); border-radius: 16px; padding: 32px 28px; position: relative; transition: border-color .2s, transform .2s; }
+.review-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,162,39,0.18); border-radius: 16px; padding: 24px 22px; position: relative; transition: border-color .2s, transform .2s; }
 .review-card:hover { border-color: rgba(201,162,39,0.45); transform: translateY(-3px); }
 .review-card.featured { grid-column: 1 / -1; background: rgba(201,162,39,0.06); border-color: rgba(201,162,39,0.35); }
-.review-stars { color: #f0b429; font-size: 16px; letter-spacing: 3px; margin-bottom: 16px; }
-.review-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 14px; line-height: 1.3; }
-.review-body { font-size: 14.5px; color: rgba(255,255,255,0.62); line-height: 1.75; margin-bottom: 24px; }
-.review-author { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
+.review-stars { color: #f0b429; font-size: 15px; letter-spacing: 2px; margin-bottom: 12px; }
+.review-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.3; }
+.review-body { font-size: 13.5px; color: rgba(255,255,255,0.62); line-height: 1.6; margin-bottom: 16px; }
+.review-author { display: flex; align-items: center; gap: 14px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
 .review-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--gold) 0%, rgba(138,110,0,0.4) 100%); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: #fff; flex-shrink: 0; }
 .review-name { font-weight: 600; color: #fff; font-size: 13.5px; line-height: 1.3; }
 .review-role { font-size: 12px; color: var(--gold-lt); margin-top: 2px; }
@@ -487,6 +488,8 @@ footer a { color: var(--gold-lt); text-decoration: none; }
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  position: relative;
+  z-index: 1;
 }
 .sp-stars-inline {
   font-size: 24px;
@@ -561,7 +564,7 @@ footer a { color: var(--gold-lt); text-decoration: none; }
   <div class="social-proof-simple">
     <div class="sp-stars-inline">★★★★★</div>
     <div class="sp-bottom-row">
-      <span class="sp-rating-inline">4.9/5</span>
+      <span class="sp-rating-inline">4.8/5</span>
       <span style="color:rgba(255,255,255,0.3);margin:0 8px;">·</span>
       <a href="#reviews" class="sp-link">View Our Reviews ↓</a>
     </div>
@@ -791,6 +794,61 @@ footer a { color: var(--gold-lt); text-decoration: none; }
   <p class="reviews-subtitle">Verified buyers · Payhip</p>
   <div class="reviews-grid reveal">
 
+    <div class="review-card">
+      <div class="review-badge">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★☆</div>
+      <div class="review-title">"Finally something that doesn't put me to sleep."</div>
+      <div class="review-body">I've been a project coordinator in NYC for 3 years and decided it was time to get the PMP<sup>®</sup>. I tried the thick books, the long video courses, the 4 hour mock exams on a Sunday while the whole city was outside doing literally anything else. The flashcards helped me a lot. I do them on the subway. 15 minutes downtown to midtown and by the time I get to the office the PM mindset is already switched on. No effort, just routine. They throw you into a scenario and make you think like a PM. If you're always on the move and can't sit down for hours, these were made for you.</div>
+      <div class="review-author">
+        <div class="review-avatar">G</div>
+        <div><div class="review-name">Gavin B.</div><div class="review-role">Project Coordinator · NYC · Verified Buyer</div></div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-title">"Fits into the chaos."</div>
+      <div class="review-body">I'm a PM at a tech startup in NYC and my schedule is absolutely insane. YAS flashcards fit into the gaps: 5 minutes here, 10 minutes there. The scenarios actually feel real, not like some textbook from 2009. Genuinely one of the best study investments I made for my PMP<sup>®</sup>.</div>
+      <div class="review-author">
+        <div class="review-avatar">T</div>
+        <div><div class="review-name">Tess C.</div><div class="review-role">PM · Tech Startup · NYC · Verified Buyer</div></div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★☆</div>
+      <div class="review-title">"Worth it!"</div>
+      <div class="review-body">What I loved: the scenarios sound like real projects, not textbook nonsense. The interface is clean and works brilliantly on mobile. Studied during lunch breaks and train rides, the filter system meant I could do focused 10-minute sessions.</div>
+      <div class="review-author">
+        <div class="review-avatar">J</div>
+        <div><div class="review-name">Jonathan P.</div><div class="review-role">PM</div></div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-title">"Actually useful for working PMs"</div>
+      <div class="review-body">Marcus from Philly. Been putting off the PMP<sup>®</sup> exam for two years because every study tool felt like torture. These flashcards are different. Real scenarios, not robotic textbook language. The filter system is perfect for 15-minute study sessions between meetings. Used the Ultimate tier.</div>
+      <div class="review-author">
+        <div class="review-avatar">M</div>
+        <div><div class="review-name">Marcus C.</div><div class="review-role">Project Manager</div></div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★☆</div>
+      <div class="review-title">"Instead of scrolling, I can study my PMP<sup>®</sup>"</div>
+      <div class="review-body">What I like: Filter by topics · Explanations actually explain the why, not just definitions · Works great on my phone for commute studying · The AI/Technology cards are relevant for modern PM work. If you're studying for the PMP<sup>®</sup> and learn better by doing than just reading, these are worth it.</div>
+      <div class="review-author">
+        <div class="review-avatar">M</div>
+        <div><div class="review-name">Madison C.</div><div class="review-role">Project Manager</div></div>
+      </div>
+    </div>
+
     <div class="review-card featured">
       <div class="review-badge">✓ Verified Buyer</div>
       <div class="review-stars">★★★★★</div>
@@ -799,6 +857,17 @@ footer a { color: var(--gold-lt); text-decoration: none; }
       <div class="review-author">
         <div class="review-avatar">D</div>
         <div><div class="review-name">Dan K.</div><div class="review-role">Business &amp; Financial Consultant · PMP<sup>®</sup> Candidate</div></div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★☆</div>
+      <div class="review-title">"Well made! I like them!"</div>
+      <div class="review-body"></div>
+      <div class="review-author">
+        <div class="review-avatar">R</div>
+        <div><div class="review-name">Ryan</div><div class="review-role">PM</div></div>
       </div>
     </div>
 
@@ -838,39 +907,6 @@ footer a { color: var(--gold-lt); text-decoration: none; }
     <div class="review-card">
       <div class="review-badge">✓ Verified Buyer</div>
       <div class="review-stars">★★★★☆</div>
-      <div class="review-title">"Finally something that doesn't put me to sleep."</div>
-      <div class="review-body">I've been a project coordinator in NYC for 3 years and decided it was time to get the PMP<sup>®</sup>. I tried the thick books, the long video courses, the 4 hour mock exams on a Sunday while the whole city was outside doing literally anything else. The flashcards helped me a lot. I do them on the subway. 15 minutes downtown to midtown and by the time I get to the office the PM mindset is already switched on. No effort, just routine. They throw you into a scenario and make you think like a PM. If you're always on the move and can't sit down for hours, these were made for you.</div>
-      <div class="review-author">
-        <div class="review-avatar">G</div>
-        <div><div class="review-name">Gavin B.</div><div class="review-role">Project Coordinator · NYC · Verified Buyer</div></div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-badge">✓ Verified Buyer</div>
-      <div class="review-stars">★★★★★</div>
-      <div class="review-title">"Fits into the chaos."</div>
-      <div class="review-body">I'm a PM at a tech startup in NYC and my schedule is absolutely insane. YAS flashcards fit into the gaps: 5 minutes here, 10 minutes there. The scenarios actually feel real, not like some textbook from 2009. Genuinely one of the best study investments I made for my PMP<sup>®</sup>.</div>
-      <div class="review-author">
-        <div class="review-avatar">T</div>
-        <div><div class="review-name">Tess C.</div><div class="review-role">PM · Tech Startup · NYC · Verified Buyer</div></div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-badge">✓ Verified Buyer</div>
-      <div class="review-stars">★★★★★</div>
-      <div class="review-title">"Finalmente qualcosa fatto da chi l'esame lo capisce davvero"</div>
-      <div class="review-body">Every card has a structure that trains you to think the way the PMP<sup>®</sup> exam thinks. Not memorizing an answer · building a reflex. The PM Radar is the real gem. That line gives you instinct.</div>
-      <div class="review-author">
-        <div class="review-avatar">L</div>
-        <div><div class="review-name">Lorenzo</div><div class="review-role">PMP<sup>®</sup> Candidate · Verified Buyer</div></div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-badge">✓ Verified Buyer</div>
-      <div class="review-stars">★★★★☆</div>
       <div class="review-title">"Endlich mal etwas Bedeutsames!"</div>
       <div class="review-body">Als Mitarbeiter in der Automobilbranche habe ich die PMP<sup>®</sup>-Prüfung bestanden. Die Flashcards sind wirklich top, insb. die Szenarien aus dem echten Leben. Es ist perfekt für Leute mit anderen Verpflichtungen im Leben.</div>
       <div class="review-author">
@@ -882,11 +918,44 @@ footer a { color: var(--gold-lt); text-decoration: none; }
     <div class="review-card">
       <div class="review-badge">✓ Verified Buyer</div>
       <div class="review-stars">★★★★★</div>
+      <div class="review-title">"Straight to the point!"</div>
+      <div class="review-body">Tried other PMP<sup>®</sup> prep tools but they were either too expensive or too boring to stick with. These questions actually prepare you for how the exam thinks. Other resources just dump theory at you. Here, you learn to make the right decision under pressure. If you've struggled before, give these a try.</div>
+      <div class="review-author">
+        <div class="review-avatar">M</div>
+        <div><div class="review-name">Marek K.</div><div class="review-role">Project Manager, Krakow</div></div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★★</div>
       <div class="review-title">"Great concept!"</div>
       <div class="review-body">Great concept! Everything you need in one offline file.</div>
       <div class="review-author">
         <div class="review-avatar">A</div>
         <div><div class="review-name">Andy G.</div><div class="review-role">Verified Buyer</div></div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-title">"Super worth it."</div>
+      <div class="review-body">Been avoiding this exam forever but these cards made it so much easier. Studied on my phone at the beach, during lunch breaks, whenever. The explanations don't put you to sleep...! Super worth it.</div>
+      <div class="review-author">
+        <div class="review-avatar">B</div>
+        <div><div class="review-name">Brenda W</div><div class="review-role">Project Manager</div></div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">✓ Verified Buyer</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-title">"Finalmente qualcosa fatto da chi l'esame lo capisce davvero"</div>
+      <div class="review-body">Every card has a structure that trains you to think the way the PMP<sup>®</sup> exam thinks. Not memorizing an answer · building a reflex. The PM Radar is the real gem. That line gives you instinct.</div>
+      <div class="review-author">
+        <div class="review-avatar">L</div>
+        <div><div class="review-name">Lorenzo</div><div class="review-role">PMP<sup>®</sup> Candidate · Verified Buyer</div></div>
       </div>
     </div>
 
