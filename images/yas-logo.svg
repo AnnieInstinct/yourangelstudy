@@ -1,0 +1,5 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="100" cy="100" r="98" fill="#0A0A09" stroke="#D4A93D" stroke-width="2"/>
+  <circle cx="100" cy="100" r="88" fill="#0A0A09" stroke="#D4A93D" stroke-width="0.5" opacity="0.4"/>
+  <text x="100" y="120" font-size="70" font-family="Georgia, serif" fill="#D4A93D" text-anchor="middle" letter-spacing="4">YAS</text>
+</svg>
