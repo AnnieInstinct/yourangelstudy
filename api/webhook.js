@@ -49,11 +49,12 @@ export default async function handler(req, res) {
     const htmlContent = createEmailTemplate(customerName, customerEmail, token, productTier);
 
     // Send email via Resend
-    const { data: emailData, error: emailError } = await resend.emails.send({
-      from: 'Your Angel Study <access@yourangelstudy.com>',
-      subject: '🎴 Your PMP™ Flashcards - Access Token Inside',
-      html: htmlContent,
-    });
+const { data: emailData, error: emailError } = await resend.emails.send({
+  from: 'Your Angel Study <access@yourangelstudy.com>',
+  to: [customerEmail],
+  subject: '🎴 Your PMP™ Flashcards - Access Token Inside',
+  html: htmlContent,
+});
 
     if (emailError) {
       console.error('Resend error:', emailError);
