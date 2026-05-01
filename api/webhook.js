@@ -51,7 +51,6 @@ export default async function handler(req, res) {
     // Send email via Resend
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: 'Your Angel Study <access@yourangelstudy.com>',
-      replyTo: 'yourangelstudy@protonmail.com',
       subject: '🎴 Your PMP™ Flashcards - Access Token Inside',
       html: htmlContent,
     });
