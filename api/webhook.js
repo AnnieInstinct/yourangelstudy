@@ -1,4 +1,4 @@
-// YourAngelStudy Webhook - FIXED with Supabase integration
+// YourAngelStudy Webhook - FINAL VERSION
 import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
 
@@ -25,6 +25,7 @@ export default async function handler(req, res) {
     }
 
     const token = generateToken(productKey);
+    const productTier = getProductTier(productKey);
 
     // Save token to Supabase FIRST
     const { data: supabaseData, error: supabaseError } = await supabase
@@ -34,7 +35,8 @@ export default async function handler(req, res) {
         token: token,
         language: 'en',
         devices: [],
-        note: 'Auto-generated from webhook'
+        note: 'Auto-generated from webhook',
+        product_tier: productTier
       })
       .select();
 
@@ -44,11 +46,11 @@ export default async function handler(req, res) {
     }
 
     const customerName = extractNameFromEmail(customerEmail);
-    const htmlContent = createEmailTemplate(customerName, customerEmail, token);
+    const htmlContent = createEmailTemplate(customerName, customerEmail, token, productTier);
 
     // Send email via Resend
     const { data: emailData, error: emailError } = await resend.emails.send({
-      from: 'Your Angel Study <onboarding@resend.dev>', // ← TEMPORARY until domain verified
+      from: 'Your Angel Study <access@yourangelstudy.com>',
       to: [customerEmail],
       subject: '🎴 Your PMP™ Flashcards - Access Token Inside',
       html: htmlContent,
@@ -91,6 +93,13 @@ function generateToken(productKey) {
   return `YAS-${prefix}-${segment1}-${segment2}`;
 }
 
+function getProductTier(productKey) {
+  if (productKey === 'VTS6p') return 'starter';
+  if (productKey === 'icjJO') return 'complete';
+  if (productKey === 'js3FN') return 'ultimate';
+  return 'complete';
+}
+
 function extractNameFromEmail(email) {
   const localPart = email.split('@')[0];
   const name = localPart
@@ -101,7 +110,11 @@ function extractNameFromEmail(email) {
   return name || 'there';
 }
 
-function createEmailTemplate(customerName, customerEmail, token) {
+function createEmailTemplate(customerName, customerEmail, token, productTier) {
+  const tierLabel = productTier === 'starter' ? 'Starter (400 cards)' :
+                    productTier === 'ultimate' ? 'Ultimate (1,300+ cards)' :
+                    'Complete (800 cards)';
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -133,6 +146,17 @@ function createEmailTemplate(customerName, customerEmail, token) {
     .hero p { font-size: 16px; color: #9ca3af; }
     .content { padding: 40px 30px; }
     .greeting { font-size: 18px; margin-bottom: 20px; color: #1f2937; }
+    .tier-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #1a1d2e, #2d3142);
+      color: #d4af37;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
     .token-box {
       background: linear-gradient(135deg, #d4af37 0%, #f4e4b5 100%);
       padding: 25px;
@@ -158,7 +182,7 @@ function createEmailTemplate(customerName, customerEmail, token) {
     .instructions h3 { font-size: 18px; margin-bottom: 15px; color: #1f2937; }
     .instructions ol { margin: 0; padding-left: 20px; }
     .instructions li { margin: 12px 0; line-height: 1.6; color: #4b5563; }
-    .instructions a { color: #2563eb; text-decoration: none; }
+    .instructions a { color: #d4af37; font-weight: 600; text-decoration: none; }
     .footer {
       margin-top: 30px;
       padding: 25px;
@@ -184,12 +208,13 @@ function createEmailTemplate(customerName, customerEmail, token) {
 <div class="container">
   <div class="hero">
     <h1>Your Angel Study</h1>
-    <p>Interactive Flashcards</p>
+    <p>PMP™ Interactive Flashcards</p>
   </div>
   <div class="content">
-    <h2 style="font-size: 28px; margin: 0 0 30px 0; font-weight: 600;">🎉 Your PMP™ Flashcards are ready!</h2>
+    <h2 style="font-size: 28px; margin: 0 0 20px 0; font-weight: 600;">🎉 Your flashcards are ready!</h2>
+    <div class="tier-badge">✦ ${tierLabel}</div>
     <p class="greeting">Hi ${customerName},</p>
-    <p>Thank you for your purchase! Here's your personal access token:</p>
+    <p>Thank you for your purchase! Here is your personal access token:</p>
     <div class="token-box">
       <div class="token">${token}</div>
     </div>
